@@ -1,6 +1,3 @@
 [submodule "templates/blue-penguin"]
 	path = templates/blue-penguin
 	url = https://github.com/jody-frankowski/blue-penguin/
-[submodule "dasm.github.io"]
-	path = dasm.github.io
-	url = git@github.com:dasm/dasm.github.io.git
