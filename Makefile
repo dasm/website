@@ -1,10 +1,10 @@
 PY?=python3
-PELICAN?=pelican
+PELICAN?=$(PY) -m pelican
 PELICANOPTS=-t templates/blue-penguin
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
-OUTPUTDIR=$(BASEDIR)/dasm.github.io
+OUTPUTDIR=$(BASEDIR)/docs
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
 
