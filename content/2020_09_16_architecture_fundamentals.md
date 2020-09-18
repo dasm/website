@@ -1,6 +1,5 @@
 Title: General Purpose Registers
 Date: 2020-09-16
-Category: Learning
 Tags: learning, fundamentals, ptp
 
 # Basics

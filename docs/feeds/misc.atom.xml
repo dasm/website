@@ -1,5 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - Learning</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/learning.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-16T00:00:00-07:00</updated><entry><title>General Purpose Registers</title><link href="https://blog.smigiel.dev/general-purpose-registers.html" rel="alternate"></link><published>2020-09-16T00:00:00-07:00</published><updated>2020-09-16T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-16:/general-purpose-registers.html</id><summary type="html">&lt;h1&gt;Basics&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - misc</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/misc.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-17T00:00:00-07:00</updated><entry><title>Networking</title><link href="https://blog.smigiel.dev/networking.html" rel="alternate"></link><published>2020-09-17T00:00:00-07:00</published><updated>2020-09-17T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-17:/networking.html</id><summary type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
+&lt;h2&gt;What is packet&lt;/h2&gt;
+&lt;p&gt;Every packet in every protocol has &lt;code&gt;Header&lt;/code&gt; (control information) and &lt;code&gt;Payload&lt;/code&gt; (user data) structure. The header has a protocol-specific structure: this ensures that the receiving host can correctly interpret the payload and handle the communication. The payload is the actual information. It could be something like …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
+&lt;h2&gt;What is packet&lt;/h2&gt;
+&lt;p&gt;Every packet in every protocol has &lt;code&gt;Header&lt;/code&gt; (control information) and &lt;code&gt;Payload&lt;/code&gt; (user data) structure. The header has a protocol-specific structure: this ensures that the receiving host can correctly interpret the payload and handle the communication. The payload is the actual information. It could be something like part of an email message or the content of a file during a download.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/IPv4_packet#Header"&gt;IPv4 protocol header&lt;/a&gt; is at least 160 bits (20 bytes) long, and it includes 14 fields, of which 13 are required. Last field, called &lt;code&gt;options&lt;/code&gt; is optional.
+&lt;img alt="IPv4 packet - Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/7/71/IPv4_Packet_-en.svg"&gt;
+Source: Wikipedia, author &lt;a href="https://commons.wikimedia.org/w/index.php?title=User:MichelBakni&amp;amp;action=edit&amp;amp;redlink=1"&gt;MichelBakni&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Using the information in the header, the nodes involved in the communication can understand and use IP packets.&lt;/p&gt;
+&lt;h2&gt;Protocol layers&lt;/h2&gt;
+&lt;p&gt;Most of the time, when people talk about layers, they think about OSI model. OSI model promoted the idea of a consistent model of protocol layers, defining interoperability between network devices and software.
+Based on that we can think about seven layers (&lt;a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/network/windows-network-architecture-and-the-osi-model"&gt;more here&lt;/a&gt;).  What we need to know is, that each protocol has &lt;code&gt;header&lt;/code&gt; and &lt;code&gt;payload&lt;/code&gt;. It goes from top to bottom. Every next layer is encapsulating the layer before in the form of payload.&lt;/p&gt;
+&lt;h2&gt;Encapsulation&lt;/h2&gt;
+&lt;p&gt;If we look from 10.000 foot perspective, we can see only data packet. However, if we look at this closer, it's starting showing some interesting properties.
+Every layer contains paylod in a form of &lt;code&gt;header+payload&lt;/code&gt; from previous layer. It means, that at the lowest level, we're looking at&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This kind of behavior happens to every packet sent by host. On the other side of pipeline, receiving host, needs to unpack all the information, with regards to correct layers.&lt;/p&gt;
+&lt;h1&gt;Internet Protocol (IP)&lt;/h1&gt;
+&lt;h2&gt;IP Address&lt;/h2&gt;
+&lt;h3&gt;IPv4 Address&lt;/h3&gt;
+&lt;p&gt;IPv4 address consists of 4 bytes (octets). A dot delimits every octet in the address. Each byte (&lt;code&gt;2^8&lt;/code&gt;) can represent value &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;255&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt; 172.22.128.47&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;Special use IPv4 addresses&lt;/h4&gt;
+&lt;p&gt;RFC5735 describes IPv4 addresses, which cannot be assigned to host, due to its special use case.
+Common addresses, that are in use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;127.0.0.0/8    &amp;lt;-- host loopback address.&lt;/span&gt;
+&lt;span class="err"&gt;169.254.0.0/16 &amp;lt;-- communication between hosts, without DHCP server cannot be found.&lt;/span&gt;
+&lt;span class="err"&gt;192.168.0.0/16 &amp;lt;-- private networks.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Network classes&lt;/h3&gt;
+&lt;p&gt;Internet addresses are allocated by the InterNIC organization. The most common classes are A, B and C. D and E exist, but are not used by end users.
+Each of classes has different default subnet mask.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Class A: uses 255.0.0.0 (CIDR /8) and have &lt;code&gt;0-127&lt;/code&gt; as first octet,&lt;/li&gt;
+&lt;li&gt;Class B: uses 255.255.0.0 (CIDR /16) and have &lt;code&gt;128-191&lt;/code&gt; as first octet,&lt;/li&gt;
+&lt;li&gt;Class C: uses 255.255.255.0 (CIDR /24) and have &lt;code&gt;192-223&lt;/code&gt; as first octet.&lt;/li&gt;
+&lt;li&gt;Class D: range &lt;code&gt;224-239&lt;/code&gt; as first octet, used for multicasting&lt;/li&gt;
+&lt;li&gt;Class E: range &lt;code&gt;240-255&lt;/code&gt; as first octet, not available for general use, reserved for research purposes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;CIDR&lt;/h3&gt;
+&lt;p&gt;Subnet with all zeros is reserved for the referring to the network itself, while last address, all ones is used as broadcast address for the network. It means, that from network, two addresses are unavailable. In the world of CIDR, &lt;code&gt;/31&lt;/code&gt; and &lt;code&gt;/32&lt;/code&gt;, would be unusable, due to above requirement. That's why &lt;code&gt;RFC3021&lt;/code&gt; created an exception. Network &lt;code&gt;/31&lt;/code&gt; is usable for point-to-point links, while &lt;code&gt;/32&lt;/code&gt; (single-host network) must be accessed by explicit routing rules, as there is no room in such a network for a gateway.&lt;/p&gt;
+&lt;h3&gt;IPv6&lt;/h3&gt;
+&lt;p&gt;RFC3513 (obsolete now) and RFC4291 describes IPv6 addressing architecture. This version allows to address 2^128 devices (approximately 3.4*10^38). It's been introduced in December 1995, but still majority of Internet relies on IPv4.
+IPv6 is divided into two parts (each 64 bits): network identifier and interface identifier. Furthermore, the first 64 bits ends with a dedicated 16-bits space that can be used only for specifying a subnet.&lt;/p&gt;
+&lt;h1&gt;Additional resources&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/IPv4_packet#Header"&gt;IPv4 protocol header&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/network/windows-network-architecture-and-the-osi-model"&gt;Network architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/OSI_model"&gt;OSI model&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc5735"&gt;RFC5735&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://support.microsoft.com/en-us/help/164015/understanding-tcp-ip-addressing-and-subnetting-basics"&gt;subnet masks&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc1878"&gt;RFC1878 - Variable Length Subnet Table For IPv4&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks"&gt;CIDR - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc3021"&gt;RFC3021 - Using 31-bit Prefixes on IPv4 Point-to_-Point links&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc4291"&gt;RFC4291 - Internet Protocol Version 6 (IPv6) Addressing Architecture&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category></entry><entry><title>General Purpose Registers</title><link href="https://blog.smigiel.dev/general-purpose-registers.html" rel="alternate"></link><published>2020-09-16T00:00:00-07:00</published><updated>2020-09-16T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-16:/general-purpose-registers.html</id><summary type="html">&lt;h1&gt;Basics&lt;/h1&gt;
 &lt;p&gt;There are 8 generic purpose registers:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -109,7 +172,7 @@ There are two operations &lt;em&gt;PUSH/POP&lt;/em&gt; to work with stack. With 
 &lt;li&gt;&lt;a href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_(GPR)_-_16-bit_naming_conventions"&gt;GPR naming - WikiBooks&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Data_segment"&gt;Data segment - Wikipedia&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Call_stack"&gt;Call stack - Wikipedia&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="Learning"></category><category term="learning"></category><category term="fundamentals"></category><category term="ptp"></category></entry><entry><title>Exploit Education - Nebula Part 3</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-3.html" rel="alternate"></link><published>2020-09-07T00:00:00-07:00</published><updated>2020-09-08T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-07:/exploit-education-nebula-part-3.html</id><summary type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-08/"&gt;Level 08&lt;/a&gt;&lt;/h2&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="fundamentals"></category><category term="ptp"></category></entry><entry><title>Exploit Education - Nebula Part 3</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-3.html" rel="alternate"></link><published>2020-09-07T00:00:00-07:00</published><updated>2020-09-08T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-07:/exploit-education-nebula-part-3.html</id><summary type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-08/"&gt;Level 08&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;This sounds easy enough. Just go to &lt;code&gt;flag08&lt;/code&gt; directory and see what kind of files are there.
 At first, I felt intimidated by &lt;code&gt;root:root&lt;/code&gt; access to &lt;code&gt;capture.pcap&lt;/code&gt; file. However, it occured that the file allows to be read by anyone. In that case, we might …&lt;/p&gt;</summary><content type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-08/"&gt;Level 08&lt;/a&gt;&lt;/h2&gt;
@@ -235,7 +298,7 @@ dasm@debian:~$ cat received
 Password:  &lt;span class="c1"&gt;# use found token&lt;/span&gt;
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;</content><category term="Learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 2</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html" rel="alternate"></link><published>2020-09-06T00:00:00-07:00</published><updated>2020-09-06T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-06:/exploit-education-nebula-part-2.html</id><summary type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-04/"&gt;Level 04&lt;/a&gt;&lt;/h2&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 2</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html" rel="alternate"></link><published>2020-09-06T00:00:00-07:00</published><updated>2020-09-06T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-06:/exploit-education-nebula-part-2.html</id><summary type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-04/"&gt;Level 04&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;Source code shows, that verification happens only for &lt;code&gt;token&lt;/code&gt; name. Let's create symbolic link to file and try to read its content. After reading it, let's use it as password.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
@@ -347,7 +410,7 @@ exploit  index.cgi  thttpd.conf
 level07@nebula:/home/flag07$ ./exploit
 flag07@nebula:/home/flag07$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;</content><category term="Learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 1</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-1.html" rel="alternate"></link><published>2020-09-05T00:00:00-07:00</published><updated>2020-09-05T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-05:/exploit-education-nebula-part-1.html</id><summary type="html">&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 1</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-1.html" rel="alternate"></link><published>2020-09-05T00:00:00-07:00</published><updated>2020-09-05T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-05:/exploit-education-nebula-part-1.html</id><summary type="html">&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
 &lt;h2&gt;Basics&lt;/h2&gt;
 &lt;p&gt;Nebula VM has 20 levels. Each level can be accessed with &lt;code&gt;levelXX&lt;/code&gt; username and the same password.&lt;/p&gt;
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-00/"&gt;Level 00&lt;/a&gt;&lt;/h2&gt;
@@ -472,4 +535,10 @@ You have successfully executed getflag on a target account
 
 &lt;p&gt;&lt;code&gt;tmpfs&lt;/code&gt; has &lt;code&gt;nosuid&lt;/code&gt; option. It means, that the nosuid mount option specifies that the filesystem cannot contain set userid files.&lt;/p&gt;
 &lt;h5&gt;Second&lt;/h5&gt;
-&lt;p&gt;When I found that &lt;code&gt;nosetuid&lt;/code&gt; is preventing from running program from within &lt;code&gt;/tmp&lt;/code&gt;, I decided to copy &lt;code&gt;exploit&lt;/code&gt; to &lt;code&gt;/home/level03&lt;/code&gt;. It failed, because default user running &lt;code&gt;writable.sh&lt;/code&gt; wasn't &lt;code&gt;root&lt;/code&gt; but &lt;code&gt;flag03&lt;/code&gt;. Solution was to copy payload to &lt;code&gt;/home/flag03&lt;/code&gt; directory.&lt;/p&gt;</content><category term="Learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry></feed>
+&lt;p&gt;When I found that &lt;code&gt;nosetuid&lt;/code&gt; is preventing from running program from within &lt;code&gt;/tmp&lt;/code&gt;, I decided to copy &lt;code&gt;exploit&lt;/code&gt; to &lt;code&gt;/home/level03&lt;/code&gt;. It failed, because default user running &lt;code&gt;writable.sh&lt;/code&gt; wasn't &lt;code&gt;root&lt;/code&gt; but &lt;code&gt;flag03&lt;/code&gt;. Solution was to copy payload to &lt;code&gt;/home/flag03&lt;/code&gt; directory.&lt;/p&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Hello, world!</title><link href="https://blog.smigiel.dev/hello-world.html" rel="alternate"></link><published>2020-08-20T00:00:00-07:00</published><updated>2020-08-22T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-08-20:/hello-world.html</id><summary type="html">&lt;p&gt;Hey, I'm Dariusz. I'm cybersecurity wannabe.
+This is an attempt to document my road to understand quirks of this world.&lt;/p&gt;
+&lt;p&gt;Let me say it loud and clear. I don't like doing stuff "easy way". It is not something that I should be proud of. What I mean by that? I …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Hey, I'm Dariusz. I'm cybersecurity wannabe.
+This is an attempt to document my road to understand quirks of this world.&lt;/p&gt;
+&lt;p&gt;Let me say it loud and clear. I don't like doing stuff "easy way". It is not something that I should be proud of. What I mean by that? I mean, that instead of starting writing, producing some content, I'm spending my time looking for "right" tool, "correct" template or anything like that. From the very beginning, blog layout needs to be pixel-perfect. There is no place for mistake. Everything needs to be perfect. But, can it be done differently?&lt;/p&gt;
+&lt;p&gt;This is an attempt do it "new way". Instead of waiting, thinking, designing... let's produce some content.
+Later, I can refine that. When time permits.&lt;/p&gt;</content><category term="misc"></category><category term="publishing"></category></entry></feed>
