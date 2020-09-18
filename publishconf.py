@@ -17,7 +17,7 @@ RELATIVE_URLS = False
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 
-OUTPUT_RETENTION = ['CNAME',]
+OUTPUT_RETENTION = ['CNAME', '404.md', '404.html']
 DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
