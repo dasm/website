@@ -1,5 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - misc</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/misc.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-17T00:00:00-07:00</updated><entry><title>Networking</title><link href="https://blog.smigiel.dev/networking.html" rel="alternate"></link><published>2020-09-17T00:00:00-07:00</published><updated>2020-09-17T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-17:/networking.html</id><summary type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - misc</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/misc.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-19T00:00:00-07:00</updated><entry><title>Networking Pt 2</title><link href="https://blog.smigiel.dev/networking-pt-2.html" rel="alternate"></link><published>2020-09-19T00:00:00-07:00</published><updated>2020-09-19T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-19:/networking-pt-2.html</id><summary type="html">&lt;h1&gt;Routing&lt;/h1&gt;
+&lt;p&gt;A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Routing&lt;/h1&gt;
+&lt;p&gt;A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to determine the destination. Then, based on routing table, it directs the packet to the next network.
+Routing table contains information about the topology of the network immediately around it.
+The table can also contain an entry with the &lt;strong&gt;default address&lt;/strong&gt; &lt;code&gt;0.0.0.0&lt;/code&gt;. This entry is used when the router receives a packet whose destination is an &lt;em&gt;unknown network&lt;/em&gt;.&lt;/p&gt;
+&lt;h2&gt;Routing table example (router)&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;Kernel IP routing table&lt;/span&gt;
+&lt;span class="err"&gt;Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface&lt;/span&gt;
+&lt;span class="err"&gt;87.169.144.1    0.0.0.0         255.255.255.255 UH        0 0          0 eth0&lt;/span&gt;
+&lt;span class="err"&gt;192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 br0&lt;/span&gt;
+&lt;span class="err"&gt;87.169.144.0    0.0.0.0         255.255.252.0   U         0 0          0 eth0&lt;/span&gt;
+&lt;span class="err"&gt;127.0.0.0       0.0.0.0         255.0.0.0       U         0 0          0 lo&lt;/span&gt;
+&lt;span class="err"&gt;0.0.0.0         87.169.144.1    0.0.0.0         UG        0 0          0 eth0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The kernel reads routing table from the top down. The first column is the destination. The second column tells how to reach that destination.
+The default gateway is always shown with the destination &lt;code&gt;0.0.0.0&lt;/code&gt;. The IP address in the gateway column is that of the outbound gateway router. The netmask for the default gateway means that any packet not addressed to the local network or another outbound router by additional entries in the routing table are to be sent to the default gateway regardless of the network class.&lt;/p&gt;
+&lt;h1&gt;Networking Layer 2&lt;/h1&gt;
+&lt;p&gt;Every host on a network has both an IP and a MAC address. When server A wants to send a packet to server B:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;server A creates a packet:&lt;ul&gt;
+&lt;li&gt;the destination IP address of server B in the IP header of the datagram.&lt;/li&gt;
+&lt;li&gt;the destination MAC address of the router in the link layer header of the frame.&lt;/li&gt;
+&lt;li&gt;the source IP address of the server A.&lt;/li&gt;
+&lt;li&gt;the source MAC address of the server A.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;router takes a packet and forwards it to server B (the destination MAC address is the MAC address of the &lt;strong&gt;next hop&lt;/strong&gt;):&lt;ul&gt;
+&lt;li&gt;the destination MAC address is rewritten to server B&lt;/li&gt;
+&lt;li&gt;the source MAC address is of router.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Only MAC address is changed. IP address stays the same (both source and destination)&lt;/strong&gt;. This is global information and remains the same along the packet trip.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;MAC address&lt;/h2&gt;
+&lt;p&gt;MAC address is a unique identifier assigned to a network interface controller (NIC). It is assigned by device manufacturer: typically includes a manufacturer's organizationally unique identifier. MAC address is 48 bit (6 bytes) long and is expressed in hexadecimal form: &lt;code&gt;AA:BB:CC:DD:EE:FF&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The IEEE has built in special address to allow more than one NIC to be addressed at one time. It's called broadcast address: &lt;code&gt;FF:FF:FF:FF:FF:FF&lt;/code&gt;. Frame with this address is delivered to all devices in the local network.&lt;/p&gt;
+&lt;h2&gt;Network segmentation&lt;/h2&gt;
+&lt;p&gt;Switches do not segment networks. Only routers do so. Usually, every interface of a router is connected to different network. This is the reason, why routers &lt;strong&gt;do not forward broadcast packets&lt;/strong&gt;, like switches.&lt;/p&gt;
+&lt;h2&gt;Packet forwarding&lt;/h2&gt;
+&lt;p&gt;To forward a packet:
+* the switch reads the destination MAC address of the frame.
+* it performs a look-up in the CAM table.
+* it forwads the packet to the corresponding interface.
+* if there is no entry with the MAC address, the switch will forward the frame to all its interfaces.&lt;/p&gt;
+&lt;h2&gt;Address Resolution Protocol (ARP)&lt;/h2&gt;
+&lt;p&gt;The ARP is a communication protocol used for discovering the link layer address, such as a MAC address, associated with a given internet layer address, typically an IPv4 address.&lt;/p&gt;
+&lt;h3&gt;Example of workflow&lt;/h3&gt;
+&lt;p&gt;Two computers are connected to the same local network. Computer A wants to send packet to Computer B. Through DNS, it determines Computer B &lt;strong&gt;IP address&lt;/strong&gt; &lt;code&gt;192.168.0.2&lt;/code&gt;.
+To send message, Computer A also requires MAC address.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Computer A retrieves cached information from ARP table for &lt;code&gt;192.168.0.2&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if the cache didn't produce a result for IP address, Computer A sends broadcast ARP request message &lt;code&gt;FF:FF:FF:FF:FF:FF&lt;/code&gt;, requesting an answer for &lt;code&gt;192.168.0.2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Based on retrieved information, Computer A sends packet with MAC adress and IP address.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;ARP table has time-to-live (TTL) for every entry. When it expires, or on power off, host discards entries.&lt;/p&gt;
+&lt;h1&gt;Additional resources&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Router_(computing)"&gt;Router&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/IP_routing"&gt;IP routing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://tldp.org/LDP/nag2/x-087-2-iface.netstat.html"&gt;netstat command&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://opensource.com/business/16/8/introduction-linux-network-routing"&gt;Introduction to Linux network routing&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Mac_address"&gt;MAC address&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol"&gt;ARP&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category></entry><entry><title>Networking</title><link href="https://blog.smigiel.dev/networking.html" rel="alternate"></link><published>2020-09-17T00:00:00-07:00</published><updated>2020-09-17T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-17:/networking.html</id><summary type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
 &lt;h2&gt;What is packet&lt;/h2&gt;
 &lt;p&gt;Every packet in every protocol has &lt;code&gt;Header&lt;/code&gt; (control information) and &lt;code&gt;Payload&lt;/code&gt; (user data) structure. The header has a protocol-specific structure: this ensures that the receiving host can correctly interpret the payload and handle the communication. The payload is the actual information. It could be something like …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
 &lt;h2&gt;What is packet&lt;/h2&gt;

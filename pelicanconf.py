@@ -27,7 +27,6 @@ MENU_INTERNAL_PAGES = (
 
 # additional menu items
 MENUITEMS = (
-    ('GitHub', 'https://github.com/dasm'),
 )
 
 # Social widget
