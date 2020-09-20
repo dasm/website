@@ -44,6 +44,7 @@ Switches do not segment networks. Only routers do so. Usually, every interface o
 
 ## Packet forwarding
 To forward a packet:
+
 * the switch reads the destination MAC address of the frame.
 * it performs a look-up in the CAM table.
 * it forwads the packet to the corresponding interface.

@@ -80,11 +80,13 @@ The default gateway is always shown with the destination <code>0.0.0.0</code>. T
 <h2>Network segmentation</h2>
 <p>Switches do not segment networks. Only routers do so. Usually, every interface of a router is connected to different network. This is the reason, why routers <strong>do not forward broadcast packets</strong>, like switches.</p>
 <h2>Packet forwarding</h2>
-<p>To forward a packet:
-* the switch reads the destination MAC address of the frame.
-* it performs a look-up in the CAM table.
-* it forwads the packet to the corresponding interface.
-* if there is no entry with the MAC address, the switch will forward the frame to all its interfaces.</p>
+<p>To forward a packet:</p>
+<ul>
+<li>the switch reads the destination MAC address of the frame.</li>
+<li>it performs a look-up in the CAM table.</li>
+<li>it forwads the packet to the corresponding interface.</li>
+<li>if there is no entry with the MAC address, the switch will forward the frame to all its interfaces.</li>
+</ul>
 <h2>Address Resolution Protocol (ARP)</h2>
 <p>The ARP is a communication protocol used for discovering the link layer address, such as a MAC address, associated with a given internet layer address, typically an IPv4 address.</p>
 <h3>Example of workflow</h3>
