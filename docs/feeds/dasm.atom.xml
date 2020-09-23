@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - dasm</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/dasm.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-21T00:00:00-07:00</updated><entry><title>Networking Pt 3: TCP and UDP</title><link href="https://blog.smigiel.dev/networking-pt-3-tcp-and-udp.html" rel="alternate"></link><published>2020-09-21T00:00:00-07:00</published><updated>2020-09-21T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-21:/networking-pt-3-tcp-and-udp.html</id><summary type="html">&lt;h1&gt;TCP &amp;amp; UDP&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - dasm</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/dasm.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-23T00:00:00-07:00</updated><entry><title>Networking Pt 4</title><link href="https://blog.smigiel.dev/networking-pt-4.html" rel="alternate"></link><published>2020-09-23T00:00:00-07:00</published><updated>2020-09-23T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-23:/networking-pt-4.html</id><summary type="html">&lt;h1&gt;Firewall&lt;/h1&gt;
+&lt;p&gt;Firewalls are specialized software modules running on a computer or a dedicated network device. They serve to filter packets coming in and out of a network. They can work on different layers of the OSI model.&lt;/p&gt;
+&lt;h2&gt;Packet filtering&lt;/h2&gt;
+&lt;p&gt;The most basic feature of a firewall is packet filtering. Administrator …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Firewall&lt;/h1&gt;
+&lt;p&gt;Firewalls are specialized software modules running on a computer or a dedicated network device. They serve to filter packets coming in and out of a network. They can work on different layers of the OSI model.&lt;/p&gt;
+&lt;h2&gt;Packet filtering&lt;/h2&gt;
+&lt;p&gt;The most basic feature of a firewall is packet filtering. Administrator can create rules which will filter packets according to certain characteristics like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;source IP address&lt;/li&gt;
+&lt;li&gt;destination IP address&lt;/li&gt;
+&lt;li&gt;protocol&lt;/li&gt;
+&lt;li&gt;source port&lt;/li&gt;
+&lt;li&gt;destination port&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Common actions, that can be applied:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;allow: allow the packet to pass&lt;/li&gt;
+&lt;li&gt;drop: drops the packet without any diagnostic message to the packet source host&lt;/li&gt;
+&lt;li&gt;deny: similar to drop, but notify the source host&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Inspecting the header of a packet does not give you any information on the content. Even if only port &lt;code&gt;80&lt;/code&gt; or &lt;code&gt;443&lt;/code&gt; is allowed, attacker can exploit them, to access deeper levels of network.&lt;/p&gt;
+&lt;h2&gt;Application level firewalls&lt;/h2&gt;
+&lt;p&gt;Application level firewall works by checking all 7 layers of the OSI model. They provide more comprehensive protection because they inspect the actual content of a packet, not just headers.&lt;/p&gt;
+&lt;h2&gt;Intrusion Detection System (IDS)&lt;/h2&gt;
+&lt;p&gt;IDS inspects the application payload trying to detect any potential attack. It checks for attack vectors like ping sweeps, port scans, SQL injections, buffer overflows etc.
+IDS, similar to antivirus, detects risky traffic by means of signatures. The vendor provides frequent signature updates as soon as new attack vectors are found. Without the right signatures an IDS cannot detect and report an intrusion.
+There is also risk of &lt;strong&gt;false positives&lt;/strong&gt; when legic traffic is marked as malicious.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;IDS != firewall&lt;/code&gt;
+IDS is another layer of protection, which can be used in conjunction with firewall.&lt;/p&gt;
+&lt;h2&gt;Intrusion Prevention System (IPS)&lt;/h2&gt;
+&lt;p&gt;It is similar to IDS, however it can drop malicious request when the threat has risk classification above predefined threshold.&lt;/p&gt;
+&lt;h1&gt;Domain Name System (DNS)&lt;/h1&gt;
+&lt;p&gt;The DNS converts human-readable names to IP addresses.
+DNS structure can be broken down into:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;top level domain (TLD)&lt;/li&gt;
+&lt;li&gt;domain part&lt;/li&gt;
+&lt;li&gt;subdomain part (if applicable)&lt;/li&gt;
+&lt;li&gt;host part&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Name resolution is performed by resolvers. Resolvers are servers that contact the TLD server and follow the hierarchy of the DNS name to resolve the name of a host:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;resolver contacts one of the &lt;strong&gt;root name servers&lt;/strong&gt;, these server contain information about the TLD (this information is hardcoded by system administrator);&lt;/li&gt;
+&lt;li&gt;next, it asks the TLD name server (from previous step), what's the name of the server which can give information about the &lt;strong&gt;domain&lt;/strong&gt; the resolver is looking for;&lt;/li&gt;
+&lt;li&gt;if there are one or more subdomains, previous step is repeated for every subdomain;&lt;/li&gt;
+&lt;li&gt;resolver asks for the name resolution of the &lt;strong&gt;host&lt;/strong&gt; part;&lt;/li&gt;
+&lt;li&gt;the resolver sends the IP address back to the client.&lt;/li&gt;
+&lt;/ol&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="network"></category></entry><entry><title>Networking Pt 3: TCP and UDP</title><link href="https://blog.smigiel.dev/networking-pt-3-tcp-and-udp.html" rel="alternate"></link><published>2020-09-21T00:00:00-07:00</published><updated>2020-09-21T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-21:/networking-pt-3-tcp-and-udp.html</id><summary type="html">&lt;h1&gt;TCP &amp;amp; UDP&lt;/h1&gt;
 &lt;p&gt;There are two common transport protocols used on the Internet: &lt;code&gt;TCP&lt;/code&gt; (Transmission Control Protocol) and &lt;code&gt;UDP&lt;/code&gt; (User Datagram Protocol).
 TCP is the most used transport protocol on the Internet. The vast majority of applications use it, and the IP protocol suite is often called &lt;strong&gt;TCP/IP&lt;/strong&gt;.
 UDP is …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;TCP &amp;amp; UDP&lt;/h1&gt;
@@ -61,7 +108,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://www.diffen.com/difference/TCP_vs_UDP"&gt;TCP vs UDP&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://www.lifewire.com/port-numbers-on-computer-networks-817939"&gt;Port numbers on a computer&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category></entry><entry><title>Networking Pt 2</title><link href="https://blog.smigiel.dev/networking-pt-2.html" rel="alternate"></link><published>2020-09-19T00:00:00-07:00</published><updated>2020-09-19T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-19:/networking-pt-2.html</id><summary type="html">&lt;h1&gt;Routing&lt;/h1&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="network"></category></entry><entry><title>Networking Pt 2</title><link href="https://blog.smigiel.dev/networking-pt-2.html" rel="alternate"></link><published>2020-09-19T00:00:00-07:00</published><updated>2020-09-19T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-19:/networking-pt-2.html</id><summary type="html">&lt;h1&gt;Routing&lt;/h1&gt;
 &lt;p&gt;A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Routing&lt;/h1&gt;
 &lt;p&gt;A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to determine the destination. Then, based on routing table, it directs the packet to the next network.
 Routing table contains information about the topology of the network immediately around it.
@@ -134,7 +181,7 @@ To send message, Computer A also requires MAC address.&lt;/p&gt;
 &lt;li&gt;&lt;a href="https://opensource.com/business/16/8/introduction-linux-network-routing"&gt;Introduction to Linux network routing&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Mac_address"&gt;MAC address&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol"&gt;ARP&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category></entry><entry><title>Networking</title><link href="https://blog.smigiel.dev/networking.html" rel="alternate"></link><published>2020-09-17T00:00:00-07:00</published><updated>2020-09-17T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-17:/networking.html</id><summary type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="network"></category></entry><entry><title>Networking</title><link href="https://blog.smigiel.dev/networking.html" rel="alternate"></link><published>2020-09-17T00:00:00-07:00</published><updated>2020-09-17T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-17:/networking.html</id><summary type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
 &lt;h2&gt;What is packet&lt;/h2&gt;
 &lt;p&gt;Every packet in every protocol has &lt;code&gt;Header&lt;/code&gt; (control information) and &lt;code&gt;Payload&lt;/code&gt; (user data) structure. The header has a protocol-specific structure: this ensures that the receiving host can correctly interpret the payload and handle the communication. The payload is the actual information. It could be something like …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Protocols&lt;/h1&gt;
 &lt;h2&gt;What is packet&lt;/h2&gt;
@@ -197,7 +244,7 @@ IPv6 is divided into two parts (each 64 bits): network identifier and interface 
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks"&gt;CIDR - Wikipedia&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc3021"&gt;RFC3021 - Using 31-bit Prefixes on IPv4 Point-to_-Point links&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc4291"&gt;RFC4291 - Internet Protocol Version 6 (IPv6) Addressing Architecture&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category></entry><entry><title>General Purpose Registers</title><link href="https://blog.smigiel.dev/general-purpose-registers.html" rel="alternate"></link><published>2020-09-16T00:00:00-07:00</published><updated>2020-09-16T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-16:/general-purpose-registers.html</id><summary type="html">&lt;h1&gt;Basics&lt;/h1&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="network"></category></entry><entry><title>General Purpose Registers</title><link href="https://blog.smigiel.dev/general-purpose-registers.html" rel="alternate"></link><published>2020-09-16T00:00:00-07:00</published><updated>2020-09-16T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-16:/general-purpose-registers.html</id><summary type="html">&lt;h1&gt;Basics&lt;/h1&gt;
 &lt;p&gt;There are 8 generic purpose registers:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;

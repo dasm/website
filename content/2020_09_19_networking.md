@@ -1,6 +1,6 @@
 Title: Networking Pt 2
 Date: 2020-09-19
-Tags: learning, pts
+Tags: learning, pts, network
 
 # Routing
 A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to determine the destination. Then, based on routing table, it directs the packet to the next network.

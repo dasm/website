@@ -1,6 +1,6 @@
 Title: Networking Pt 3: TCP and UDP
 Date: 2020-09-21
-Tags: learning, pts
+Tags: learning, pts, network
 
 # TCP & UDP
 

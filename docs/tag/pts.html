@@ -28,7 +28,71 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 21, 2020</h4>
+        <div id="content">            <h4 class="date">Sep 23, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/networking-pt-4.html" rel="bookmark" title="Permanent Link to &quot;Networking Pt 4&quot;">Networking Pt 4</a>
+                </h2>
+
+                
+                
+
+                <h1>Firewall</h1>
+<p>Firewalls are specialized software modules running on a computer or a dedicated network device. They serve to filter packets coming in and out of a network. They can work on different layers of the OSI model.</p>
+<h2>Packet filtering</h2>
+<p>The most basic feature of a firewall is packet filtering. Administrator can create rules which will filter packets according to certain characteristics like:</p>
+<ul>
+<li>source IP address</li>
+<li>destination IP address</li>
+<li>protocol</li>
+<li>source port</li>
+<li>destination port</li>
+</ul>
+<p>Common actions, that can be applied:</p>
+<ul>
+<li>allow: allow the packet to pass</li>
+<li>drop: drops the packet without any diagnostic message to the packet source host</li>
+<li>deny: similar to drop, but notify the source host</li>
+</ul>
+<p>Inspecting the header of a packet does not give you any information on the content. Even if only port <code>80</code> or <code>443</code> is allowed, attacker can exploit them, to access deeper levels of network.</p>
+<h2>Application level firewalls</h2>
+<p>Application level firewall works by checking all 7 layers of the OSI model. They provide more comprehensive protection because they inspect the actual content of a packet, not just headers.</p>
+<h2>Intrusion Detection System (IDS)</h2>
+<p>IDS inspects the application payload trying to detect any potential attack. It checks for attack vectors like ping sweeps, port scans, SQL injections, buffer overflows etc.
+IDS, similar to antivirus, detects risky traffic by means of signatures. The vendor provides frequent signature updates as soon as new attack vectors are found. Without the right signatures an IDS cannot detect and report an intrusion.
+There is also risk of <strong>false positives</strong> when legic traffic is marked as malicious.</p>
+<p><code>IDS != firewall</code>
+IDS is another layer of protection, which can be used in conjunction with firewall.</p>
+<h2>Intrusion Prevention System (IPS)</h2>
+<p>It is similar to IDS, however it can drop malicious request when the threat has risk classification above predefined threshold.</p>
+<h1>Domain Name System (DNS)</h1>
+<p>The DNS converts human-readable names to IP addresses.
+DNS structure can be broken down into:</p>
+<ul>
+<li>top level domain (TLD)</li>
+<li>domain part</li>
+<li>subdomain part (if applicable)</li>
+<li>host part</li>
+</ul>
+<p>Name resolution is performed by resolvers. Resolvers are servers that contact the TLD server and follow the hierarchy of the DNS name to resolve the name of a host:</p>
+<ol>
+<li>resolver contacts one of the <strong>root name servers</strong>, these server contain information about the TLD (this information is hardcoded by system administrator);</li>
+<li>next, it asks the TLD name server (from previous step), what's the name of the server which can give information about the <strong>domain</strong> the resolver is looking for;</li>
+<li>if there are one or more subdomains, previous step is repeated for every subdomain;</li>
+<li>resolver asks for the name resolution of the <strong>host</strong> part;</li>
+<li>the resolver sends the IP address back to the client.</li>
+</ol>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/networking-pt-4.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
+                </div>
+            </article>            <h4 class="date">Sep 21, 2020</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -105,6 +169,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
             </article>            <h4 class="date">Sep 19, 2020</h4>
 
@@ -196,6 +261,7 @@ To send message, Computer A also requires MAC address.</p>
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
             </article>            <h4 class="date">Sep 17, 2020</h4>
 
@@ -276,6 +342,7 @@ IPv6 is divided into two parts (each 64 bits): network identifier and interface 
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
             </article>
 

