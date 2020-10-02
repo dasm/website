@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>blog.smigiel.dev - dasm</title><link>https://blog.smigiel.dev/</link><description></description><lastBuildDate>Wed, 23 Sep 2020 00:00:00 -0700</lastBuildDate><item><title>Networking Pt 4</title><link>https://blog.smigiel.dev/networking-pt-4.html</link><description>&lt;h1&gt;Firewall&lt;/h1&gt;
+<rss version="2.0"><channel><title>blog.smigiel.dev - dasm</title><link>https://blog.smigiel.dev/</link><description></description><lastBuildDate>Thu, 01 Oct 2020 00:00:00 -0700</lastBuildDate><item><title>Web Applications</title><link>https://blog.smigiel.dev/web-applications.html</link><description>&lt;h1&gt;Basics&lt;/h1&gt;
+&lt;p&gt;During building web applications we need to focus on several fundamental aspects:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;HTTP Protocol Basics&lt;/li&gt;
+&lt;li&gt;Cookies&lt;/li&gt;
+&lt;li&gt;Sessions&lt;/li&gt;
+&lt;li&gt;Same Origin Policy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;HTTP Protocol Basics&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTTP&lt;/code&gt; (Hypertext Transfer Protocol) is the most used protocol on the Internet. Usually, the client (browser), connects to the server (&lt;code&gt;Apache&lt;/code&gt;, &lt;code&gt;nginx&lt;/code&gt;, &lt;code&gt;ISS&lt;/code&gt;.
+During an HTTP …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Thu, 01 Oct 2020 00:00:00 -0700</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2020-10-01:/web-applications.html</guid><category>misc</category><category>learning</category><category>pts</category><category>http</category></item><item><title>Networking Pt 4</title><link>https://blog.smigiel.dev/networking-pt-4.html</link><description>&lt;h1&gt;Firewall&lt;/h1&gt;
 &lt;p&gt;Firewalls are specialized software modules running on a computer or a dedicated network device. They serve to filter packets coming in and out of a network. They can work on different layers of the OSI model.&lt;/p&gt;
 &lt;h2&gt;Packet filtering&lt;/h2&gt;
 &lt;p&gt;The most basic feature of a firewall is packet filtering. Administrator …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Wed, 23 Sep 2020 00:00:00 -0700</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2020-09-23:/networking-pt-4.html</guid><category>misc</category><category>learning</category><category>pts</category><category>network</category></item><item><title>Networking Pt 3: TCP and UDP</title><link>https://blog.smigiel.dev/networking-pt-3-tcp-and-udp.html</link><description>&lt;h1&gt;TCP &amp;amp; UDP&lt;/h1&gt;

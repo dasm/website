@@ -30,7 +30,167 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 23, 2020</h4>
+        <div id="content">            <h4 class="date">Oct 01, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/web-applications.html" rel="bookmark" title="Permanent Link to &quot;Web Applications&quot;">Web Applications</a>
+                </h2>
+
+                
+                
+
+                <h1>Basics</h1>
+<p>During building web applications we need to focus on several fundamental aspects:</p>
+<ol>
+<li>HTTP Protocol Basics</li>
+<li>Cookies</li>
+<li>Sessions</li>
+<li>Same Origin Policy</li>
+</ol>
+<h2>HTTP Protocol Basics</h2>
+<p><code>HTTP</code> (Hypertext Transfer Protocol) is the most used protocol on the Internet. Usually, the client (browser), connects to the server (<code>Apache</code>, <code>nginx</code>, <code>ISS</code>.
+During an HTTP communication, the client and the server exchange messages. HTTP works on top of TCP. That means, first a TCP connection is established, and then the client sends its request, and waits for the answer. The server processes the request and sends back its answer, providing a status code and appropriate data.</p>
+<h3>HTTP Request</h3>
+<p>To send HTTP request, usually we use browsers. However, it is not the only way of doing so. To build request, we can use <code>netcat</code> or <code>telnet</code>.
+Below is an example of HTTP request, with <code>nc</code> requesting website running on localhost on port <code>8000</code>.</p>
+<div class="highlight"><pre><span></span>$ nc localhost 8000
+GET / HTTP/1.0
+Host: localhost
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.7.3
+Date: Fri, 02 Oct 2020 01:44:49 GMT
+Content-type: text/html
+Content-Length: 26612
+Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
+
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+[...]
+</pre></div>
+
+
+<p>First line contains <strong>HTTP request method</strong>, path and protocol version.
+HTTP request method is information about the type of the request. Other requests are: <code>PUT</code>, <code>POST</code>, <code>HEAD</code>, etc. List of available metods can be found on <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">Mozilla website</a>
+Path tells the server which resource to fetch, while protocol version tells how to communicate with the client.
+Next, there is <code>Host</code> header field, which specifies the Internet hostname and port number of the resource being requested.</p>
+<p>We can also create one-liner to retrieve appropriate information</p>
+<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> -en <span class="s1">&#39;HEAD / HTTP/1.1\r\nHost:localhost\r\n\r\n&#39;</span> <span class="p">|</span> nc localhost <span class="m">8000</span>
+HTTP/1.0 <span class="m">200</span> OK
+Server: SimpleHTTP/0.6 Python/3.7.3
+Date: Fri, <span class="m">02</span> Oct <span class="m">2020</span> <span class="m">02</span>:01:34 GMT
+Content-type: text/html
+Content-Length: <span class="m">27806</span>
+Last-Modified: Fri, <span class="m">02</span> Oct <span class="m">2020</span> <span class="m">01</span>:55:46 GMT
+</pre></div>
+
+
+<p>Additionally, we can give extra header values like <code>User-Agent</code> (identifies the client and the system), <code>Accept</code> (specifies document type the client is expecting in the response) or <code>Connection: keep-alive</code> (future communications with the server will reuse the current connection).</p>
+<h3>HTTP Response</h3>
+<p>HTTP response, similar to request, has common format.</p>
+<div class="highlight"><pre><span></span>$ nc localhost 8000
+GET / HTTP/1.0
+Host: localhost
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.7.3
+Date: Fri, 02 Oct 2020 01:44:49 GMT
+Content-type: text/html
+Content-Length: 26612
+Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
+
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+[...]
+</pre></div>
+
+
+<p>The first line is <strong>Status-Line</strong> which consists of protocol version (HTTP 1.0) followed by a numeric status code (200) and textual meaning (OK). There are many codes. Description, again can be found on <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">Mozilla website</a>. Next, there is additional information regarding server, date and time at which the message was originated, followed by page content.</p>
+<h3>HTTP Secure (HTTPS)</h3>
+<p>HTTP over SSL/TLS is a method to run clear-text HTTP with extra cryptographic protocol, to prevent from sniffing.
+By doing so, entire traffic is being encrypted. It means, that even if someone can intercept traffic, they won't be able to see what kind of information is being transmitted. The only non-encrypted pieces of information would be:</p>
+<ul>
+<li>target IP address</li>
+<li>target port</li>
+<li>DNS or similar protocols (domain resolvers)</li>
+</ul>
+<p>To analyze connection, we cannot use <code>nc</code> anymore, which doesn't support SSL. To work with SSL, we can use <code>openssl</code></p>
+<div class="highlight"><pre><span></span>$ nc blog.smigiel.dev <span class="m">443</span>
+HEAD / HTTP/1.1
+$
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>$ openssl s_client -connect blog.smigiel.dev:443 -quiet
+<span class="nv">depth</span><span class="o">=</span><span class="m">2</span> <span class="nv">O</span> <span class="o">=</span> Digital Signature Trust Co., <span class="nv">CN</span> <span class="o">=</span> DST Root CA X3
+verify <span class="k">return</span>:1
+<span class="nv">depth</span><span class="o">=</span><span class="m">1</span> <span class="nv">C</span> <span class="o">=</span> US, <span class="nv">O</span> <span class="o">=</span> Let<span class="s1">&#39;s Encrypt, CN = Let&#39;</span>s Encrypt Authority X3
+verify <span class="k">return</span>:1
+<span class="nv">depth</span><span class="o">=</span><span class="m">0</span> <span class="nv">CN</span> <span class="o">=</span> blog.smigiel.dev
+verify <span class="k">return</span>:1
+HEAD / HTTP/1.1
+Host: blog.smigiel.dev
+
+HTTP/1.1 <span class="m">200</span> OK
+Connection: keep-alive
+Content-Length: <span class="m">30082</span>
+Server: GitHub.com
+Content-Type: text/html<span class="p">;</span> <span class="nv">charset</span><span class="o">=</span>utf-8
+Last-Modified: Wed, <span class="m">30</span> Sep <span class="m">2020</span> <span class="m">03</span>:07:04 GMT
+ETag: <span class="s2">&quot;5f73f658-7582&quot;</span>
+Access-Control-Allow-Origin: *
+Expires: Fri, <span class="m">02</span> Oct <span class="m">2020</span> <span class="m">01</span>:14:17 GMT
+Cache-Control: max-age<span class="o">=</span><span class="m">600</span>
+X-Proxy-Cache: MISS
+X-GitHub-Request-Id: 376E:4248:1F613:26B71:5F767C91
+Accept-Ranges: bytes
+Date: Fri, <span class="m">02</span> Oct <span class="m">2020</span> <span class="m">02</span>:57:10 GMT
+Via: <span class="m">1</span>.1 varnish
+Age: <span class="m">49</span>
+X-Served-By: cache-pao17443-PAO
+X-Cache: HIT
+X-Cache-Hits: <span class="m">1</span>
+X-Timer: S1601607430.114992,VS0,VE1
+Vary: Accept-Encoding
+X-Fastly-Request-ID: b902c4a5a2f4410e8e6ac21e60fa2e659f1e8300
+</pre></div>
+
+
+<h2>HTTP Cookies</h2>
+<p>HTTP is stateless protocol. It means, that website cannot keep the state of a visit across different HTTP requests. Every HTTP request is unrelated to others.
+To change this situation, <a href="https://en.wikipedia.org/wiki/HTTP_cookie">cookies</a> were introduced.</p>
+<p>Cookies are textual information installed by a website into web browser. Server can set a cookie using <strong>Set-Cookie</strong> header field.</p>
+<h3>Cookie fields</h3>
+<p>Cookies are only sent to the valid domain and path when they are not expired and according to their flags.
+The domain field and the path field set the scope of the cookie. The browser sends the cookie only if the request is for the right domain.
+If the server does not specify domain attribute, the browser will automatically set the domain as the server domain and set the cookie <strong>host-only</strong> flag. It means that the cookie will be sent only to that precise hostname.</p>
+<h3>Cookie protocol</h3>
+<p>Cookies are usually set during a login. Browser sends <strong>POST</strong> request to the server, and the server responds with a <strong>Set-Cookie</strong> header field.
+For every subsequent request, the browser considers domain, path, expiration and flags. If all checks pass, the browser will insert a <strong>cookie:</strong> header in the request.</p>
+<h2>Sessions</h2>
+<p>Sessions mechanism works similar to cookies. The difference here relies on the way how the information is stored. Session is kept on <em>server-side</em>. Each user session is identified by a <strong>session id</strong> which the server assigns to the user. The client then presents its <strong>ID</strong> for each subsequent request, thus being recognized by the server. The server retrieves the state of the client and all its associated variables.</p>
+<h2>Same-Origin Policy (SOP)</h2>
+<p>Same-Origin Policy prevents JavaScript code from getting or setting properties on a resource comming from a <strong>different origin</strong>. To determine if JavaScript can access a resource <em>hostname</em>, <em>port</em> and <em>protocol</em> must match.
+SOP applies only to the actual code. It is still possible to include external resources by other HTML tags like <code>img</code>, <code>script</code>, <code>iframe</code>, <code>object</code>, etc.</p>
+<h1>Additional resources</h1>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP request methods</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">HTTP response status codes - Mozilla</a></li>
+<li><a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HTTP response status codes - Wikipedia</a></li>
+<li><a href="http://www.tcpipguide.com/free/t_HTTPOverviewHistoryVersionsandStandards.htm">HTTP Overview, history, versions, standards</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">HTTP Cookie - Mozilla</a></li>
+<li><a href="https://en.wikipedia.org/wiki/HTTP_cookie">HTTP Cookie - Wikipedia</a></li>
+<li><a href="https://tools.ietf.org/html/rfc6265">HTTP State management mechanism - RFC6265</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/web-applications.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/http.html" class="tags">http</a>
+                </div>
+            </article>            <h4 class="date">Sep 23, 2020</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -345,102 +505,6 @@ IPv6 is divided into two parts (each 64 bits): network identifier and interface 
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
-                </div>
-            </article>            <h4 class="date">Sep 16, 2020</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="https://blog.smigiel.dev/general-purpose-registers.html" rel="bookmark" title="Permanent Link to &quot;General Purpose Registers&quot;">General Purpose Registers</a>
-                </h2>
-
-                
-                
-
-                <h1>Basics</h1>
-<p>There are 8 generic purpose registers:</p>
-<table>
-<thead>
-<tr>
-<th>Naming convention</th>
-<th>Name</th>
-<th>Purpose</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>EAX</td>
-<td>Accumulator</td>
-<td>Used in arithmetic operations</td>
-</tr>
-<tr>
-<td>EBX</td>
-<td>Base Pointer</td>
-<td>Used as a pointer to data</td>
-</tr>
-<tr>
-<td>ECX</td>
-<td>Counter</td>
-<td>Used in shift/rotate instructions and loops</td>
-</tr>
-<tr>
-<td>EDX</td>
-<td>Data</td>
-<td>Used in arithmetic operations and I/O</td>
-</tr>
-<tr>
-<td>ESP</td>
-<td>Stack Pointer</td>
-<td>Pointer to the top of the stack</td>
-</tr>
-<tr>
-<td>EBP</td>
-<td>Base Pointer (Stack Base Pointer, Frame Pointer )</td>
-<td>Pointer to the base of the stack</td>
-</tr>
-<tr>
-<td>ESI</td>
-<td>Source Index</td>
-<td>Used as a pointer to a source in stream operation</td>
-</tr>
-<tr>
-<td>EDI</td>
-<td>Destination</td>
-<td>Used as a pointer to a destination in stream operation</td>
-</tr>
-</tbody>
-</table>
-<p>Additionally, exists <em>EIP</em> (Instruction Pointer) which controls the program execution. It contains the address of the <strong>next</strong> instruction to be exetucted (it tells the CPU where the next instruction is).</p>
-<h1>Program Memory</h1>
-<p>Running process is usually organized in 2 sections: read-only and read/write.</p>
-<ul>
-<li>.text - address space where program's executable instructions is stored.</li>
-<li>.data - global and static variables which have pre-defined value and can be modified.</li>
-<li>BSS (Block Started by Symbol) - uninitialized data, is usually adjacent to .data segment. Contains all global and static variables which are initialized to zero or do not have specific explicit initialization in source code.</li>
-<li>Heap - area commonly begins at the end of BSS and .data segments. and grows to larger addresses from there. This area is managed by <em>malloc</em>, <em>realloc</em> and <em>free</em>. This area is shared by all threads, shared libraries, and dynamically loaded modules in a process.</li>
-<li>Stack - typically located in the higher parts of memory. ESP tracks the top of the stack.</li>
-</ul>
-<p>Heap grows towards higher memory addresses. Stack grows towards lower memory addresses.</p>
-<p>Lower address | .text | .data | BSS | Heap -&gt; ... &lt;- Stack | Higher address</p>
-<h2>Stack</h2>
-<p>The Stack is Last-in First-out (<strong>LIFO</strong>). It is array for saving addresses, passing function arguments, and storing local variables.
-There are two operations <em>PUSH/POP</em> to work with stack. With each operation, <em>ESP</em> is updated. Because stack grows towards lower addresses of memory, when we <em>PUSH</em> something on stack, stack pointer is reduced <code>ESP-4</code> (-4 for 32 bits, -8 for 64 bits). When we remove something from stack by <em>POP</em>ing it, ESP changes address again <code>ESP+4</code>.</p>
-<p><em>PUSH</em>ed data is written to the stack memory, and later ESP address is updated <code>ESP-4</code>.
-<em>POP</em>ped data is read from the stack and written to given register <code>POP EAX</code></p>
-<p>Values <em>POP</em>ed from stack are not deleted/removed. They stay in stack until another instruction overwrites it.</p>
-<h2>Additional resources:</h2>
-<ul>
-<li><a href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_(GPR)_-_16-bit_naming_conventions">GPR naming - WikiBooks</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Data_segment">Data segment - Wikipedia</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Call_stack">Call stack - Wikipedia</a></li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="https://blog.smigiel.dev/general-purpose-registers.html">posted at 00:00</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/fundamentals.html" class="tags">fundamentals</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/ptp.html" class="tags">ptp</a>
                 </div>
             </article>
 

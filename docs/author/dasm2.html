@@ -30,7 +30,103 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 07, 2020</h4>
+        <div id="content">            <h4 class="date">Sep 16, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/general-purpose-registers.html" rel="bookmark" title="Permanent Link to &quot;General Purpose Registers&quot;">General Purpose Registers</a>
+                </h2>
+
+                
+                
+
+                <h1>Basics</h1>
+<p>There are 8 generic purpose registers:</p>
+<table>
+<thead>
+<tr>
+<th>Naming convention</th>
+<th>Name</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EAX</td>
+<td>Accumulator</td>
+<td>Used in arithmetic operations</td>
+</tr>
+<tr>
+<td>EBX</td>
+<td>Base Pointer</td>
+<td>Used as a pointer to data</td>
+</tr>
+<tr>
+<td>ECX</td>
+<td>Counter</td>
+<td>Used in shift/rotate instructions and loops</td>
+</tr>
+<tr>
+<td>EDX</td>
+<td>Data</td>
+<td>Used in arithmetic operations and I/O</td>
+</tr>
+<tr>
+<td>ESP</td>
+<td>Stack Pointer</td>
+<td>Pointer to the top of the stack</td>
+</tr>
+<tr>
+<td>EBP</td>
+<td>Base Pointer (Stack Base Pointer, Frame Pointer )</td>
+<td>Pointer to the base of the stack</td>
+</tr>
+<tr>
+<td>ESI</td>
+<td>Source Index</td>
+<td>Used as a pointer to a source in stream operation</td>
+</tr>
+<tr>
+<td>EDI</td>
+<td>Destination</td>
+<td>Used as a pointer to a destination in stream operation</td>
+</tr>
+</tbody>
+</table>
+<p>Additionally, exists <em>EIP</em> (Instruction Pointer) which controls the program execution. It contains the address of the <strong>next</strong> instruction to be exetucted (it tells the CPU where the next instruction is).</p>
+<h1>Program Memory</h1>
+<p>Running process is usually organized in 2 sections: read-only and read/write.</p>
+<ul>
+<li>.text - address space where program's executable instructions is stored.</li>
+<li>.data - global and static variables which have pre-defined value and can be modified.</li>
+<li>BSS (Block Started by Symbol) - uninitialized data, is usually adjacent to .data segment. Contains all global and static variables which are initialized to zero or do not have specific explicit initialization in source code.</li>
+<li>Heap - area commonly begins at the end of BSS and .data segments. and grows to larger addresses from there. This area is managed by <em>malloc</em>, <em>realloc</em> and <em>free</em>. This area is shared by all threads, shared libraries, and dynamically loaded modules in a process.</li>
+<li>Stack - typically located in the higher parts of memory. ESP tracks the top of the stack.</li>
+</ul>
+<p>Heap grows towards higher memory addresses. Stack grows towards lower memory addresses.</p>
+<p>Lower address | .text | .data | BSS | Heap -&gt; ... &lt;- Stack | Higher address</p>
+<h2>Stack</h2>
+<p>The Stack is Last-in First-out (<strong>LIFO</strong>). It is array for saving addresses, passing function arguments, and storing local variables.
+There are two operations <em>PUSH/POP</em> to work with stack. With each operation, <em>ESP</em> is updated. Because stack grows towards lower addresses of memory, when we <em>PUSH</em> something on stack, stack pointer is reduced <code>ESP-4</code> (-4 for 32 bits, -8 for 64 bits). When we remove something from stack by <em>POP</em>ing it, ESP changes address again <code>ESP+4</code>.</p>
+<p><em>PUSH</em>ed data is written to the stack memory, and later ESP address is updated <code>ESP-4</code>.
+<em>POP</em>ped data is read from the stack and written to given register <code>POP EAX</code></p>
+<p>Values <em>POP</em>ed from stack are not deleted/removed. They stay in stack until another instruction overwrites it.</p>
+<h2>Additional resources:</h2>
+<ul>
+<li><a href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_(GPR)_-_16-bit_naming_conventions">GPR naming - WikiBooks</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data_segment">Data segment - Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Call_stack">Call stack - Wikipedia</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/general-purpose-registers.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/fundamentals.html" class="tags">fundamentals</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/ptp.html" class="tags">ptp</a>
+                </div>
+            </article>            <h4 class="date">Sep 07, 2020</h4>
 
             <article class="post">
                 <h2 class="title">

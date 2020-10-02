@@ -1,5 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - dasm</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/dasm.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-09-23T00:00:00-07:00</updated><entry><title>Networking Pt 4</title><link href="https://blog.smigiel.dev/networking-pt-4.html" rel="alternate"></link><published>2020-09-23T00:00:00-07:00</published><updated>2020-09-23T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-23:/networking-pt-4.html</id><summary type="html">&lt;h1&gt;Firewall&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - dasm</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/dasm.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-10-01T00:00:00-07:00</updated><entry><title>Web Applications</title><link href="https://blog.smigiel.dev/web-applications.html" rel="alternate"></link><published>2020-10-01T00:00:00-07:00</published><updated>2020-10-01T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-10-01:/web-applications.html</id><summary type="html">&lt;h1&gt;Basics&lt;/h1&gt;
+&lt;p&gt;During building web applications we need to focus on several fundamental aspects:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;HTTP Protocol Basics&lt;/li&gt;
+&lt;li&gt;Cookies&lt;/li&gt;
+&lt;li&gt;Sessions&lt;/li&gt;
+&lt;li&gt;Same Origin Policy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;HTTP Protocol Basics&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTTP&lt;/code&gt; (Hypertext Transfer Protocol) is the most used protocol on the Internet. Usually, the client (browser), connects to the server (&lt;code&gt;Apache&lt;/code&gt;, &lt;code&gt;nginx&lt;/code&gt;, &lt;code&gt;ISS&lt;/code&gt;.
+During an HTTP …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Basics&lt;/h1&gt;
+&lt;p&gt;During building web applications we need to focus on several fundamental aspects:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;HTTP Protocol Basics&lt;/li&gt;
+&lt;li&gt;Cookies&lt;/li&gt;
+&lt;li&gt;Sessions&lt;/li&gt;
+&lt;li&gt;Same Origin Policy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;HTTP Protocol Basics&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;HTTP&lt;/code&gt; (Hypertext Transfer Protocol) is the most used protocol on the Internet. Usually, the client (browser), connects to the server (&lt;code&gt;Apache&lt;/code&gt;, &lt;code&gt;nginx&lt;/code&gt;, &lt;code&gt;ISS&lt;/code&gt;.
+During an HTTP communication, the client and the server exchange messages. HTTP works on top of TCP. That means, first a TCP connection is established, and then the client sends its request, and waits for the answer. The server processes the request and sends back its answer, providing a status code and appropriate data.&lt;/p&gt;
+&lt;h3&gt;HTTP Request&lt;/h3&gt;
+&lt;p&gt;To send HTTP request, usually we use browsers. However, it is not the only way of doing so. To build request, we can use &lt;code&gt;netcat&lt;/code&gt; or &lt;code&gt;telnet&lt;/code&gt;.
+Below is an example of HTTP request, with &lt;code&gt;nc&lt;/code&gt; requesting website running on localhost on port &lt;code&gt;8000&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nc localhost 8000
+GET / HTTP/1.0
+Host: localhost
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.7.3
+Date: Fri, 02 Oct 2020 01:44:49 GMT
+Content-type: text/html
+Content-Length: 26612
+Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
+
+&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+[...]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;First line contains &lt;strong&gt;HTTP request method&lt;/strong&gt;, path and protocol version.
+HTTP request method is information about the type of the request. Other requests are: &lt;code&gt;PUT&lt;/code&gt;, &lt;code&gt;POST&lt;/code&gt;, &lt;code&gt;HEAD&lt;/code&gt;, etc. List of available metods can be found on &lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods"&gt;Mozilla website&lt;/a&gt;
+Path tells the server which resource to fetch, while protocol version tells how to communicate with the client.
+Next, there is &lt;code&gt;Host&lt;/code&gt; header field, which specifies the Internet hostname and port number of the resource being requested.&lt;/p&gt;
+&lt;p&gt;We can also create one-liner to retrieve appropriate information&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; -en &lt;span class="s1"&gt;&amp;#39;HEAD / HTTP/1.1\r\nHost:localhost\r\n\r\n&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; nc localhost &lt;span class="m"&gt;8000&lt;/span&gt;
+HTTP/1.0 &lt;span class="m"&gt;200&lt;/span&gt; OK
+Server: SimpleHTTP/0.6 Python/3.7.3
+Date: Fri, &lt;span class="m"&gt;02&lt;/span&gt; Oct &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;02&lt;/span&gt;:01:34 GMT
+Content-type: text/html
+Content-Length: &lt;span class="m"&gt;27806&lt;/span&gt;
+Last-Modified: Fri, &lt;span class="m"&gt;02&lt;/span&gt; Oct &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;01&lt;/span&gt;:55:46 GMT
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Additionally, we can give extra header values like &lt;code&gt;User-Agent&lt;/code&gt; (identifies the client and the system), &lt;code&gt;Accept&lt;/code&gt; (specifies document type the client is expecting in the response) or &lt;code&gt;Connection: keep-alive&lt;/code&gt; (future communications with the server will reuse the current connection).&lt;/p&gt;
+&lt;h3&gt;HTTP Response&lt;/h3&gt;
+&lt;p&gt;HTTP response, similar to request, has common format.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nc localhost 8000
+GET / HTTP/1.0
+Host: localhost
+
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.7.3
+Date: Fri, 02 Oct 2020 01:44:49 GMT
+Content-type: text/html
+Content-Length: 26612
+Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
+
+&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+[...]
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The first line is &lt;strong&gt;Status-Line&lt;/strong&gt; which consists of protocol version (HTTP 1.0) followed by a numeric status code (200) and textual meaning (OK). There are many codes. Description, again can be found on &lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"&gt;Mozilla website&lt;/a&gt;. Next, there is additional information regarding server, date and time at which the message was originated, followed by page content.&lt;/p&gt;
+&lt;h3&gt;HTTP Secure (HTTPS)&lt;/h3&gt;
+&lt;p&gt;HTTP over SSL/TLS is a method to run clear-text HTTP with extra cryptographic protocol, to prevent from sniffing.
+By doing so, entire traffic is being encrypted. It means, that even if someone can intercept traffic, they won't be able to see what kind of information is being transmitted. The only non-encrypted pieces of information would be:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;target IP address&lt;/li&gt;
+&lt;li&gt;target port&lt;/li&gt;
+&lt;li&gt;DNS or similar protocols (domain resolvers)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To analyze connection, we cannot use &lt;code&gt;nc&lt;/code&gt; anymore, which doesn't support SSL. To work with SSL, we can use &lt;code&gt;openssl&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nc blog.smigiel.dev &lt;span class="m"&gt;443&lt;/span&gt;
+HEAD / HTTP/1.1
+$
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ openssl s_client -connect blog.smigiel.dev:443 -quiet
+&lt;span class="nv"&gt;depth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="nv"&gt;O&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Digital Signature Trust Co., &lt;span class="nv"&gt;CN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; DST Root CA X3
+verify &lt;span class="k"&gt;return&lt;/span&gt;:1
+&lt;span class="nv"&gt;depth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="nv"&gt;C&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; US, &lt;span class="nv"&gt;O&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Let&lt;span class="s1"&gt;&amp;#39;s Encrypt, CN = Let&amp;#39;&lt;/span&gt;s Encrypt Authority X3
+verify &lt;span class="k"&gt;return&lt;/span&gt;:1
+&lt;span class="nv"&gt;depth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="nv"&gt;CN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; blog.smigiel.dev
+verify &lt;span class="k"&gt;return&lt;/span&gt;:1
+HEAD / HTTP/1.1
+Host: blog.smigiel.dev
+
+HTTP/1.1 &lt;span class="m"&gt;200&lt;/span&gt; OK
+Connection: keep-alive
+Content-Length: &lt;span class="m"&gt;30082&lt;/span&gt;
+Server: GitHub.com
+Content-Type: text/html&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nv"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;utf-8
+Last-Modified: Wed, &lt;span class="m"&gt;30&lt;/span&gt; Sep &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;03&lt;/span&gt;:07:04 GMT
+ETag: &lt;span class="s2"&gt;&amp;quot;5f73f658-7582&amp;quot;&lt;/span&gt;
+Access-Control-Allow-Origin: *
+Expires: Fri, &lt;span class="m"&gt;02&lt;/span&gt; Oct &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;01&lt;/span&gt;:14:17 GMT
+Cache-Control: max-age&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;600&lt;/span&gt;
+X-Proxy-Cache: MISS
+X-GitHub-Request-Id: 376E:4248:1F613:26B71:5F767C91
+Accept-Ranges: bytes
+Date: Fri, &lt;span class="m"&gt;02&lt;/span&gt; Oct &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;02&lt;/span&gt;:57:10 GMT
+Via: &lt;span class="m"&gt;1&lt;/span&gt;.1 varnish
+Age: &lt;span class="m"&gt;49&lt;/span&gt;
+X-Served-By: cache-pao17443-PAO
+X-Cache: HIT
+X-Cache-Hits: &lt;span class="m"&gt;1&lt;/span&gt;
+X-Timer: S1601607430.114992,VS0,VE1
+Vary: Accept-Encoding
+X-Fastly-Request-ID: b902c4a5a2f4410e8e6ac21e60fa2e659f1e8300
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;HTTP Cookies&lt;/h2&gt;
+&lt;p&gt;HTTP is stateless protocol. It means, that website cannot keep the state of a visit across different HTTP requests. Every HTTP request is unrelated to others.
+To change this situation, &lt;a href="https://en.wikipedia.org/wiki/HTTP_cookie"&gt;cookies&lt;/a&gt; were introduced.&lt;/p&gt;
+&lt;p&gt;Cookies are textual information installed by a website into web browser. Server can set a cookie using &lt;strong&gt;Set-Cookie&lt;/strong&gt; header field.&lt;/p&gt;
+&lt;h3&gt;Cookie fields&lt;/h3&gt;
+&lt;p&gt;Cookies are only sent to the valid domain and path when they are not expired and according to their flags.
+The domain field and the path field set the scope of the cookie. The browser sends the cookie only if the request is for the right domain.
+If the server does not specify domain attribute, the browser will automatically set the domain as the server domain and set the cookie &lt;strong&gt;host-only&lt;/strong&gt; flag. It means that the cookie will be sent only to that precise hostname.&lt;/p&gt;
+&lt;h3&gt;Cookie protocol&lt;/h3&gt;
+&lt;p&gt;Cookies are usually set during a login. Browser sends &lt;strong&gt;POST&lt;/strong&gt; request to the server, and the server responds with a &lt;strong&gt;Set-Cookie&lt;/strong&gt; header field.
+For every subsequent request, the browser considers domain, path, expiration and flags. If all checks pass, the browser will insert a &lt;strong&gt;cookie:&lt;/strong&gt; header in the request.&lt;/p&gt;
+&lt;h2&gt;Sessions&lt;/h2&gt;
+&lt;p&gt;Sessions mechanism works similar to cookies. The difference here relies on the way how the information is stored. Session is kept on &lt;em&gt;server-side&lt;/em&gt;. Each user session is identified by a &lt;strong&gt;session id&lt;/strong&gt; which the server assigns to the user. The client then presents its &lt;strong&gt;ID&lt;/strong&gt; for each subsequent request, thus being recognized by the server. The server retrieves the state of the client and all its associated variables.&lt;/p&gt;
+&lt;h2&gt;Same-Origin Policy (SOP)&lt;/h2&gt;
+&lt;p&gt;Same-Origin Policy prevents JavaScript code from getting or setting properties on a resource comming from a &lt;strong&gt;different origin&lt;/strong&gt;. To determine if JavaScript can access a resource &lt;em&gt;hostname&lt;/em&gt;, &lt;em&gt;port&lt;/em&gt; and &lt;em&gt;protocol&lt;/em&gt; must match.
+SOP applies only to the actual code. It is still possible to include external resources by other HTML tags like &lt;code&gt;img&lt;/code&gt;, &lt;code&gt;script&lt;/code&gt;, &lt;code&gt;iframe&lt;/code&gt;, &lt;code&gt;object&lt;/code&gt;, etc.&lt;/p&gt;
+&lt;h1&gt;Additional resources&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods"&gt;HTTP request methods&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"&gt;HTTP response status codes - Mozilla&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes"&gt;HTTP response status codes - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://www.tcpipguide.com/free/t_HTTPOverviewHistoryVersionsandStandards.htm"&gt;HTTP Overview, history, versions, standards&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies"&gt;HTTP Cookie - Mozilla&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/HTTP_cookie"&gt;HTTP Cookie - Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc6265"&gt;HTTP State management mechanism - RFC6265&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="http"></category></entry><entry><title>Networking Pt 4</title><link href="https://blog.smigiel.dev/networking-pt-4.html" rel="alternate"></link><published>2020-09-23T00:00:00-07:00</published><updated>2020-09-23T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-23:/networking-pt-4.html</id><summary type="html">&lt;h1&gt;Firewall&lt;/h1&gt;
 &lt;p&gt;Firewalls are specialized software modules running on a computer or a dedicated network device. They serve to filter packets coming in and out of a network. They can work on different layers of the OSI model.&lt;/p&gt;
 &lt;h2&gt;Packet filtering&lt;/h2&gt;
 &lt;p&gt;The most basic feature of a firewall is packet filtering. Administrator …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Firewall&lt;/h1&gt;
