@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>blog.smigiel.dev - dasm</title><link>https://blog.smigiel.dev/</link><description></description><lastBuildDate>Thu, 01 Oct 2020 00:00:00 -0700</lastBuildDate><item><title>Web Applications</title><link>https://blog.smigiel.dev/web-applications.html</link><description>&lt;h1&gt;Basics&lt;/h1&gt;
+<rss version="2.0"><channel><title>blog.smigiel.dev - dasm</title><link>https://blog.smigiel.dev/</link><description></description><lastBuildDate>Wed, 07 Oct 2020 00:00:00 -0700</lastBuildDate><item><title>OSINT</title><link>https://blog.smigiel.dev/osint.html</link><description>&lt;h1&gt;Information gathering&lt;/h1&gt;
+&lt;p&gt;First and the most crucial phase of an engagement is information gathering. It helps to broaden surface of attack, and prepare for successful method of breaking into company.
+Usually, people leave a lot of breadcrumbs around the Internet. Thanks to meticulous look up of the information, a lot …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Wed, 07 Oct 2020 00:00:00 -0700</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2020-10-07:/osint.html</guid><category>misc</category><category>learning</category><category>pts</category><category>osint</category></item><item><title>Web Applications</title><link>https://blog.smigiel.dev/web-applications.html</link><description>&lt;h1&gt;Basics&lt;/h1&gt;
 &lt;p&gt;During building web applications we need to focus on several fundamental aspects:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;HTTP Protocol Basics&lt;/li&gt;

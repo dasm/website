@@ -29,7 +29,71 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Oct 01, 2020</h4>
+        <div id="content">            <h4 class="date">Oct 07, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/osint.html" rel="bookmark" title="Permanent Link to &quot;OSINT&quot;">OSINT</a>
+                </h2>
+
+                
+                
+
+                <h1>Information gathering</h1>
+<p>First and the most crucial phase of an engagement is information gathering. It helps to broaden surface of attack, and prepare for successful method of breaking into company.
+Usually, people leave a lot of breadcrumbs around the Internet. Thanks to meticulous look up of the information, a lot of interesting details can be found.</p>
+<h2>Interesting databases</h2>
+<p>Given the vast array of social networks, it shouldn't be difficult to find interesting information. For example, user can create account on Twitter, point to Linkedin, Google and Facebook.</p>
+<p>To find generic information, one might refer to twitter or google. For more work related information, usually better is Linkedin.</p>
+<h3>Crunchbase</h3>
+<p><a href="https://crunchbase.com">Crunchbase</a> is a platform for finding business information about private and public companies. It is a platform for finding business information about private and public companies. Additionally it contains useful information to match profiles.</p>
+<h3>Government websites</h3>
+<p>Some information can be found on official government websites. If a company is awarded contract.</p>
+<h3>Whois</h3>
+<p><code>whois</code> is command line tool, as well as <a href="https://www.whois.com/whois">website</a>. It allows to query the database of Internet addresses to get information about registrants of those addresses.</p>
+<h3>COmpany website</h3>
+<p>Oftentimes, interesting information can be found on company websites. We can find there information about products, customers, services, etc. Usually, there could be also find</p>
+<h3>Email pattern</h3>
+<p>Many companies have common email pattern. It usually means, that all employees, can be reached by some variation of email:</p>
+<ul>
+<li>first_name.last_name@company.com</li>
+<li>last_name.first_name@company.com</li>
+<li>first_letter__nameLast_name@company.com</li>
+</ul>
+<p>By accessing at least one of employees emails, you basically obtained all of them, as long as you know employee name.</p>
+<p>To verify if chosen email is valid, one can send email and wait for response. Many email servers return message in the case of non-existing user.</p>
+<h2>Subdomain enumeration</h2>
+<p>It is common for a company, to have multiple different subdomains, like <code>email.company.com</code>, <code>blog.company.com</code>, <code>careers.company.com</code>. Sometimes, companies leave running vulnerable services. In that case, it could be much easier to exploit a bug on some outdated subdomain, than main domain.
+There are several ways of achieving that goal.</p>
+<h3>Google</h3>
+<p>One of the simplest ways is to search a Google!
+By issuing query to search engine like below, we can receive responses focused around particular company website.</p>
+<div class="highlight"><pre><span></span><span class="n">site</span><span class="o">:</span> <span class="n">company</span><span class="o">.</span><span class="na">com</span>
+</pre></div>
+
+
+<h3>dnsdumpster</h3>
+<p><a href="https://dnsdumpster.com/">DNSDumpster.com</a> is a free domain research tool that can discover hosts related to a domain. Finding visible hosts from the attackers perspective is an important part of the security assessment process.</p>
+<h3>CLI Sublist3r</h3>
+<p>Sublist3r is a python tool designed to enumerate subdomains of websites using OSINT. It helps penetration testers and bug hunters collect and gather subdomains for the domain they are targeting. Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu and Ask. Sublist3r also enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster and ReverseDNS.</p>
+<h1>Additional resources</h1>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Crunchbase">Crunchbase - wikipedia</a></li>
+<li><a href="https://www.sam.gov/SAM/">System for Award Management (US gov)</a></li>
+<li><a href="https://www.gsaelibrary.gsa.gov/ElibMain/home.do">GSA eLibrary - contract award information (US gov)</a></li>
+<li><a href="https://dnsdumpster.com/">DNSDumpster.com</a></li>
+<li><a href="https://github.com/aboul3la/Sublist3r">CLI Sublist3r</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/osint.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/osint.html" class="tags">osint</a>
+                </div>
+            </article>            <h4 class="date">Oct 01, 2020</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -424,88 +488,16 @@ To send message, Computer A also requires MAC address.</p>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
                 </div>
-            </article>            <h4 class="date">Sep 17, 2020</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="https://blog.smigiel.dev/networking.html" rel="bookmark" title="Permanent Link to &quot;Networking&quot;">Networking</a>
-                </h2>
-
-                
-                
-
-                <h1>Protocols</h1>
-<h2>What is packet</h2>
-<p>Every packet in every protocol has <code>Header</code> (control information) and <code>Payload</code> (user data) structure. The header has a protocol-specific structure: this ensures that the receiving host can correctly interpret the payload and handle the communication. The payload is the actual information. It could be something like part of an email message or the content of a file during a download.</p>
-<p><a href="https://en.wikipedia.org/wiki/IPv4_packet#Header">IPv4 protocol header</a> is at least 160 bits (20 bytes) long, and it includes 14 fields, of which 13 are required. Last field, called <code>options</code> is optional.
-<img alt="IPv4 packet - Wikipedia" src="https://upload.wikimedia.org/wikipedia/commons/7/71/IPv4_Packet_-en.svg">
-Source: Wikipedia, author <a href="https://commons.wikimedia.org/w/index.php?title=User:MichelBakni&amp;action=edit&amp;redlink=1">MichelBakni</a></p>
-<p>Using the information in the header, the nodes involved in the communication can understand and use IP packets.</p>
-<h2>Protocol layers</h2>
-<p>Most of the time, when people talk about layers, they think about OSI model. OSI model promoted the idea of a consistent model of protocol layers, defining interoperability between network devices and software.
-Based on that we can think about seven layers (<a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/network/windows-network-architecture-and-the-osi-model">more here</a>).  What we need to know is, that each protocol has <code>header</code> and <code>payload</code>. It goes from top to bottom. Every next layer is encapsulating the layer before in the form of payload.</p>
-<h2>Encapsulation</h2>
-<p>If we look from 10.000 foot perspective, we can see only data packet. However, if we look at this closer, it's starting showing some interesting properties.
-Every layer contains paylod in a form of <code>header+payload</code> from previous layer. It means, that at the lowest level, we're looking at</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="n">payload</span><span class="p">))))</span>
-</pre></div>
-
-
-<p>This kind of behavior happens to every packet sent by host. On the other side of pipeline, receiving host, needs to unpack all the information, with regards to correct layers.</p>
-<h1>Internet Protocol (IP)</h1>
-<h2>IP Address</h2>
-<h3>IPv4 Address</h3>
-<p>IPv4 address consists of 4 bytes (octets). A dot delimits every octet in the address. Each byte (<code>2^8</code>) can represent value <strong>0</strong> to <strong>255</strong>.</p>
-<div class="highlight"><pre><span></span><span class="err"> 172.22.128.47</span>
-</pre></div>
-
-
-<h4>Special use IPv4 addresses</h4>
-<p>RFC5735 describes IPv4 addresses, which cannot be assigned to host, due to its special use case.
-Common addresses, that are in use:</p>
-<div class="highlight"><pre><span></span><span class="err">127.0.0.0/8    &lt;-- host loopback address.</span>
-<span class="err">169.254.0.0/16 &lt;-- communication between hosts, without DHCP server cannot be found.</span>
-<span class="err">192.168.0.0/16 &lt;-- private networks.</span>
-</pre></div>
-
-
-<h3>Network classes</h3>
-<p>Internet addresses are allocated by the InterNIC organization. The most common classes are A, B and C. D and E exist, but are not used by end users.
-Each of classes has different default subnet mask.</p>
-<ul>
-<li>Class A: uses 255.0.0.0 (CIDR /8) and have <code>0-127</code> as first octet,</li>
-<li>Class B: uses 255.255.0.0 (CIDR /16) and have <code>128-191</code> as first octet,</li>
-<li>Class C: uses 255.255.255.0 (CIDR /24) and have <code>192-223</code> as first octet.</li>
-<li>Class D: range <code>224-239</code> as first octet, used for multicasting</li>
-<li>Class E: range <code>240-255</code> as first octet, not available for general use, reserved for research purposes.</li>
-</ul>
-<h3>CIDR</h3>
-<p>Subnet with all zeros is reserved for the referring to the network itself, while last address, all ones is used as broadcast address for the network. It means, that from network, two addresses are unavailable. In the world of CIDR, <code>/31</code> and <code>/32</code>, would be unusable, due to above requirement. That's why <code>RFC3021</code> created an exception. Network <code>/31</code> is usable for point-to-point links, while <code>/32</code> (single-host network) must be accessed by explicit routing rules, as there is no room in such a network for a gateway.</p>
-<h3>IPv6</h3>
-<p>RFC3513 (obsolete now) and RFC4291 describes IPv6 addressing architecture. This version allows to address 2^128 devices (approximately 3.4*10^38). It's been introduced in December 1995, but still majority of Internet relies on IPv4.
-IPv6 is divided into two parts (each 64 bits): network identifier and interface identifier. Furthermore, the first 64 bits ends with a dedicated 16-bits space that can be used only for specifying a subnet.</p>
-<h1>Additional resources</h1>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/IPv4_packet#Header">IPv4 protocol header</a></li>
-<li><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/network/windows-network-architecture-and-the-osi-model">Network architecture</a></li>
-<li><a href="https://en.wikipedia.org/wiki/OSI_model">OSI model</a></li>
-<li><a href="https://tools.ietf.org/html/rfc5735">RFC5735</a></li>
-<li><a href="https://support.microsoft.com/en-us/help/164015/understanding-tcp-ip-addressing-and-subnetting-basics">subnet masks</a>.</li>
-<li><a href="https://tools.ietf.org/html/rfc1878">RFC1878 - Variable Length Subnet Table For IPv4</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks">CIDR - Wikipedia</a></li>
-<li><a href="https://tools.ietf.org/html/rfc3021">RFC3021 - Using 31-bit Prefixes on IPv4 Point-to_-Point links</a></li>
-<li><a href="https://tools.ietf.org/html/rfc4291">RFC4291 - Internet Protocol Version 6 (IPv6) Addressing Architecture</a></li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="https://blog.smigiel.dev/networking.html">posted at 00:00</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags selected">pts</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
-                </div>
             </article>
+
+                <div class="clear"></div>
+                <div class="pages">
+
+
+                    <a href="https://blog.smigiel.dev/tag/pts2.html" class="next_page">Next&nbsp;&rarr;</a>
+
+                    <span>Page 1 of 2</span>
+                </div>
 
             <div class="clear"></div>
             <footer>

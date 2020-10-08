@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>blog.smigiel.dev | OSINT</title>
+    <link rel="shortcut icon" type="image/png" href="https://blog.smigiel.dev/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="https://blog.smigiel.dev/favicon.ico">
+    <link href="https://blog.smigiel.dev/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="blog.smigiel.dev Full Atom Feed" />
+    <link href="https://blog.smigiel.dev/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="blog.smigiel.dev Categories Atom Feed" />
+    <link rel="stylesheet" href="https://blog.smigiel.dev/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="https://blog.smigiel.dev/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="dasm" />
+
+    <meta name="keywords" content="learning,pts,osint" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="https://blog.smigiel.dev/">Home</a></li>
+                <li><a href="https://blog.smigiel.dev/pages/about-me.html">About me</a></li>
+                <li><a href="https://blog.smigiel.dev/pages/resources.html">Resources</a></li>
+                <li><a href="https://blog.smigiel.dev/archives">Archives</a></li>
+            </ul>
+        </nav>
+        <div class="header_box">
+            <h1><a href="https://blog.smigiel.dev/">blog.smigiel.dev</a></h1>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Oct 07, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/osint.html" rel="bookmark" title="Permanent Link to &quot;OSINT&quot;">OSINT</a>
+                </h2>
+
+                
+                
+
+                <h1>Information gathering</h1>
+<p>First and the most crucial phase of an engagement is information gathering. It helps to broaden surface of attack, and prepare for successful method of breaking into company.
+Usually, people leave a lot of breadcrumbs around the Internet. Thanks to meticulous look up of the information, a lot of interesting details can be found.</p>
+<h2>Interesting databases</h2>
+<p>Given the vast array of social networks, it shouldn't be difficult to find interesting information. For example, user can create account on Twitter, point to Linkedin, Google and Facebook.</p>
+<p>To find generic information, one might refer to twitter or google. For more work related information, usually better is Linkedin.</p>
+<h3>Crunchbase</h3>
+<p><a href="https://crunchbase.com">Crunchbase</a> is a platform for finding business information about private and public companies. It is a platform for finding business information about private and public companies. Additionally it contains useful information to match profiles.</p>
+<h3>Government websites</h3>
+<p>Some information can be found on official government websites. If a company is awarded contract.</p>
+<h3>Whois</h3>
+<p><code>whois</code> is command line tool, as well as <a href="https://www.whois.com/whois">website</a>. It allows to query the database of Internet addresses to get information about registrants of those addresses.</p>
+<h3>COmpany website</h3>
+<p>Oftentimes, interesting information can be found on company websites. We can find there information about products, customers, services, etc. Usually, there could be also find</p>
+<h3>Email pattern</h3>
+<p>Many companies have common email pattern. It usually means, that all employees, can be reached by some variation of email:</p>
+<ul>
+<li>first_name.last_name@company.com</li>
+<li>last_name.first_name@company.com</li>
+<li>first_letter__nameLast_name@company.com</li>
+</ul>
+<p>By accessing at least one of employees emails, you basically obtained all of them, as long as you know employee name.</p>
+<p>To verify if chosen email is valid, one can send email and wait for response. Many email servers return message in the case of non-existing user.</p>
+<h2>Subdomain enumeration</h2>
+<p>It is common for a company, to have multiple different subdomains, like <code>email.company.com</code>, <code>blog.company.com</code>, <code>careers.company.com</code>. Sometimes, companies leave running vulnerable services. In that case, it could be much easier to exploit a bug on some outdated subdomain, than main domain.
+There are several ways of achieving that goal.</p>
+<h3>Google</h3>
+<p>One of the simplest ways is to search a Google!
+By issuing query to search engine like below, we can receive responses focused around particular company website.</p>
+<div class="highlight"><pre><span></span><span class="n">site</span><span class="o">:</span> <span class="n">company</span><span class="o">.</span><span class="na">com</span>
+</pre></div>
+
+
+<h3>dnsdumpster</h3>
+<p><a href="https://dnsdumpster.com/">DNSDumpster.com</a> is a free domain research tool that can discover hosts related to a domain. Finding visible hosts from the attackers perspective is an important part of the security assessment process.</p>
+<h3>CLI Sublist3r</h3>
+<p>Sublist3r is a python tool designed to enumerate subdomains of websites using OSINT. It helps penetration testers and bug hunters collect and gather subdomains for the domain they are targeting. Sublist3r enumerates subdomains using many search engines such as Google, Yahoo, Bing, Baidu and Ask. Sublist3r also enumerates subdomains using Netcraft, Virustotal, ThreatCrowd, DNSdumpster and ReverseDNS.</p>
+<h1>Additional resources</h1>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Crunchbase">Crunchbase - wikipedia</a></li>
+<li><a href="https://www.sam.gov/SAM/">System for Award Management (US gov)</a></li>
+<li><a href="https://www.gsaelibrary.gsa.gov/ElibMain/home.do">GSA eLibrary - contract award information (US gov)</a></li>
+<li><a href="https://dnsdumpster.com/">DNSDumpster.com</a></li>
+<li><a href="https://github.com/aboul3la/Sublist3r">CLI Sublist3r</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/osint.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/osint.html" class="tags">osint</a>
+                </div>
+            </article>
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/jody-frankowski/blue-penguin">Blue Penguin</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="https://blog.smigiel.dev/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
