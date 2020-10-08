@@ -45,6 +45,8 @@ By issuing query to search engine like below, we can receive responses focused a
 &lt;li&gt;&lt;a href="https://www.gsaelibrary.gsa.gov/ElibMain/home.do"&gt;GSA eLibrary - contract award information (US gov)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://dnsdumpster.com/"&gt;DNSDumpster.com&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/aboul3la/Sublist3r"&gt;CLI Sublist3r&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://crt.sh/"&gt;crt.sh - certificate search&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/OWASP/Amass"&gt;OWASP Amass&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="osint"></category></entry><entry><title>Web Applications</title><link href="https://blog.smigiel.dev/web-applications.html" rel="alternate"></link><published>2020-10-01T00:00:00-07:00</published><updated>2020-10-01T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-10-01:/web-applications.html</id><summary type="html">&lt;h1&gt;Basics&lt;/h1&gt;
 &lt;p&gt;During building web applications we need to focus on several fundamental aspects:&lt;/p&gt;
 &lt;ol&gt;
