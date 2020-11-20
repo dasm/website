@@ -158,11 +158,28 @@ nmap scan with fingerprinting <code>-sV</code> should not have any problems to r
 To try and see what happened, you might want to use nmap with <code>--reason</code> that will show an explanation of why a port is marked open or closed.</p>
 <h2>Masscan</h2>
 <p>Masscan was designed to deal with large networks and to scan thousands of IP addresses at once. It is similar to nmap but a lot faster.</p>
-<h1>Resource</h1>
+<h1>Vulnerability Assessment</h1>
+<p>Vulnerability assessment is a scan of the vulnerabilities found on networks and applications. It is faseter and lighter on the infrastructure. As opposed to a penetration test, during a vulnerability assessment, you don't proceed to the exploitation phase.
+It means, that after discovering vulnerability, you won't be able to confirm it by testing and giving a proof of exploitation.</p>
+<h2>Scanners</h2>
+<p>Scanners perform their probes on:</p>
+<ul>
+<li>daemons listening on TCP and UDP ports</li>
+<li>configuration files of operating systems, software suites, network devices, etc.</li>
+<li>windows registry entries.</li>
+</ul>
+<p>The purpose is to find vulnerabilities and misconfigurations.
+The better and more up-to-date database of vulnerabilities, the better result of scan.</p>
+<p>However, in a case of custom application, a vulnerability scanner may not be enough. In that case, manual test needs to be performed.</p>
+<h1>Resources</h1>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc792">RFC792 - ICMP</a></li>
 <li><a href="https://lcamtuf.coredump.cx/p0f3/">p0f - Website</a></li>
 <li><a href="https://en.wikipedia.org/wiki/P0f">p0f - Wiki</a></li>
+<li><a href="https://www.openvas.org/">openVAS</a></li>
+<li><a href="https://www.rapid7.com/products/nexpose/">Nexpose</a></li>
+<li><a href="https://www.gfi.com/products-and-solutions/network-security-solutions/gfi-languard">LanGuard</a></li>
+<li><a href="https://www.tenable.com/products/nessus">Nessus</a></li>
 </ul>
                 <div class="clear"></div>
 

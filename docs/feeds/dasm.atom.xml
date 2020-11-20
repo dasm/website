@@ -120,11 +120,28 @@ nmap scan with fingerprinting &lt;code&gt;-sV&lt;/code&gt; should not have any p
 To try and see what happened, you might want to use nmap with &lt;code&gt;--reason&lt;/code&gt; that will show an explanation of why a port is marked open or closed.&lt;/p&gt;
 &lt;h2&gt;Masscan&lt;/h2&gt;
 &lt;p&gt;Masscan was designed to deal with large networks and to scan thousands of IP addresses at once. It is similar to nmap but a lot faster.&lt;/p&gt;
-&lt;h1&gt;Resource&lt;/h1&gt;
+&lt;h1&gt;Vulnerability Assessment&lt;/h1&gt;
+&lt;p&gt;Vulnerability assessment is a scan of the vulnerabilities found on networks and applications. It is faseter and lighter on the infrastructure. As opposed to a penetration test, during a vulnerability assessment, you don't proceed to the exploitation phase.
+It means, that after discovering vulnerability, you won't be able to confirm it by testing and giving a proof of exploitation.&lt;/p&gt;
+&lt;h2&gt;Scanners&lt;/h2&gt;
+&lt;p&gt;Scanners perform their probes on:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;daemons listening on TCP and UDP ports&lt;/li&gt;
+&lt;li&gt;configuration files of operating systems, software suites, network devices, etc.&lt;/li&gt;
+&lt;li&gt;windows registry entries.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The purpose is to find vulnerabilities and misconfigurations.
+The better and more up-to-date database of vulnerabilities, the better result of scan.&lt;/p&gt;
+&lt;p&gt;However, in a case of custom application, a vulnerability scanner may not be enough. In that case, manual test needs to be performed.&lt;/p&gt;
+&lt;h1&gt;Resources&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc792"&gt;RFC792 - ICMP&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://lcamtuf.coredump.cx/p0f3/"&gt;p0f - Website&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/P0f"&gt;p0f - Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.openvas.org/"&gt;openVAS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.rapid7.com/products/nexpose/"&gt;Nexpose&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.gfi.com/products-and-solutions/network-security-solutions/gfi-languard"&gt;LanGuard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://www.tenable.com/products/nessus"&gt;Nessus&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="scanning"></category></entry><entry><title>OSINT</title><link href="https://blog.smigiel.dev/osint.html" rel="alternate"></link><published>2020-10-07T00:00:00-07:00</published><updated>2020-10-07T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-10-07:/osint.html</id><summary type="html">&lt;h1&gt;Information gathering&lt;/h1&gt;
 &lt;p&gt;First and the most crucial phase of an engagement is information gathering. It helps to broaden surface of attack, and prepare for successful method of breaking into company.
 Usually, people leave a lot of breadcrumbs around the Internet. Thanks to meticulous look up of the information, a lot …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Information gathering&lt;/h1&gt;
