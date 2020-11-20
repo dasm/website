@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>blog.smigiel.dev | Scanning Network</title>
+    <link rel="shortcut icon" type="image/png" href="https://blog.smigiel.dev/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="https://blog.smigiel.dev/favicon.ico">
+    <link href="https://blog.smigiel.dev/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="blog.smigiel.dev Full Atom Feed" />
+    <link href="https://blog.smigiel.dev/feeds/misc.atom.xml" type="application/atom+xml" rel="alternate" title="blog.smigiel.dev Categories Atom Feed" />
+    <link rel="stylesheet" href="https://blog.smigiel.dev/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="https://blog.smigiel.dev/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="dasm" />
+
+    <meta name="keywords" content="learning,pts,scanning" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="https://blog.smigiel.dev/">Home</a></li>
+                <li><a href="https://blog.smigiel.dev/pages/about-me.html">About me</a></li>
+                <li><a href="https://blog.smigiel.dev/pages/resources.html">Resources</a></li>
+                <li><a href="https://blog.smigiel.dev/archives">Archives</a></li>
+            </ul>
+        </nav>
+        <div class="header_box">
+            <h1><a href="https://blog.smigiel.dev/">blog.smigiel.dev</a></h1>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Nov 20, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/scanning-network.html" rel="bookmark" title="Permanent Link to &quot;Scanning Network&quot;">Scanning Network</a>
+                </h2>
+
+                
+                
+
+                <h1>Mapping a Network</h1>
+<p>Sometimes, instead of receiving full information about target machines, penetration tester gets just address block. Later on, pentester needs to discover what kind of hosts with what kind of configuration, exist in particular network.</p>
+<p>There are several different ways to reveal network configuration.</p>
+<h2>PING sweeping</h2>
+<p>Ping works by sending one or more special ICMP packets (type 8 - <strong>echo request</strong>) to a host. If the host replies with ICMP <strong>echo reply</strong> packets, it means that host is alive. <a href="https://tools.ietf.org/html/rfc792">RFC792</a> describes protocol used to carry diagnostic messages. ICMP is a part of the Internet Protocol.</p>
+<h3>fping</h3>
+<p><code>fping</code> is a Linux tool, improved version of standard <code>ping</code>. It can be run against IP range:</p>
+<div class="highlight"><pre><span></span><span class="err">fping -a -g &lt;ip_range&gt; 2&gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.</span>
+</pre></div>
+
+
+<h3>nmap</h3>
+<p>Recommended tool for penetration testing is <code>nmap</code>. It is very powerful tool, which allows for detection hosts, its systems and more.
+To attempt port sweeping (ping scan), one can use <code>-sn</code> option:</p>
+<div class="highlight"><pre><span></span><span class="err">nmap -sn &lt;ip_range&gt;</span>
+</pre></div>
+
+
+<h2>OS Fingerprinting</h2>
+<p>After finishing <code>nmap</code> run, we end up having list of live hosts, responding to ping. Next, we need to understand what kind of operating system is used by a host. Based on differences in network stack implementation of the various operating systems, automated programs can analyze response, and recognize OS version, creating host signatures.</p>
+<p>During a penetration test, person needs to perform reconnaissance step on <em>every network node</em>:</p>
+<ul>
+<li>routers</li>
+<li>firewalls</li>
+<li>hosts</li>
+<li>servers</li>
+<li>printers</li>
+<li>etc</li>
+</ul>
+<p>The goal is to create table of nodes, with appropriate information about systems.</p>
+<h3>Offline fingerprinting (p0f)</h3>
+<p>For offline fingerprinting, one can use <code>p0f</code> tool to analyze dump of network traffic.</p>
+<h3>Online fingerprinting (nmap)</h3>
+<p>In a case of online, to go tool is again <code>nmap</code>.
+To perform OS fingerprinting with it, you have to use <code>-O</code> option and specify target. In a case of known targets, you can add <code>-Pn</code> to skip rediscovering them again.</p>
+<div class="highlight"><pre><span></span><span class="err">nmap -Pn -O &lt;targets&gt;</span>
+</pre></div>
+
+
+<p>This option can be additionally fine-tuned, to prevent from too aggressive way of discovering hosts:</p>
+<div class="highlight"><pre><span></span><span class="err">OS DETECTION:</span>
+<span class="err">  -O: Enable OS detection</span>
+<span class="err">  --osscan-limit: Limit OS detection to promising targets</span>
+<span class="err">  --osscan-guess: Guess OS more aggressively</span>
+</pre></div>
+
+
+<h2>Port Scanning</h2>
+<p>After recognizing nodes and detecting operating systems, we can continue with port scanning. It allows to discover the daemons and services running on those nodes.</p>
+<p>Port scanning is a process used to determine what TCP and UDP ports are open on target hosts. It, also usually helps detect which software and version is listening on a specific port.</p>
+<h3>TCP Three-Way Handshake</h3>
+<p>Default usage:</p>
+<div class="highlight"><pre><span></span><span class="err">nmap -sT &lt;target&gt;</span>
+</pre></div>
+
+
+<p>Description of process.</p>
+<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">SYN</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">---</span> <span class="n">ACK</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+</pre></div>
+
+
+<p>Client wants to connect to a server, it first sends a packet with the <code>SYN</code> flag enabled. The server then responds by sending a packet with both <code>SYN</code> and <code>ACK</code> flags enabled. Finally, the client replies back by sending a packet with the <code>ACK</code> flag enabled and the actual data transmission can start.</p>
+<p>In a case of <strong>closed</strong> port, it looks slightly differently.</p>
+<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">RST</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
+</pre></div>
+
+
+<p>The server will reply with a packet that has the reset <code>RST</code> and <code>ACK</code> flags set. This behavior tells the client that the port is <strong>closed</strong>.</p>
+<p>The simplest way to perform a port scan is trying to connect to every port.</p>
+<ul>
+<li>if the scanner receives a <code>RST</code> packet, then the port is <strong>closed</strong>.</li>
+<li>if the scanner can <strong>complete</strong> 3-way handshake, then the port is <strong>open</strong>. After connecting, the scanner sends an <code>RST</code> packet to the target host to abruptly close the connection.</li>
+</ul>
+<p>The culprit here is, that every TCP connect is recorded in the daemon logs. Even scans, which often should be stealth. That is because, from the application point of view, the scan probe is legitimate connection.
+It allows system administrators to easily detect the scan.</p>
+<h3>TCP-SYN scan</h3>
+<p>Default usage:</p>
+<div class="highlight"><pre><span></span><span class="err">nmap -sS &lt;targets&gt;</span>
+</pre></div>
+
+
+<p>To mitigate possibility of being detected (in the case of 3-way handshake), there is more stealthy solution, called <code>TCP-SYN scan</code>.
+During a SYN scan, the scanner does not perform a full handshake. It just sends a <code>SYN</code> packet and analyzes the response coming from the target machine.</p>
+<ul>
+<li>if it receives a <code>RST</code> packet, then port is <strong>closed</strong>.</li>
+<li>if it receives an <code>ACK</code> packet, then port is <strong>open</strong>. After marking the port as open, the scanner sends a <code>RST</code> packet to the target host to stop the handshake.</li>
+</ul>
+<p>As there is no full connection to the destination daemon, a <code>SYN</code> scan <strong>cannot be detected</strong> by looking at daemon logs.
+It is important to remember, that even <code>TCP-SYN scan</code> can be detected with well-configured IDS (Intrusion Detection System).</p>
+<h3>Version detection scan</h3>
+<p>Default usage:</p>
+<div class="highlight"><pre><span></span><span class="err">namp -sV &lt;targets&gt;</span>
+</pre></div>
+
+
+<p>This scan is recorded in logs, however it is very useful. It mixes a TCP connect scan with some probes, which are used to detect what application is listening on a particular port.</p>
+<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">SYN</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">---</span> <span class="n">ACK</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">Banner</span> <span class="o">--</span> <span class="n">Server</span>
+<span class="n">Client</span> <span class="o">--</span> <span class="n">RST</span><span class="o">+</span><span class="n">ACK</span> <span class="o">&gt;</span> <span class="n">Server</span>
+</pre></div>
+
+
+<p>If the daemon doesn't send a banner, <code>nmap</code> sends some probes to understand what the listening application is. It later tries to guess the application based on its behavior.</p>
+<h2>Network Discovery with port scanning</h2>
+<p>Sometimes, firewall can block pings. In this kind of scenario, typical usage of <code>ping</code> is insufficient. Even if host is not responding to <code>ICMP</code> requests, it oftentimes has some TCP and UDP port opens.
+<code>nmap</code> can be forced to scan host which is not responding to <code>ping</code> with <code>-Pn</code>. The scan for common ports like <code>22</code> (ssh), <code>80,443</code> (http/https server), <code>445</code> (samba service) or <code>53</code> (DNS) can reveal that the host is actually "alive" however not responding to <code>ICMP</code>.</p>
+<h2>Detecting firewall</h2>
+<p>Large networks very often are protected from intrusion by firewalls. It might be difficult to detect firewall, but based on partial or incomplete results of scan, one can identify, that it could be it.
+nmap scan with fingerprinting <code>-sV</code> should not have any problems to return full information. Sometimes, however, default information about <code>VERSION</code> could be not present or unrecognized (<code>tcpwrapped</code> means that TCP handshake was completed, but the remote host closed the connection without receiving any data).
+To try and see what happened, you might want to use nmap with <code>--reason</code> that will show an explanation of why a port is marked open or closed.</p>
+<h2>Masscan</h2>
+<p>Masscan was designed to deal with large networks and to scan thousands of IP addresses at once. It is similar to nmap but a lot faster.</p>
+<h1>Resource</h1>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc792">RFC792 - ICMP</a></li>
+<li><a href="https://lcamtuf.coredump.cx/p0f3/">p0f - Website</a></li>
+<li><a href="https://en.wikipedia.org/wiki/P0f">p0f - Wiki</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/scanning-network.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/scanning.html" class="tags">scanning</a>
+                </div>
+            </article>
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/jody-frankowski/blue-penguin">Blue Penguin</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="https://blog.smigiel.dev/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

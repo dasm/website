@@ -1,5 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/all.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-10-07T00:00:00-07:00</updated><entry><title>OSINT</title><link href="https://blog.smigiel.dev/osint.html" rel="alternate"></link><published>2020-10-07T00:00:00-07:00</published><updated>2020-10-07T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-10-07:/osint.html</id><summary type="html">&lt;h1&gt;Information gathering&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/all.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-11-20T00:00:00-08:00</updated><entry><title>Scanning Network</title><link href="https://blog.smigiel.dev/scanning-network.html" rel="alternate"></link><published>2020-11-20T00:00:00-08:00</published><updated>2020-11-20T00:00:00-08:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-11-20:/scanning-network.html</id><summary type="html">&lt;h1&gt;Mapping a Network&lt;/h1&gt;
+&lt;p&gt;Sometimes, instead of receiving full information about target machines, penetration tester gets just address block. Later on, pentester needs to discover what kind of hosts with what kind of configuration, exist in particular network.&lt;/p&gt;
+&lt;p&gt;There are several different ways to reveal network configuration.&lt;/p&gt;
+&lt;h2&gt;PING sweeping&lt;/h2&gt;
+&lt;p&gt;Ping works …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Mapping a Network&lt;/h1&gt;
+&lt;p&gt;Sometimes, instead of receiving full information about target machines, penetration tester gets just address block. Later on, pentester needs to discover what kind of hosts with what kind of configuration, exist in particular network.&lt;/p&gt;
+&lt;p&gt;There are several different ways to reveal network configuration.&lt;/p&gt;
+&lt;h2&gt;PING sweeping&lt;/h2&gt;
+&lt;p&gt;Ping works by sending one or more special ICMP packets (type 8 - &lt;strong&gt;echo request&lt;/strong&gt;) to a host. If the host replies with ICMP &lt;strong&gt;echo reply&lt;/strong&gt; packets, it means that host is alive. &lt;a href="https://tools.ietf.org/html/rfc792"&gt;RFC792&lt;/a&gt; describes protocol used to carry diagnostic messages. ICMP is a part of the Internet Protocol.&lt;/p&gt;
+&lt;h3&gt;fping&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;fping&lt;/code&gt; is a Linux tool, improved version of standard &lt;code&gt;ping&lt;/code&gt;. It can be run against IP range:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;fping -a -g &amp;lt;ip_range&amp;gt; 2&amp;gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;nmap&lt;/h3&gt;
+&lt;p&gt;Recommended tool for penetration testing is &lt;code&gt;nmap&lt;/code&gt;. It is very powerful tool, which allows for detection hosts, its systems and more.
+To attempt port sweeping (ping scan), one can use &lt;code&gt;-sn&lt;/code&gt; option:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -sn &amp;lt;ip_range&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;OS Fingerprinting&lt;/h2&gt;
+&lt;p&gt;After finishing &lt;code&gt;nmap&lt;/code&gt; run, we end up having list of live hosts, responding to ping. Next, we need to understand what kind of operating system is used by a host. Based on differences in network stack implementation of the various operating systems, automated programs can analyze response, and recognize OS version, creating host signatures.&lt;/p&gt;
+&lt;p&gt;During a penetration test, person needs to perform reconnaissance step on &lt;em&gt;every network node&lt;/em&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;routers&lt;/li&gt;
+&lt;li&gt;firewalls&lt;/li&gt;
+&lt;li&gt;hosts&lt;/li&gt;
+&lt;li&gt;servers&lt;/li&gt;
+&lt;li&gt;printers&lt;/li&gt;
+&lt;li&gt;etc&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The goal is to create table of nodes, with appropriate information about systems.&lt;/p&gt;
+&lt;h3&gt;Offline fingerprinting (p0f)&lt;/h3&gt;
+&lt;p&gt;For offline fingerprinting, one can use &lt;code&gt;p0f&lt;/code&gt; tool to analyze dump of network traffic.&lt;/p&gt;
+&lt;h3&gt;Online fingerprinting (nmap)&lt;/h3&gt;
+&lt;p&gt;In a case of online, to go tool is again &lt;code&gt;nmap&lt;/code&gt;.
+To perform OS fingerprinting with it, you have to use &lt;code&gt;-O&lt;/code&gt; option and specify target. In a case of known targets, you can add &lt;code&gt;-Pn&lt;/code&gt; to skip rediscovering them again.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -Pn -O &amp;lt;targets&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This option can be additionally fine-tuned, to prevent from too aggressive way of discovering hosts:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;OS DETECTION:&lt;/span&gt;
+&lt;span class="err"&gt;  -O: Enable OS detection&lt;/span&gt;
+&lt;span class="err"&gt;  --osscan-limit: Limit OS detection to promising targets&lt;/span&gt;
+&lt;span class="err"&gt;  --osscan-guess: Guess OS more aggressively&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;Port Scanning&lt;/h2&gt;
+&lt;p&gt;After recognizing nodes and detecting operating systems, we can continue with port scanning. It allows to discover the daemons and services running on those nodes.&lt;/p&gt;
+&lt;p&gt;Port scanning is a process used to determine what TCP and UDP ports are open on target hosts. It, also usually helps detect which software and version is listening on a specific port.&lt;/p&gt;
+&lt;h3&gt;TCP Three-Way Handshake&lt;/h3&gt;
+&lt;p&gt;Default usage:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -sT &amp;lt;target&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Description of process.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Client wants to connect to a server, it first sends a packet with the &lt;code&gt;SYN&lt;/code&gt; flag enabled. The server then responds by sending a packet with both &lt;code&gt;SYN&lt;/code&gt; and &lt;code&gt;ACK&lt;/code&gt; flags enabled. Finally, the client replies back by sending a packet with the &lt;code&gt;ACK&lt;/code&gt; flag enabled and the actual data transmission can start.&lt;/p&gt;
+&lt;p&gt;In a case of &lt;strong&gt;closed&lt;/strong&gt; port, it looks slightly differently.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;RST&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The server will reply with a packet that has the reset &lt;code&gt;RST&lt;/code&gt; and &lt;code&gt;ACK&lt;/code&gt; flags set. This behavior tells the client that the port is &lt;strong&gt;closed&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The simplest way to perform a port scan is trying to connect to every port.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if the scanner receives a &lt;code&gt;RST&lt;/code&gt; packet, then the port is &lt;strong&gt;closed&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;if the scanner can &lt;strong&gt;complete&lt;/strong&gt; 3-way handshake, then the port is &lt;strong&gt;open&lt;/strong&gt;. After connecting, the scanner sends an &lt;code&gt;RST&lt;/code&gt; packet to the target host to abruptly close the connection.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The culprit here is, that every TCP connect is recorded in the daemon logs. Even scans, which often should be stealth. That is because, from the application point of view, the scan probe is legitimate connection.
+It allows system administrators to easily detect the scan.&lt;/p&gt;
+&lt;h3&gt;TCP-SYN scan&lt;/h3&gt;
+&lt;p&gt;Default usage:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -sS &amp;lt;targets&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To mitigate possibility of being detected (in the case of 3-way handshake), there is more stealthy solution, called &lt;code&gt;TCP-SYN scan&lt;/code&gt;.
+During a SYN scan, the scanner does not perform a full handshake. It just sends a &lt;code&gt;SYN&lt;/code&gt; packet and analyzes the response coming from the target machine.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if it receives a &lt;code&gt;RST&lt;/code&gt; packet, then port is &lt;strong&gt;closed&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;if it receives an &lt;code&gt;ACK&lt;/code&gt; packet, then port is &lt;strong&gt;open&lt;/strong&gt;. After marking the port as open, the scanner sends a &lt;code&gt;RST&lt;/code&gt; packet to the target host to stop the handshake.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As there is no full connection to the destination daemon, a &lt;code&gt;SYN&lt;/code&gt; scan &lt;strong&gt;cannot be detected&lt;/strong&gt; by looking at daemon logs.
+It is important to remember, that even &lt;code&gt;TCP-SYN scan&lt;/code&gt; can be detected with well-configured IDS (Intrusion Detection System).&lt;/p&gt;
+&lt;h3&gt;Version detection scan&lt;/h3&gt;
+&lt;p&gt;Default usage:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;namp -sV &amp;lt;targets&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This scan is recorded in logs, however it is very useful. It mixes a TCP connect scan with some probes, which are used to detect what application is listening on a particular port.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;Banner&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="n"&gt;RST&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If the daemon doesn't send a banner, &lt;code&gt;nmap&lt;/code&gt; sends some probes to understand what the listening application is. It later tries to guess the application based on its behavior.&lt;/p&gt;
+&lt;h2&gt;Network Discovery with port scanning&lt;/h2&gt;
+&lt;p&gt;Sometimes, firewall can block pings. In this kind of scenario, typical usage of &lt;code&gt;ping&lt;/code&gt; is insufficient. Even if host is not responding to &lt;code&gt;ICMP&lt;/code&gt; requests, it oftentimes has some TCP and UDP port opens.
+&lt;code&gt;nmap&lt;/code&gt; can be forced to scan host which is not responding to &lt;code&gt;ping&lt;/code&gt; with &lt;code&gt;-Pn&lt;/code&gt;. The scan for common ports like &lt;code&gt;22&lt;/code&gt; (ssh), &lt;code&gt;80,443&lt;/code&gt; (http/https server), &lt;code&gt;445&lt;/code&gt; (samba service) or &lt;code&gt;53&lt;/code&gt; (DNS) can reveal that the host is actually "alive" however not responding to &lt;code&gt;ICMP&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Detecting firewall&lt;/h2&gt;
+&lt;p&gt;Large networks very often are protected from intrusion by firewalls. It might be difficult to detect firewall, but based on partial or incomplete results of scan, one can identify, that it could be it.
+nmap scan with fingerprinting &lt;code&gt;-sV&lt;/code&gt; should not have any problems to return full information. Sometimes, however, default information about &lt;code&gt;VERSION&lt;/code&gt; could be not present or unrecognized (&lt;code&gt;tcpwrapped&lt;/code&gt; means that TCP handshake was completed, but the remote host closed the connection without receiving any data).
+To try and see what happened, you might want to use nmap with &lt;code&gt;--reason&lt;/code&gt; that will show an explanation of why a port is marked open or closed.&lt;/p&gt;
+&lt;h2&gt;Masscan&lt;/h2&gt;
+&lt;p&gt;Masscan was designed to deal with large networks and to scan thousands of IP addresses at once. It is similar to nmap but a lot faster.&lt;/p&gt;
+&lt;h1&gt;Resource&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://tools.ietf.org/html/rfc792"&gt;RFC792 - ICMP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://lcamtuf.coredump.cx/p0f3/"&gt;p0f - Website&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/P0f"&gt;p0f - Wiki&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="pts"></category><category term="scanning"></category></entry><entry><title>OSINT</title><link href="https://blog.smigiel.dev/osint.html" rel="alternate"></link><published>2020-10-07T00:00:00-07:00</published><updated>2020-10-07T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-10-07:/osint.html</id><summary type="html">&lt;h1&gt;Information gathering&lt;/h1&gt;
 &lt;p&gt;First and the most crucial phase of an engagement is information gathering. It helps to broaden surface of attack, and prepare for successful method of breaking into company.
 Usually, people leave a lot of breadcrumbs around the Internet. Thanks to meticulous look up of the information, a lot …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Information gathering&lt;/h1&gt;
 &lt;p&gt;First and the most crucial phase of an engagement is information gathering. It helps to broaden surface of attack, and prepare for successful method of breaking into company.
@@ -13,7 +139,7 @@ Usually, people leave a lot of breadcrumbs around the Internet. Thanks to meticu
 &lt;p&gt;Some information can be found on official government websites. If a company is awarded contract.&lt;/p&gt;
 &lt;h3&gt;Whois&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;whois&lt;/code&gt; is command line tool, as well as &lt;a href="https://www.whois.com/whois"&gt;website&lt;/a&gt;. It allows to query the database of Internet addresses to get information about registrants of those addresses.&lt;/p&gt;
-&lt;h3&gt;COmpany website&lt;/h3&gt;
+&lt;h3&gt;Company website&lt;/h3&gt;
 &lt;p&gt;Oftentimes, interesting information can be found on company websites. We can find there information about products, customers, services, etc. Usually, there could be also find&lt;/p&gt;
 &lt;h3&gt;Email pattern&lt;/h3&gt;
 &lt;p&gt;Many companies have common email pattern. It usually means, that all employees, can be reached by some variation of email:&lt;/p&gt;

