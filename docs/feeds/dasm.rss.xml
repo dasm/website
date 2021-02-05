@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>blog.smigiel.dev - dasm</title><link>https://blog.smigiel.dev/</link><description></description><lastBuildDate>Fri, 20 Nov 2020 00:00:00 -0800</lastBuildDate><item><title>Scanning Network</title><link>https://blog.smigiel.dev/scanning-network.html</link><description>&lt;h1&gt;Mapping a Network&lt;/h1&gt;
+<rss version="2.0"><channel><title>blog.smigiel.dev - dasm</title><link>https://blog.smigiel.dev/</link><description></description><lastBuildDate>Fri, 05 Feb 2021 00:00:00 -0800</lastBuildDate><item><title>Introduction to the Cloud</title><link>https://blog.smigiel.dev/introduction-to-the-cloud.html</link><description>&lt;p&gt;This post is an attempt to gather common terms, and provide links for more reading (mainly to wikipedia) about virtualization et al.&lt;/p&gt;
+&lt;h1&gt;Intro&lt;/h1&gt;
+&lt;p&gt;Virtualization term has been coined in 1960s to describe virtual machine. Right now, virtualization can also describe other areas like: software, memory, storage, data, network and hardware …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Fri, 05 Feb 2021 00:00:00 -0800</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2021-02-05:/introduction-to-the-cloud.html</guid><category>misc</category><category>learning</category><category>virtualization</category><category>cloud</category></item><item><title>Scanning Network</title><link>https://blog.smigiel.dev/scanning-network.html</link><description>&lt;h1&gt;Mapping a Network&lt;/h1&gt;
 &lt;p&gt;Sometimes, instead of receiving full information about target machines, penetration tester gets just address block. Later on, pentester needs to discover what kind of hosts with what kind of configuration, exist in particular network.&lt;/p&gt;
 &lt;p&gt;There are several different ways to reveal network configuration.&lt;/p&gt;
 &lt;h2&gt;PING sweeping&lt;/h2&gt;
@@ -65,15 +67,15 @@ At first, I felt intimidated by &lt;code&gt;root:root&lt;/code&gt; access to &lt
 &lt;h4&gt;Solution&lt;/h4&gt;
 &lt;p&gt;Source code shows, that verification happens only for &lt;code&gt;token&lt;/code&gt; name. Let's create symbolic link to file and try to read its content. After reading it, let's use it as password.&lt;/p&gt;
 &lt;h4&gt;Result&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;level04@nebula:/home/flag04$ ls -la
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;level04@nebula:/home/flag04$ ls -la
 total &lt;span class="m"&gt;13&lt;/span&gt;
-drwxr-x--- &lt;span class="m"&gt;2&lt;/span&gt; flag04 level04   &lt;span class="m"&gt;93&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;-11-20 &lt;span class="m"&gt;21 …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Sun, 06 Sep 2020 00:00:00 -0700</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2020-09-06:/exploit-education-nebula-part-2.html</guid><category>misc</category><category>learning</category><category>ctf</category><category>exploit</category><category>nebula</category></item><item><title>Exploit Education - Nebula Part 1</title><link>https://blog.smigiel.dev/exploit-education-nebula-part-1.html</link><description>&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
+drwxr-x--- &lt;span class="m"&gt;2&lt;/span&gt; flag04 level04   &lt;span class="m"&gt;93&lt;/span&gt; &lt;span class="m"&gt;2011&lt;/span&gt;-11-20 &lt;span class="m"&gt;21 …&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Sun, 06 Sep 2020 00:00:00 -0700</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2020-09-06:/exploit-education-nebula-part-2.html</guid><category>misc</category><category>learning</category><category>ctf</category><category>exploit</category><category>nebula</category></item><item><title>Exploit Education - Nebula Part 1</title><link>https://blog.smigiel.dev/exploit-education-nebula-part-1.html</link><description>&lt;h1&gt;&lt;a href="https://exploit.education/nebula/"&gt;Nebula&lt;/a&gt;&lt;/h1&gt;
 &lt;h2&gt;Basics&lt;/h2&gt;
 &lt;p&gt;Nebula VM has 20 levels. Each level can be accessed with &lt;code&gt;levelXX&lt;/code&gt; username and the same password.&lt;/p&gt;
 &lt;h2&gt;&lt;a href="https://exploit.education/nebula/level-00/"&gt;Level 00&lt;/a&gt;&lt;/h2&gt;
 &lt;h4&gt;Solution&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
-&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;find / -type f -user flag00 -perm -0400 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Search for all files, in all directories, belonging to &lt;code&gt;flag00&lt;/code&gt; user, with &lt;a href="https://en.wikipedia.org/wiki/Setuid"&gt;setuid&lt;/a&gt;. Redirect all "permission error" (stderr …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">dasm</dc:creator><pubDate>Sat, 05 Sep 2020 00:00:00 -0700</pubDate><guid isPermaLink="false">tag:blog.smigiel.dev,2020-09-05:/exploit-education-nebula-part-1.html</guid><category>misc</category><category>learning</category><category>ctf</category><category>exploit</category><category>nebula</category></item><item><title>Hello, world!</title><link>https://blog.smigiel.dev/hello-world.html</link><description>&lt;p&gt;Hey, I'm Dariusz. I'm cybersecurity wannabe.

@@ -54,8 +54,8 @@ Based on that we can think about seven layers (<a href="https://docs.microsoft.c
 <h2>Encapsulation</h2>
 <p>If we look from 10.000 foot perspective, we can see only data packet. However, if we look at this closer, it's starting showing some interesting properties.
 Every layer contains paylod in a form of <code>header+payload</code> from previous layer. It means, that at the lowest level, we're looking at</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="n">payload</span><span class="p">))))</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">(header + (header + (header + (header + payload))))</span>
+</code></pre></div>
 
 
 <p>This kind of behavior happens to every packet sent by host. On the other side of pipeline, receiving host, needs to unpack all the information, with regards to correct layers.</p>
@@ -63,17 +63,17 @@ Every layer contains paylod in a form of <code>header+payload</code> from previo
 <h2>IP Address</h2>
 <h3>IPv4 Address</h3>
 <p>IPv4 address consists of 4 bytes (octets). A dot delimits every octet in the address. Each byte (<code>2^8</code>) can represent value <strong>0</strong> to <strong>255</strong>.</p>
-<div class="highlight"><pre><span></span><span class="err"> 172.22.128.47</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err"> 172.22.128.47</span>
+</code></pre></div>
 
 
 <h4>Special use IPv4 addresses</h4>
 <p>RFC5735 describes IPv4 addresses, which cannot be assigned to host, due to its special use case.
 Common addresses, that are in use:</p>
-<div class="highlight"><pre><span></span><span class="err">127.0.0.0/8    &lt;-- host loopback address.</span>
+<div class="highlight"><pre><span></span><code><span class="err">127.0.0.0/8    &lt;-- host loopback address.</span>
 <span class="err">169.254.0.0/16 &lt;-- communication between hosts, without DHCP server cannot be found.</span>
 <span class="err">192.168.0.0/16 &lt;-- private networks.</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3>Network classes</h3>

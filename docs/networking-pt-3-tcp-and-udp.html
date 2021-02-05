@@ -83,7 +83,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 <li>The server replies by sending a packet with both the <code>SYN</code> and <code>ACK</code> flags. <code>Sequence number</code> is again chosen as random, but <code>ACK</code> is <code>seq number + 1</code>.</li>
 <li>The client completes the synchronization by sending an <code>ACK</code> packet. The <code>ACK</code> is <code>seq number + 1</code> and <code>sequence number</code> is <code>ACK + 1</code> from the second step.</li>
 </ol>
-<div class="highlight"><pre><span></span><span class="k">Host</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">flags</span> <span class="o">|</span> <span class="k">Host</span> <span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="k">Host</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">flags</span> <span class="o">|</span> <span class="k">Host</span> <span class="mi">2</span>
 <span class="c1">-------|-------|--------</span>
 <span class="c1">-----&gt; |SYN    |</span>
     <span class="n">Seq</span><span class="p">:</span> <span class="mi">328</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">0</span>
@@ -93,7 +93,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 
 <span class="c1">------&gt;|ACK    |</span>
     <span class="n">Seq</span><span class="p">:</span> <span class="mi">330</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">413</span>
-</pre></div>
+</code></pre></div>
 
 
 <h1>Additional resources</h1>

@@ -145,7 +145,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 <li>The server replies by sending a packet with both the <code>SYN</code> and <code>ACK</code> flags. <code>Sequence number</code> is again chosen as random, but <code>ACK</code> is <code>seq number + 1</code>.</li>
 <li>The client completes the synchronization by sending an <code>ACK</code> packet. The <code>ACK</code> is <code>seq number + 1</code> and <code>sequence number</code> is <code>ACK + 1</code> from the second step.</li>
 </ol>
-<div class="highlight"><pre><span></span><span class="k">Host</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">flags</span> <span class="o">|</span> <span class="k">Host</span> <span class="mi">2</span>
+<div class="highlight"><pre><span></span><code><span class="k">Host</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">flags</span> <span class="o">|</span> <span class="k">Host</span> <span class="mi">2</span>
 <span class="c1">-------|-------|--------</span>
 <span class="c1">-----&gt; |SYN    |</span>
     <span class="n">Seq</span><span class="p">:</span> <span class="mi">328</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">0</span>
@@ -155,7 +155,7 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 
 <span class="c1">------&gt;|ACK    |</span>
     <span class="n">Seq</span><span class="p">:</span> <span class="mi">330</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">413</span>
-</pre></div>
+</code></pre></div>
 
 
 <h1>Additional resources</h1>
@@ -187,14 +187,14 @@ The header fields involved in the handshake are: sequence number, acknowledgemen
 Routing table contains information about the topology of the network immediately around it.
 The table can also contain an entry with the <strong>default address</strong> <code>0.0.0.0</code>. This entry is used when the router receives a packet whose destination is an <em>unknown network</em>.</p>
 <h2>Routing table example (router)</h2>
-<div class="highlight"><pre><span></span><span class="err">Kernel IP routing table</span>
+<div class="highlight"><pre><span></span><code><span class="err">Kernel IP routing table</span>
 <span class="err">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span>
 <span class="err">87.169.144.1    0.0.0.0         255.255.255.255 UH        0 0          0 eth0</span>
 <span class="err">192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 br0</span>
 <span class="err">87.169.144.0    0.0.0.0         255.255.252.0   U         0 0          0 eth0</span>
 <span class="err">127.0.0.0       0.0.0.0         255.0.0.0       U         0 0          0 lo</span>
 <span class="err">0.0.0.0         87.169.144.1    0.0.0.0         UG        0 0          0 eth0</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The kernel reads routing table from the top down. The first column is the destination. The second column tells how to reach that destination.
@@ -287,8 +287,8 @@ Based on that we can think about seven layers (<a href="https://docs.microsoft.c
 <h2>Encapsulation</h2>
 <p>If we look from 10.000 foot perspective, we can see only data packet. However, if we look at this closer, it's starting showing some interesting properties.
 Every layer contains paylod in a form of <code>header+payload</code> from previous layer. It means, that at the lowest level, we're looking at</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="p">(</span><span class="n">header</span> <span class="o">+</span> <span class="n">payload</span><span class="p">))))</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">(header + (header + (header + (header + payload))))</span>
+</code></pre></div>
 
 
 <p>This kind of behavior happens to every packet sent by host. On the other side of pipeline, receiving host, needs to unpack all the information, with regards to correct layers.</p>
@@ -296,17 +296,17 @@ Every layer contains paylod in a form of <code>header+payload</code> from previo
 <h2>IP Address</h2>
 <h3>IPv4 Address</h3>
 <p>IPv4 address consists of 4 bytes (octets). A dot delimits every octet in the address. Each byte (<code>2^8</code>) can represent value <strong>0</strong> to <strong>255</strong>.</p>
-<div class="highlight"><pre><span></span><span class="err"> 172.22.128.47</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err"> 172.22.128.47</span>
+</code></pre></div>
 
 
 <h4>Special use IPv4 addresses</h4>
 <p>RFC5735 describes IPv4 addresses, which cannot be assigned to host, due to its special use case.
 Common addresses, that are in use:</p>
-<div class="highlight"><pre><span></span><span class="err">127.0.0.0/8    &lt;-- host loopback address.</span>
+<div class="highlight"><pre><span></span><code><span class="err">127.0.0.0/8    &lt;-- host loopback address.</span>
 <span class="err">169.254.0.0/16 &lt;-- communication between hosts, without DHCP server cannot be found.</span>
 <span class="err">192.168.0.0/16 &lt;-- private networks.</span>
-</pre></div>
+</code></pre></div>
 
 
 <h3>Network classes</h3>

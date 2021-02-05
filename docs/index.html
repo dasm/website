@@ -28,7 +28,69 @@
         </div>
     </header>
     <div id="wrapper">
-        <div id="content">            <h4 class="date">Nov 20, 2020</h4>
+        <div id="content">            <h4 class="date">Feb 05, 2021</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/introduction-to-the-cloud.html" rel="bookmark" title="Permanent Link to &quot;Introduction to the Cloud&quot;">Introduction to the Cloud</a>
+                </h2>
+
+                
+                
+
+                <p>This post is an attempt to gather common terms, and provide links for more reading (mainly to wikipedia) about virtualization et al.</p>
+<h1>Intro</h1>
+<p>Virtualization term has been coined in 1960s to describe virtual machine. Right now, virtualization can also describe other areas like: software, memory, storage, data, network and hardware.
+However, in the common understanding, virtualization means hardware virtualization. It refers to the creation of virtual machine htat acts like a real computer with an operating system.</p>
+<h1>Hardware virtualization</h1>
+<p><a href="https://en.wikipedia.org/wiki/Hardware_virtualization">Hardware Virtualization</a> can be divided into two main types:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Full_virtualization">full virtualization</a> - completely simulates the actual hardware, guest system can run unmodified.</li>
+<li><a href="https://en.wikipedia.org/wiki/Paravirtualization">paravirtualization</a> - uses software interface which is similar, but not identical to the underlying hardware.</li>
+</ul>
+<h2>Full virtualization</h2>
+<p>Virtual machine simulates hardware to allow an unmodified guest OS to be run in isolation.</p>
+<ul>
+<li>Software-assisted - completely relies on binary translation to virtualize the execution of sensitive, non-virtualizable instruction sets. It emulates the hardware using the software instruction sets. Due to binary translation, it is often criticized for performance issue: Eg. VirtualBox, VMware workstation, Virtual PC</li>
+<li>Hardware-assisted - it eliminates the binary translation and it directly interrupts with hardware using the virtualization technology which has been integrated on processors. Guest OS's instructions might allow a virtual context execute privileged instructions directly on the processor, even thought it is virtualized. Eg. VMware ESXi, KVM, Hyper-V, Xen.</li>
+</ul>
+<h2>Paravirtualization</h2>
+<p>It requires the guest operating system to be explicitly ported for the para-API, conventional OS distribution that is not paravirtualization-aware cannot be run on top of a paravirtualizing VVM.</p>
+<h1>Hypervisor</h1>
+<p><a href="https://en.wikipedia.org/wiki/Hypervisor">Hypervisor</a> (virtual machine monitor, VMM) is computer software, firmare or hardware that runs virtual machines. A computer on which a hypervisor runs one or more virtual machines is called a <em>host machine</em>, and each virtual machine is called a <em>guest machine</em>.
+There are two types of hypervisors:</p>
+<ul>
+<li>Type-1, native or bare-metal hypervisors</li>
+<li>Type-2 or hosted hypervisors</li>
+</ul>
+<h2>Type-1 (bare-metal)</h2>
+<p>Type-1 hypervisor is very basic OS on top of which there can be run virtual machines. The physical machine the hypervisor is running on serves virtualization purpose only. It is mainly found in enterprise environments.
+Due to its simplicity, it doesn't offer many functionalities.
+Examples:</p>
+<ul>
+<li>VMware ESX/ESXi</li>
+<li>KVM (it oftentimes can be categorized as type-2 hypervisor)</li>
+<li>Oracle VM</li>
+</ul>
+<h2>Type-2 (hosted)</h2>
+<p>This type of hypervisor runs on a conventional OS as an another program.
+Examples:</p>
+<ul>
+<li>VirtualBox</li>
+<li>VMware Workstation</li>
+<li>Windows Virtual PC</li>
+<li>Parallels Desktop</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/introduction-to-the-cloud.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/virtualization.html" class="tags">virtualization</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/cloud.html" class="tags">cloud</a>
+                </div>
+            </article>            <h4 class="date">Nov 20, 2020</h4>
 
             <article class="post">
                 <h2 class="title">
@@ -45,15 +107,15 @@
 <p>Ping works by sending one or more special ICMP packets (type 8 - <strong>echo request</strong>) to a host. If the host replies with ICMP <strong>echo reply</strong> packets, it means that host is alive. <a href="https://tools.ietf.org/html/rfc792">RFC792</a> describes protocol used to carry diagnostic messages. ICMP is a part of the Internet Protocol.</p>
 <h3>fping</h3>
 <p><code>fping</code> is a Linux tool, improved version of standard <code>ping</code>. It can be run against IP range:</p>
-<div class="highlight"><pre><span></span><span class="err">fping -a -g &lt;ip_range&gt; 2&gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">fping -a -g &lt;ip_range&gt; 2&gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.</span>
+</code></pre></div>
 
 
 <h3>nmap</h3>
 <p>Recommended tool for penetration testing is <code>nmap</code>. It is very powerful tool, which allows for detection hosts, its systems and more.
 To attempt port sweeping (ping scan), one can use <code>-sn</code> option:</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -sn &lt;ip_range&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -sn &lt;ip_range&gt;</span>
+</code></pre></div>
 
 
 <h2>OS Fingerprinting</h2>
@@ -73,16 +135,16 @@ To attempt port sweeping (ping scan), one can use <code>-sn</code> option:</p>
 <h3>Online fingerprinting (nmap)</h3>
 <p>In a case of online, to go tool is again <code>nmap</code>.
 To perform OS fingerprinting with it, you have to use <code>-O</code> option and specify target. In a case of known targets, you can add <code>-Pn</code> to skip rediscovering them again.</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -Pn -O &lt;targets&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -Pn -O &lt;targets&gt;</span>
+</code></pre></div>
 
 
 <p>This option can be additionally fine-tuned, to prevent from too aggressive way of discovering hosts:</p>
-<div class="highlight"><pre><span></span><span class="err">OS DETECTION:</span>
+<div class="highlight"><pre><span></span><code><span class="err">OS DETECTION:</span>
 <span class="err">  -O: Enable OS detection</span>
 <span class="err">  --osscan-limit: Limit OS detection to promising targets</span>
 <span class="err">  --osscan-guess: Guess OS more aggressively</span>
-</pre></div>
+</code></pre></div>
 
 
 <h2>Port Scanning</h2>
@@ -90,22 +152,22 @@ To perform OS fingerprinting with it, you have to use <code>-O</code> option and
 <p>Port scanning is a process used to determine what TCP and UDP ports are open on target hosts. It, also usually helps detect which software and version is listening on a specific port.</p>
 <h3>TCP Three-Way Handshake</h3>
 <p>Default usage:</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -sT &lt;target&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -sT &lt;target&gt;</span>
+</code></pre></div>
 
 
 <p>Description of process.</p>
-<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<div class="highlight"><pre><span></span><code><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">SYN</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">---</span> <span class="n">ACK</span> <span class="o">---&gt;</span> <span class="n">Server</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Client wants to connect to a server, it first sends a packet with the <code>SYN</code> flag enabled. The server then responds by sending a packet with both <code>SYN</code> and <code>ACK</code> flags enabled. Finally, the client replies back by sending a packet with the <code>ACK</code> flag enabled and the actual data transmission can start.</p>
 <p>In a case of <strong>closed</strong> port, it looks slightly differently.</p>
-<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<div class="highlight"><pre><span></span><code><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">RST</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The server will reply with a packet that has the reset <code>RST</code> and <code>ACK</code> flags set. This behavior tells the client that the port is <strong>closed</strong>.</p>
@@ -118,8 +180,8 @@ To perform OS fingerprinting with it, you have to use <code>-O</code> option and
 It allows system administrators to easily detect the scan.</p>
 <h3>TCP-SYN scan</h3>
 <p>Default usage:</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -sS &lt;targets&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -sS &lt;targets&gt;</span>
+</code></pre></div>
 
 
 <p>To mitigate possibility of being detected (in the case of 3-way handshake), there is more stealthy solution, called <code>TCP-SYN scan</code>.
@@ -132,17 +194,17 @@ During a SYN scan, the scanner does not perform a full handshake. It just sends 
 It is important to remember, that even <code>TCP-SYN scan</code> can be detected with well-configured IDS (Intrusion Detection System).</p>
 <h3>Version detection scan</h3>
 <p>Default usage:</p>
-<div class="highlight"><pre><span></span><span class="err">namp -sV &lt;targets&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">namp -sV &lt;targets&gt;</span>
+</code></pre></div>
 
 
 <p>This scan is recorded in logs, however it is very useful. It mixes a TCP connect scan with some probes, which are used to detect what application is listening on a particular port.</p>
-<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<div class="highlight"><pre><span></span><code><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">SYN</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">---</span> <span class="n">ACK</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">Banner</span> <span class="o">--</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">--</span> <span class="n">RST</span><span class="o">+</span><span class="n">ACK</span> <span class="o">&gt;</span> <span class="n">Server</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>If the daemon doesn't send a banner, <code>nmap</code> sends some probes to understand what the listening application is. It later tries to guess the application based on its behavior.</p>
@@ -226,8 +288,8 @@ There are several ways of achieving that goal.</p>
 <h3>Google</h3>
 <p>One of the simplest ways is to search a Google!
 By issuing query to search engine like below, we can receive responses focused around particular company website.</p>
-<div class="highlight"><pre><span></span><span class="n">site</span><span class="o">:</span> <span class="n">company</span><span class="o">.</span><span class="na">com</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">site</span><span class="o">:</span> <span class="n">company</span><span class="o">.</span><span class="na">com</span>
+</code></pre></div>
 
 
 <h3>dnsdumpster</h3>
@@ -277,7 +339,7 @@ During an HTTP communication, the client and the server exchange messages. HTTP 
 <h3>HTTP Request</h3>
 <p>To send HTTP request, usually we use browsers. However, it is not the only way of doing so. To build request, we can use <code>netcat</code> or <code>telnet</code>.
 Below is an example of HTTP request, with <code>nc</code> requesting website running on localhost on port <code>8000</code>.</p>
-<div class="highlight"><pre><span></span>$ nc localhost 8000
+<div class="highlight"><pre><span></span><code>$ nc localhost 8000
 GET / HTTP/1.0
 Host: localhost
 
@@ -290,7 +352,7 @@ Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
 
 <span class="cp">&lt;!DOCTYPE html&gt;</span>
 [...]
-</pre></div>
+</code></pre></div>
 
 
 <p>First line contains <strong>HTTP request method</strong>, path and protocol version.
@@ -298,20 +360,20 @@ HTTP request method is information about the type of the request. Other requests
 Path tells the server which resource to fetch, while protocol version tells how to communicate with the client.
 Next, there is <code>Host</code> header field, which specifies the Internet hostname and port number of the resource being requested.</p>
 <p>We can also create one-liner to retrieve appropriate information</p>
-<div class="highlight"><pre><span></span>$ <span class="nb">echo</span> -en <span class="s1">&#39;HEAD / HTTP/1.1\r\nHost:localhost\r\n\r\n&#39;</span> <span class="p">|</span> nc localhost <span class="m">8000</span>
+<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> -en <span class="s1">&#39;HEAD / HTTP/1.1\r\nHost:localhost\r\n\r\n&#39;</span> <span class="p">|</span> nc localhost <span class="m">8000</span>
 HTTP/1.0 <span class="m">200</span> OK
 Server: SimpleHTTP/0.6 Python/3.7.3
 Date: Fri, <span class="m">02</span> Oct <span class="m">2020</span> <span class="m">02</span>:01:34 GMT
 Content-type: text/html
 Content-Length: <span class="m">27806</span>
 Last-Modified: Fri, <span class="m">02</span> Oct <span class="m">2020</span> <span class="m">01</span>:55:46 GMT
-</pre></div>
+</code></pre></div>
 
 
 <p>Additionally, we can give extra header values like <code>User-Agent</code> (identifies the client and the system), <code>Accept</code> (specifies document type the client is expecting in the response) or <code>Connection: keep-alive</code> (future communications with the server will reuse the current connection).</p>
 <h3>HTTP Response</h3>
 <p>HTTP response, similar to request, has common format.</p>
-<div class="highlight"><pre><span></span>$ nc localhost 8000
+<div class="highlight"><pre><span></span><code>$ nc localhost 8000
 GET / HTTP/1.0
 Host: localhost
 
@@ -324,7 +386,7 @@ Last-Modified: Fri, 02 Oct 2020 01:44:33 GMT
 
 <span class="cp">&lt;!DOCTYPE html&gt;</span>
 [...]
-</pre></div>
+</code></pre></div>
 
 
 <p>The first line is <strong>Status-Line</strong> which consists of protocol version (HTTP 1.0) followed by a numeric status code (200) and textual meaning (OK). There are many codes. Description, again can be found on <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">Mozilla website</a>. Next, there is additional information regarding server, date and time at which the message was originated, followed by page content.</p>
@@ -337,13 +399,13 @@ By doing so, entire traffic is being encrypted. It means, that even if someone c
 <li>DNS or similar protocols (domain resolvers)</li>
 </ul>
 <p>To analyze connection, we cannot use <code>nc</code> anymore, which doesn't support SSL. To work with SSL, we can use <code>openssl</code></p>
-<div class="highlight"><pre><span></span>$ nc blog.smigiel.dev <span class="m">443</span>
+<div class="highlight"><pre><span></span><code>$ nc blog.smigiel.dev <span class="m">443</span>
 HEAD / HTTP/1.1
 $
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span>$ openssl s_client -connect blog.smigiel.dev:443 -quiet
+<div class="highlight"><pre><span></span><code>$ openssl s_client -connect blog.smigiel.dev:443 -quiet
 <span class="nv">depth</span><span class="o">=</span><span class="m">2</span> <span class="nv">O</span> <span class="o">=</span> Digital Signature Trust Co., <span class="nv">CN</span> <span class="o">=</span> DST Root CA X3
 verify <span class="k">return</span>:1
 <span class="nv">depth</span><span class="o">=</span><span class="m">1</span> <span class="nv">C</span> <span class="o">=</span> US, <span class="nv">O</span> <span class="o">=</span> Let<span class="s1">&#39;s Encrypt, CN = Let&#39;</span>s Encrypt Authority X3
@@ -375,7 +437,7 @@ X-Cache-Hits: <span class="m">1</span>
 X-Timer: S1601607430.114992,VS0,VE1
 Vary: Accept-Encoding
 X-Fastly-Request-ID: b902c4a5a2f4410e8e6ac21e60fa2e659f1e8300
-</pre></div>
+</code></pre></div>
 
 
 <h2>HTTP Cookies</h2>
@@ -472,85 +534,6 @@ DNS structure can be broken down into:</p>
 
                 <div class="info">
                     <a href="https://blog.smigiel.dev/networking-pt-4.html">posted at 00:00</a>
-                    &nbsp;&middot;
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>
-                    &nbsp;<a href="https://blog.smigiel.dev/tag/network.html" class="tags">network</a>
-                </div>
-            </article>            <h4 class="date">Sep 21, 2020</h4>
-
-            <article class="post">
-                <h2 class="title">
-                    <a href="https://blog.smigiel.dev/networking-pt-3-tcp-and-udp.html" rel="bookmark" title="Permanent Link to &quot;Networking Pt 3: TCP and UDP&quot;">Networking Pt 3: TCP and UDP</a>
-                </h2>
-
-                
-                
-
-                <h1>TCP &amp; UDP</h1>
-<p>There are two common transport protocols used on the Internet: <code>TCP</code> (Transmission Control Protocol) and <code>UDP</code> (User Datagram Protocol).
-TCP is the most used transport protocol on the Internet. The vast majority of applications use it, and the IP protocol suite is often called <strong>TCP/IP</strong>.
-UDP is much simpler. It doesn't guarantee packet delivery and it is conectionless. Thanks to those features, it is much faster than TCP, it provides better throughput. It is often used by multimedia applications that can tolerate packet loss but are througput intensive. It is often used in VoIP and video streaming applications where you can tolerate a little glitch in the audio or video.</p>
-<table>
-<thead>
-<tr>
-<th>TCP</th>
-<th>UDP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Connection oriented protocol</td>
-<td>Connectionless</td>
-</tr>
-<tr>
-<td>Rearranges data packets in the order specified</td>
-<td>No inherent order as all packets are independent of each other.</td>
-</tr>
-<tr>
-<td>Slower speed than UDP</td>
-<td>UDP is faster, because error recovery is not attepmted. It is "best effort" protocol</td>
-</tr>
-<tr>
-<td>Data is read as byte stream, no distinguishing information is sent to signal message boundaries</td>
-<td>Packets are sent individually and are checked for integrity only when they arrive. Packets have definite boundaries, meaning a read operation at the receiver socket will yield an entire message as it was originally sent.</td>
-</tr>
-</tbody>
-</table>
-<h2>Ports</h2>
-<p>Ports are used to identify a single network process on a machine. When some process is establishing connection to external internet resource (browser -&gt; website), there is port open, associated with browser. Information about the port is later sent as part of header in TCP or UDP packet. In the case of aforementioned connection, <code>source port</code> would be the same, that was created for browser. <code>Destination port</code> then is associeated with website (usually <code>80</code> or <code>443</code>).
-This is the way how process know where information needs to be addressed.</p>
-<h2>TCP handshake</h2>
-<p>In the case of UDP, which is connectionless, there is no handshake. However, for TCP, before any kind of transmission can happen, there needs to be established connection.
-It is done in so called three-way handshake.
-The header fields involved in the handshake are: sequence number, acknowledgement numbers, SYN and ACK flags</p>
-<ol>
-<li>The client sends a TCP packet to the server with the <code>SYN</code> flag enabled and a random <code>sequence number</code>.</li>
-<li>The server replies by sending a packet with both the <code>SYN</code> and <code>ACK</code> flags. <code>Sequence number</code> is again chosen as random, but <code>ACK</code> is <code>seq number + 1</code>.</li>
-<li>The client completes the synchronization by sending an <code>ACK</code> packet. The <code>ACK</code> is <code>seq number + 1</code> and <code>sequence number</code> is <code>ACK + 1</code> from the second step.</li>
-</ol>
-<div class="highlight"><pre><span></span><span class="k">Host</span> <span class="mi">1</span> <span class="o">|</span> <span class="n">flags</span> <span class="o">|</span> <span class="k">Host</span> <span class="mi">2</span>
-<span class="c1">-------|-------|--------</span>
-<span class="c1">-----&gt; |SYN    |</span>
-    <span class="n">Seq</span><span class="p">:</span> <span class="mi">328</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">0</span>
-
-       <span class="o">|</span><span class="n">SYN</span><span class="o">/</span><span class="n">ACK</span><span class="o">|</span> <span class="o">&lt;</span><span class="c1">------</span>
-    <span class="n">Seq</span><span class="p">:</span> <span class="mi">412</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">329</span>
-
-<span class="c1">------&gt;|ACK    |</span>
-    <span class="n">Seq</span><span class="p">:</span> <span class="mi">330</span><span class="p">,</span> <span class="n">ACK</span><span class="p">:</span> <span class="mi">413</span>
-</pre></div>
-
-
-<h1>Additional resources</h1>
-<ul>
-<li><a href="https://www.diffen.com/difference/TCP_vs_UDP">TCP vs UDP</a></li>
-<li><a href="https://www.lifewire.com/port-numbers-on-computer-networks-817939">Port numbers on a computer</a></li>
-</ul>
-                <div class="clear"></div>
-
-                <div class="info">
-                    <a href="https://blog.smigiel.dev/networking-pt-3-tcp-and-udp.html">posted at 00:00</a>
                     &nbsp;&middot;
                     &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
                     &nbsp;<a href="https://blog.smigiel.dev/tag/pts.html" class="tags">pts</a>

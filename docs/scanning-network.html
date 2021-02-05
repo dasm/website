@@ -48,15 +48,15 @@
 <p>Ping works by sending one or more special ICMP packets (type 8 - <strong>echo request</strong>) to a host. If the host replies with ICMP <strong>echo reply</strong> packets, it means that host is alive. <a href="https://tools.ietf.org/html/rfc792">RFC792</a> describes protocol used to carry diagnostic messages. ICMP is a part of the Internet Protocol.</p>
 <h3>fping</h3>
 <p><code>fping</code> is a Linux tool, improved version of standard <code>ping</code>. It can be run against IP range:</p>
-<div class="highlight"><pre><span></span><span class="err">fping -a -g &lt;ip_range&gt; 2&gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">fping -a -g &lt;ip_range&gt; 2&gt;/dev/null # -a -- show alive; -g -- generate list, redirect to /dev/null to surpress noise.</span>
+</code></pre></div>
 
 
 <h3>nmap</h3>
 <p>Recommended tool for penetration testing is <code>nmap</code>. It is very powerful tool, which allows for detection hosts, its systems and more.
 To attempt port sweeping (ping scan), one can use <code>-sn</code> option:</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -sn &lt;ip_range&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -sn &lt;ip_range&gt;</span>
+</code></pre></div>
 
 
 <h2>OS Fingerprinting</h2>
@@ -76,16 +76,16 @@ To attempt port sweeping (ping scan), one can use <code>-sn</code> option:</p>
 <h3>Online fingerprinting (nmap)</h3>
 <p>In a case of online, to go tool is again <code>nmap</code>.
 To perform OS fingerprinting with it, you have to use <code>-O</code> option and specify target. In a case of known targets, you can add <code>-Pn</code> to skip rediscovering them again.</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -Pn -O &lt;targets&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -Pn -O &lt;targets&gt;</span>
+</code></pre></div>
 
 
 <p>This option can be additionally fine-tuned, to prevent from too aggressive way of discovering hosts:</p>
-<div class="highlight"><pre><span></span><span class="err">OS DETECTION:</span>
+<div class="highlight"><pre><span></span><code><span class="err">OS DETECTION:</span>
 <span class="err">  -O: Enable OS detection</span>
 <span class="err">  --osscan-limit: Limit OS detection to promising targets</span>
 <span class="err">  --osscan-guess: Guess OS more aggressively</span>
-</pre></div>
+</code></pre></div>
 
 
 <h2>Port Scanning</h2>
@@ -93,22 +93,22 @@ To perform OS fingerprinting with it, you have to use <code>-O</code> option and
 <p>Port scanning is a process used to determine what TCP and UDP ports are open on target hosts. It, also usually helps detect which software and version is listening on a specific port.</p>
 <h3>TCP Three-Way Handshake</h3>
 <p>Default usage:</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -sT &lt;target&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -sT &lt;target&gt;</span>
+</code></pre></div>
 
 
 <p>Description of process.</p>
-<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<div class="highlight"><pre><span></span><code><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">SYN</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">---</span> <span class="n">ACK</span> <span class="o">---&gt;</span> <span class="n">Server</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>Client wants to connect to a server, it first sends a packet with the <code>SYN</code> flag enabled. The server then responds by sending a packet with both <code>SYN</code> and <code>ACK</code> flags enabled. Finally, the client replies back by sending a packet with the <code>ACK</code> flag enabled and the actual data transmission can start.</p>
 <p>In a case of <strong>closed</strong> port, it looks slightly differently.</p>
-<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<div class="highlight"><pre><span></span><code><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">RST</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The server will reply with a packet that has the reset <code>RST</code> and <code>ACK</code> flags set. This behavior tells the client that the port is <strong>closed</strong>.</p>
@@ -121,8 +121,8 @@ To perform OS fingerprinting with it, you have to use <code>-O</code> option and
 It allows system administrators to easily detect the scan.</p>
 <h3>TCP-SYN scan</h3>
 <p>Default usage:</p>
-<div class="highlight"><pre><span></span><span class="err">nmap -sS &lt;targets&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">nmap -sS &lt;targets&gt;</span>
+</code></pre></div>
 
 
 <p>To mitigate possibility of being detected (in the case of 3-way handshake), there is more stealthy solution, called <code>TCP-SYN scan</code>.
@@ -135,17 +135,17 @@ During a SYN scan, the scanner does not perform a full handshake. It just sends 
 It is important to remember, that even <code>TCP-SYN scan</code> can be detected with well-configured IDS (Intrusion Detection System).</p>
 <h3>Version detection scan</h3>
 <p>Default usage:</p>
-<div class="highlight"><pre><span></span><span class="err">namp -sV &lt;targets&gt;</span>
-</pre></div>
+<div class="highlight"><pre><span></span><code><span class="err">namp -sV &lt;targets&gt;</span>
+</code></pre></div>
 
 
 <p>This scan is recorded in logs, however it is very useful. It mixes a TCP connect scan with some probes, which are used to detect what application is listening on a particular port.</p>
-<div class="highlight"><pre><span></span><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
+<div class="highlight"><pre><span></span><code><span class="n">Client</span> <span class="o">---</span> <span class="n">SYN</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">SYN</span><span class="o">+</span><span class="n">ACK</span> <span class="o">-</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">---</span> <span class="n">ACK</span> <span class="o">---&gt;</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">&lt;-</span> <span class="n">Banner</span> <span class="o">--</span> <span class="n">Server</span>
 <span class="n">Client</span> <span class="o">--</span> <span class="n">RST</span><span class="o">+</span><span class="n">ACK</span> <span class="o">&gt;</span> <span class="n">Server</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>If the daemon doesn't send a banner, <code>nmap</code> sends some probes to understand what the listening application is. It later tries to guess the application based on its behavior.</p>

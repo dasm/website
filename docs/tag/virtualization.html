@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>blog.smigiel.dev | articles tagged "virtualization"</title>
+    <link rel="shortcut icon" type="image/png" href="https://blog.smigiel.dev/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="https://blog.smigiel.dev/favicon.ico">
+    <link href="https://blog.smigiel.dev/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="blog.smigiel.dev Full Atom Feed" />
+    <link rel="stylesheet" href="https://blog.smigiel.dev/theme/css/main.css" type="text/css" />
+    <link rel="stylesheet" href="https://blog.smigiel.dev/theme/css/pygments.css" type="text/css" />
+    <meta name="generator" content="Pelican" />
+    <meta name="description" content="" />
+    <meta name="author" content="dasm" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="ephemeral selected"><a href="https://blog.smigiel.dev/tag/virtualization.html">virtualization</a></li>
+                <li><a href="https://blog.smigiel.dev/">Home</a></li>
+                <li><a href="https://blog.smigiel.dev/pages/about-me.html">About me</a></li>
+                <li><a href="https://blog.smigiel.dev/pages/resources.html">Resources</a></li>
+                <li><a href="https://blog.smigiel.dev/archives">Archives</a></li>
+            </ul>
+        </nav>
+        <div class="header_box">
+            <h1><a href="https://blog.smigiel.dev/">blog.smigiel.dev</a></h1>
+        </div>
+    </header>
+    <div id="wrapper">
+        <div id="content">            <h4 class="date">Feb 05, 2021</h4>
+
+            <article class="post">
+                <h2 class="title">
+                    <a href="https://blog.smigiel.dev/introduction-to-the-cloud.html" rel="bookmark" title="Permanent Link to &quot;Introduction to the Cloud&quot;">Introduction to the Cloud</a>
+                </h2>
+
+                
+                
+
+                <p>This post is an attempt to gather common terms, and provide links for more reading (mainly to wikipedia) about virtualization et al.</p>
+<h1>Intro</h1>
+<p>Virtualization term has been coined in 1960s to describe virtual machine. Right now, virtualization can also describe other areas like: software, memory, storage, data, network and hardware.
+However, in the common understanding, virtualization means hardware virtualization. It refers to the creation of virtual machine htat acts like a real computer with an operating system.</p>
+<h1>Hardware virtualization</h1>
+<p><a href="https://en.wikipedia.org/wiki/Hardware_virtualization">Hardware Virtualization</a> can be divided into two main types:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Full_virtualization">full virtualization</a> - completely simulates the actual hardware, guest system can run unmodified.</li>
+<li><a href="https://en.wikipedia.org/wiki/Paravirtualization">paravirtualization</a> - uses software interface which is similar, but not identical to the underlying hardware.</li>
+</ul>
+<h2>Full virtualization</h2>
+<p>Virtual machine simulates hardware to allow an unmodified guest OS to be run in isolation.</p>
+<ul>
+<li>Software-assisted - completely relies on binary translation to virtualize the execution of sensitive, non-virtualizable instruction sets. It emulates the hardware using the software instruction sets. Due to binary translation, it is often criticized for performance issue: Eg. VirtualBox, VMware workstation, Virtual PC</li>
+<li>Hardware-assisted - it eliminates the binary translation and it directly interrupts with hardware using the virtualization technology which has been integrated on processors. Guest OS's instructions might allow a virtual context execute privileged instructions directly on the processor, even thought it is virtualized. Eg. VMware ESXi, KVM, Hyper-V, Xen.</li>
+</ul>
+<h2>Paravirtualization</h2>
+<p>It requires the guest operating system to be explicitly ported for the para-API, conventional OS distribution that is not paravirtualization-aware cannot be run on top of a paravirtualizing VVM.</p>
+<h1>Hypervisor</h1>
+<p><a href="https://en.wikipedia.org/wiki/Hypervisor">Hypervisor</a> (virtual machine monitor, VMM) is computer software, firmare or hardware that runs virtual machines. A computer on which a hypervisor runs one or more virtual machines is called a <em>host machine</em>, and each virtual machine is called a <em>guest machine</em>.
+There are two types of hypervisors:</p>
+<ul>
+<li>Type-1, native or bare-metal hypervisors</li>
+<li>Type-2 or hosted hypervisors</li>
+</ul>
+<h2>Type-1 (bare-metal)</h2>
+<p>Type-1 hypervisor is very basic OS on top of which there can be run virtual machines. The physical machine the hypervisor is running on serves virtualization purpose only. It is mainly found in enterprise environments.
+Due to its simplicity, it doesn't offer many functionalities.
+Examples:</p>
+<ul>
+<li>VMware ESX/ESXi</li>
+<li>KVM (it oftentimes can be categorized as type-2 hypervisor)</li>
+<li>Oracle VM</li>
+</ul>
+<h2>Type-2 (hosted)</h2>
+<p>This type of hypervisor runs on a conventional OS as an another program.
+Examples:</p>
+<ul>
+<li>VirtualBox</li>
+<li>VMware Workstation</li>
+<li>Windows Virtual PC</li>
+<li>Parallels Desktop</li>
+</ul>
+                <div class="clear"></div>
+
+                <div class="info">
+                    <a href="https://blog.smigiel.dev/introduction-to-the-cloud.html">posted at 00:00</a>
+                    &nbsp;&middot;
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/learning.html" class="tags">learning</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/virtualization.html" class="tags selected">virtualization</a>
+                    &nbsp;<a href="https://blog.smigiel.dev/tag/cloud.html" class="tags">cloud</a>
+                </div>
+            </article>
+
+            <div class="clear"></div>
+            <footer>
+                <p>
+                <a href="https://github.com/jody-frankowski/blue-penguin">Blue Penguin</a> Theme
+                &middot;
+                Powered by <a href="http://getpelican.com">Pelican</a>
+                &middot;
+                <a href="https://blog.smigiel.dev/feeds/all.atom.xml" rel="alternate">Atom Feed</a>
+            </footer>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>

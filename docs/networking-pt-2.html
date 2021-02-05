@@ -46,14 +46,14 @@
 Routing table contains information about the topology of the network immediately around it.
 The table can also contain an entry with the <strong>default address</strong> <code>0.0.0.0</code>. This entry is used when the router receives a packet whose destination is an <em>unknown network</em>.</p>
 <h2>Routing table example (router)</h2>
-<div class="highlight"><pre><span></span><span class="err">Kernel IP routing table</span>
+<div class="highlight"><pre><span></span><code><span class="err">Kernel IP routing table</span>
 <span class="err">Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface</span>
 <span class="err">87.169.144.1    0.0.0.0         255.255.255.255 UH        0 0          0 eth0</span>
 <span class="err">192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 br0</span>
 <span class="err">87.169.144.0    0.0.0.0         255.255.252.0   U         0 0          0 eth0</span>
 <span class="err">127.0.0.0       0.0.0.0         255.0.0.0       U         0 0          0 lo</span>
 <span class="err">0.0.0.0         87.169.144.1    0.0.0.0         UG        0 0          0 eth0</span>
-</pre></div>
+</code></pre></div>
 
 
 <p>The kernel reads routing table from the top down. The first column is the destination. The second column tells how to reach that destination.
